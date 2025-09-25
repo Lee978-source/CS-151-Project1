@@ -1,8 +1,9 @@
 /** 
- * @author Ethan Le 
+ * @author [Ethan Le] 
  * @version 1.0
  * CS151 Fall 2025 - Project 1
  */
+ package useraccount; 
 
  import java.util.ArrayList; // Import ArrayList class to access ArrayList and methods. 
 
@@ -35,7 +36,7 @@
         this.drive = new Drive(); // Initialize empty Drive for the new user account. 
 
         // Add the new account object to the General ArrayList of accounts: 
-        accounts.add(this); // Add this instance of AccountManager to the "accounts" ArrayList. 
+        accounts.add(this); // Add this instance (object) of AccountManager to the "accounts" ArrayList. 
     }
 
     /** Method to validate user login: */
