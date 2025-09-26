@@ -1,117 +1,46 @@
-import java.util.*;
-/**
- * @author [Phuong Hua]
- * @version 1.0
- * CS151 Fall 2025 - Project 1
- */
-public class Slides extends GenericPDF {
-    private int slideCount;
-    private String sequence;
-
-    /**
-     * @param username Creator's username
-     * @param email Creator's email
-     * @param role User's role
+     /**
+     * @author [Lordin Yi]
+     * @version 1.0
+     * CS151 Fall 2025 - Project 1
      */
 
-    public Slides(String username, String email, String role) {
-        super(username, email, role);
-        this.slideCount = 0;
-        this.sequence = "";
-    }
+    public static class Spreadsheet extends GenericPDF {
+        private final int rows, cols;
+        private final String[][] matrix;
 
-    public void addSlide(){
-        slideCount++;
-        updateSequence();
-        System.out.println("Slide added. Total slides: " + slideCount);
-    }
-
-    public void deleteSlide(){
-        if(slideCount > 1){
-            slideCount--;
-            updateSequence();
-            System.out.println("Slide deleted. Total slides: " + slideCount);
-        } else {
-            System.out.println("No slides to delete!");
+        public Spreadsheet(String username, String email, String role, int rows, int cols) {
+            super(username, email, role);
+            this.rows = Math.min(rows, 10);   // limit size
+            this.cols = Math.min(cols, 10);
+            this.matrix = new String[this.rows][this.cols];
         }
-    }
 
-    public void swapSlideOrder() {
-        if (slideCount >= 2) {
-            System.out.println("Slide order swapped.");
-        } else {
-            System.out.println("Not enough slides to swap.");
+        public void addCell(int r, int c, String value) {
+            if (in(r, c)) { matrix[r][c] = value; System.out.println("Set ("+r+","+c+") = " + value); }
+            else System.out.println("Out of bounds");
         }
-    }
-    public void addHashTag(String tag) {
-        System.out.println("Hashtag '" + tag + "' added to the slides.");
-    }
 
-    private void updateSequence() {
-        StringBuilder seqBuilder = new StringBuilder();
-        for (int i = 1; i <= slideCount; i++) {
-            seqBuilder.append(i);
-            if (i < slideCount) {
-                seqBuilder.append("->");
-            }
+        public void deleteCell(int r, int c) {
+            if (in(r, c)) { matrix[r][c] = null; System.out.println("Cleared ("+r+","+c+")"); }
+            else System.out.println("Out of bounds");
         }
-        sequence = seqBuilder.toString();
-    }
-    @Override
-    public void merge() {
-        System.out.println("Merging multiple presentations into one");
-    }
-    
-    @Override
-    public void split() {
-        System.out.println("Splitting presentation into multiple presentations");
-    }
-    
-    @Override
-    public void exportAsPDF() {
-        System.out.println("Exporting slides as PDF");
-    }
-    
-    @Override
-    public void exportAsHTML() {
-        System.out.println("Exporting slides as HTML");
-    }
-    
-    @Override
-    public void exportAsWordDoc() {
-        System.out.println("Exporting slides as Word Document");
-    }
-    
-    // Getters for private fields
-    public int getSlideCount() {
-        return slideCount;
-    }
-    
-    public String getSequence() {
-        return sequence;
-    }
-    
-    // Setters for private fields
-    public void setSlideCount(int slideCount) {
-        this.slideCount = slideCount;
-        updateSequence();
-    }
-    
-    public void setSequence(String sequence) {
-        this.sequence = sequence;
-    }
-    
-    /**
-     * @return String containing object state
-     */
-    @Override
-    public String toString() {
-        return "Slides{" +
-                "slideCount=" + slideCount +
-                ", sequence='" + sequence + '\'' +
-                ", username='" + getUsername() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", role='" + getRole() + '\'' +
-                '}';
-    }
-}
+
+        public String viewCell(int r, int c) {
+            return in(r, c) ? String.valueOf(matrix[r][c]) : "Out of bounds";
+        }
+
+        public void swapCells(int r1, int c1, int r2, int c2) {
+            if (in(r1,c1) && in(r2,c2)) {
+                String t = matrix[r1][c1]; matrix[r1][c1] = matrix[r2][c2]; matrix[r2][c2] = t;
+                System.out.println("Swapped ("+r1+","+c1+") with ("+r2+","+c2+")");
+            } else System.out.println("Out of bounds");
+        }
+
+        private boolean in(int r, int c) { return r>=0 && r<rows && c>=0 && c<cols; }
+
+        @Override public void merge()            { System.out.println("Merging spreadsheets"); }
+        @Override public void split()            { System.out.println("Splitting spreadsheet"); }
+        @Override public void exportAsPDF()      { System.out.println("Exporting sheet as PDF"); }
+        //@Override public void exportAsHTML()     { System.out.println("Ex";}
+
+        }

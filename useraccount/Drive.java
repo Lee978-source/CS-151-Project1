@@ -62,14 +62,14 @@ public class Drive {
         {
         	if (this.spreadsheetsFiles.size() < MAX_SPREADSHEETS) // Check to ensure we have capacity.
         	{
-	            Drive sheets = new Spreadsheet(); // Create a new Spreadsheet object. 
-	            this.spreadsheetsFiles.put(fileName, sheets); // Add the new Spreadsheet object to the spreadsheets HashMap, using the file name as the key. 
+	            Drive sheets = new Slides.Spreadsheet(); // Create a new Slides.Spreadsheet object.
+	            this.spreadsheetsFiles.put(fileName, sheets); // Add the new Slides.Spreadsheet object to the spreadsheets HashMap, using the file name as the key.
         
         	}
         	
         	else // Print error message stating capacity is maxed out. 
         	{
-        		System.out.println("Error: Max capacity reached for Spreadsheets! Delete existing Spreadsheet files to create a new one!");
+        		System.out.println("Error: Max capacity reached for Spreadsheets! Delete existing Slides.Spreadsheet files to create a new one!");
         	}
         }
     }
@@ -103,7 +103,7 @@ public class Drive {
     		}
     	}
     	
-    	else if (option == 3) // Spreadsheet file to be deleted. 
+    	else if (option == 3) // Slides.Spreadsheet file to be deleted.
     	{
     		if (spreadsheetsFiles.containsKey(fileName)) // If the spreadsheet file exists in the Drive, 
     		{

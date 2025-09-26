@@ -63,7 +63,7 @@
         System.out.println("Drive Menu Options: \n");
         System.out.println("(1) Create Document"); 
         System.out.println("(2) Create Slides"); 
-        System.out.println("(3) Create Spreadsheet");
+        System.out.println("(3) Create Slides.Spreadsheet");
         System.out.println("(4) Edit PDF");  
         System.out.println("(5) View Drive File Names"); 
         System.out.println("(6) View Drive Storage\n" + "-------------------------------"); 
