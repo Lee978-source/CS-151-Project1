@@ -4,11 +4,9 @@ import java.util.*;
  * @version 1.0
  * CS151 Fall 2025 - Project 1
  */
-
-public abstract class GenericPDF implements Exportable {
-    protected String username;
-    protected String email;
-    protected String role;
+public class Slides extends GenericPDF {
+    private int slideCount;
+    private String sequence;
 
     /**
      * @param username Creator's username
