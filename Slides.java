@@ -57,5 +57,63 @@ public class Slides extends GenericPDF {
         }
         sequence = seqBuilder.toString();
     }
-     ...
+    @Override
+    public void merge() {
+        System.out.println("Merging presentation with another presentation");
+    }
+    
+    @Override
+    public void split() {
+        System.out.println("Splitting presentation into separate presentations");
+    }
+    
+    // Implementation of Exportable interface methods
+    @Override
+    public void exportAsPDF() {
+        System.out.println("Exporting slides as PDF");
+    }
+    
+    @Override
+    public void exportAsHTML() {
+        System.out.println("Exporting slides as HTML");
+    }
+    
+    @Override
+    public void exportAsWordDoc() {
+        System.out.println("Exporting slides as Word Document");
+    }
+    
+    // Getters for private fields
+    public int getSlideCount() {
+        return slideCount;
+    }
+    
+    public String getSequence() {
+        return sequence;
+    }
+    
+    // Setters for private fields
+    public void setSlideCount(int slideCount) {
+        this.slideCount = slideCount;
+        updateSequence();
+    }
+    
+    public void setSequence(String sequence) {
+        this.sequence = sequence;
+    }
+    
+    /**
+     * String representation of Slides object
+     * @return String containing object state
+     */
+    @Override
+    public String toString() {
+        return "Slides{" +
+                "slideCount=" + slideCount +
+                ", sequence='" + sequence + '\'' +
+                ", username='" + getUsername() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", role='" + getRole() + '\'' +
+                '}';
+    }
 }
