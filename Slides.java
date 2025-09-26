@@ -32,7 +32,7 @@ public class Slides extends GenericPDF {
             updateSequence();
             System.out.println("Slide deleted. Total slides: " + slideCount);
         } else {
-            System.out.println("No slides to delete.");
+            System.out.println("No slides to delete!");
         }
     }
 
@@ -59,15 +59,14 @@ public class Slides extends GenericPDF {
     }
     @Override
     public void merge() {
-        System.out.println("Merging presentation with another presentation");
+        System.out.println("Merging multiple presentations into one");
     }
     
     @Override
     public void split() {
-        System.out.println("Splitting presentation into separate presentations");
+        System.out.println("Splitting presentation into multiple presentations");
     }
     
-    // Implementation of Exportable interface methods
     @Override
     public void exportAsPDF() {
         System.out.println("Exporting slides as PDF");
@@ -103,7 +102,6 @@ public class Slides extends GenericPDF {
     }
     
     /**
-     * String representation of Slides object
      * @return String containing object state
      */
     @Override
