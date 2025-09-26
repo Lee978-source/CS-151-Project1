@@ -1,7 +1,8 @@
+import java.util.*;
 /**
  * @author [Phuong Hua]
- * @version 1.0 
- * CS151 Fall 2025 - Project 1 
+ * @version 1.0
+ * CS151 Fall 2025 - Project 1
  */
 
 public abstract class GenericPDF implements Exportable {
@@ -10,56 +11,53 @@ public abstract class GenericPDF implements Exportable {
     protected String role;
 
     /**
-     * Constructor for GenericPDF
-     * @param username The username of the document creator
-     * @param email The email of the document creator  
-     * @param role The role of the user (OWNER, EDITOR, VIEWER, COMMENTER)
+     * @param username Creator's username
+     * @param email Creator's email
+     * @param role User's role
      */
 
-     public GenericPDF(String username, String email, String role) {
-        this.username = username;
-        this.email = email;
-        this.role = role;
-     }
-
-     public abstract void merge();
-     public abstract void split();
-
-     public String getUsername(){
-        return username;
-     }
-
-     public String getEmail(){
-        return email;
-     }
-
-     public String getRole(){
-        return role;
-     }
-
-     public void setUsername(String username) {
-        this.username = username;
-     }
-
-     public void setEmail(String username) {
-        this.email = email;
-     }
-
-     public void setRole(String username) {
-        this.role = role;
-     }
-
-     /**
-      * @return String containing object state
-    */
-
-    @Override
-    public String toString() {
-        return "GenericPDF{" + 
-                "username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+    public Slides(String username, String email, String role) {
+        super(username, email, role);
+        this.slideCount = 0;
+        this.sequence = "";
     }
-}
 
+    public void addSlide(){
+        slideCount++;
+        updateSequence();
+        System.out.println("Slide added. Total slides: " + slideCount);
+    }
+
+    public void deleteSlide(){
+        if(slideCount > 1){
+            slideCount--;
+            updateSequence();
+            System.out.println("Slide deleted. Total slides: " + slideCount);
+        } else {
+            System.out.println("No slides to delete.");
+        }
+    }
+
+    public void swapSlideOrder() {
+        if (slideCount >= 2) {
+            System.out.println("Slide order swapped.");
+        } else {
+            System.out.println("Not enough slides to swap.");
+        }
+    }
+    public void addHashTag(String tag) {
+        System.out.println("Hashtag '" + tag + "' added to the slides.");
+    }
+
+    private void updateSequence() {
+        StringBuilder seqBuilder = new StringBuilder();
+        for (int i = 1; i <= slideCount; i++) {
+            seqBuilder.append(i);
+            if (i < slideCount) {
+                seqBuilder.append("->");
+            }
+        }
+        sequence = seqBuilder.toString();
+    }
+     ...
+}
