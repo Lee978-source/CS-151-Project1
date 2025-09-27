@@ -53,7 +53,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
     public int getWordCount() {
         int total = 0;
         for(String page : pages) {
-            if(page != null && !page.trim().isEmpty()) {                // checks if the page is not there and makes sure after trimming
+            if(page != null && !page.trim().isEmpty()) {                // checks if the page is empty and makes sure after trimming
                 total += page.trim().split("\\s+").length;        // that the page is not empty
             }
         }
