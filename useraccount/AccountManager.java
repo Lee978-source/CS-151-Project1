@@ -176,7 +176,7 @@
     /** Method to read specified email: */ 
     public void fetchEmail(int emailNumber) // Call this method NEXT in the "Main" class (from Option 7) once the user has entered an email number to read. 
     {
-    	System.out.println(emailNumber + ": " + getInbox().get(emailNumber-1)); // Print the message number and the message itself. 
+    	System.out.println("Email " + emailNumber + ":\n" + getInbox().get(emailNumber-1)); // Print the message number and the message itself. 
     }
     
 	/** Method to send an email: */ 
@@ -188,7 +188,7 @@
     	{
     		if (account.getEmail().equals(recipient)) // If the recipient email exists, 
     		{
-    			account.getInbox().add("To: " + account.getUsername() + "\n(" + account.getEmail() + ")" + "\n" + message + "\nFrom: " + getUsername() + "\n(" + getEmail() + ")"); // then send the message to their inbox. 
+    			account.getInbox().add("To: " + account.getUsername() + "\n(" + account.getEmail() + ")" + "\n\n" + message + "\n\nFrom: " + getUsername() + "\n(" + getEmail() + ")"); // then send the message to their inbox. 
     			System.out.println("Email sent to " + account.getUsername() + " successfully!"); 
     			sent = true; // Mark the "sent" flag to true. 
     			break; 
