@@ -62,9 +62,9 @@
         {
             if (account.getEmail().equals(email) && account.getPassword().equals(password)) // If the email and password match, then the user can log in. 
             {
-                System.out.println("User successfully logged in! Welcome, " + account.username + "!"); // Give welcome message to user. 
+            	account.accountMenu(); // Call the account menu method to print menu selection of options that the user can do. 
 
-                account.accountMenu(); // Then call the account menu method to print menu selection of options that the user can do. 
+                System.out.println("User successfully logged in! Welcome, " + account.username + "!"); // Then give welcome message to user.                                
                 
                 return account; 
             }
@@ -76,7 +76,7 @@
     /** Method to print menu options for user to select: */
     public void accountMenu() {
 
-        System.out.println("--------------------------------------------------------------------------------"); 
+        System.out.println("\n--------------------------------------------------------------------------------"); 
         
         // Drive Menu Options:
         System.out.println("Drive Menu Options: \n");
@@ -89,7 +89,7 @@
         System.out.println("(10) Change password\t\t(11) Change username\t(12) Change email"); 
         System.out.println("(13) Change date of birth\t(14) Logout\n--------------------------------------------------------------------------------");
         
-        System.out.println("What would you like to do? Enter option number: "); 
+        //System.out.println("What would you like to do? Enter option number: "); 
     }
     
     /** Getter methods for each private property of the user account: */
