@@ -76,27 +76,20 @@
     /** Method to print menu options for user to select: */
     public void accountMenu() {
 
-        System.out.println("What would you like to do? Enter option number: \n" + "-------------------------------"); 
+        System.out.println("--------------------------------------------------------------------------------"); 
         
         // Drive Menu Options:
         System.out.println("Drive Menu Options: \n");
-        System.out.println("(1) Create Document"); 
-        System.out.println("(2) Create Slides"); 
-        System.out.println("(3) Create Spreadsheet");
-        System.out.println("(4) Edit PDF");  
-        System.out.println("(5) View Drive File Names"); 
-        System.out.println("(6) View Drive Storage\n" + "-------------------------------"); 
+        System.out.println("(1) Create Document\t(2) Create Slides\t\t(3) Create Spreadsheet");      
+        System.out.println("(4) Edit PDF\t\t(5) View Drive File Names\t(6) View Drive Storage\n--------------------------------------------------------------------------------");  
 
         // Account Menu Options: 
         System.out.println("Account Menu Options: \n");
-        System.out.println("(7) View Inbox Emails"); 
-        System.out.println("(8) Send Email"); 
-        System.out.println("(9) Get Account Info"); 
-        System.out.println("(10) Change password"); 
-        System.out.println("(11) Change username");
-        System.out.println("(12) Change email");
-        System.out.println("(13) Change date of birth");
-        System.out.println("(14) Logout"); 
+        System.out.println("(7) View Inbox Emails\t\t(8) Send Email\t\t(9) Get Account Info"); 
+        System.out.println("(10) Change password\t\t(11) Change username\t(12) Change email"); 
+        System.out.println("(13) Change date of birth\t(14) Logout\n--------------------------------------------------------------------------------");
+        
+        System.out.println("What would you like to do? Enter option number: "); 
     }
     
     /** Getter methods for each private property of the user account: */
@@ -195,7 +188,7 @@
     	{
     		if (account.getEmail().equals(recipient)) // If the recipient email exists, 
     		{
-    			account.getInbox().add(message); // then send the message to their inbox. 
+    			account.getInbox().add("To: " + account.getUsername() + "\n(" + account.getEmail() + ")" + "\n" + message + "\nFrom: " + getUsername() + "\n(" + getEmail() + ")"); // then send the message to their inbox. 
     			System.out.println("Email sent to " + account.getUsername() + " successfully!"); 
     			sent = true; // Mark the "sent" flag to true. 
     			break; 
