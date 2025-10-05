@@ -23,8 +23,6 @@ public class Main {
         
         boolean finished = false; // Flag to mark when user is done using the program. 
         
-        acc.accountMenu(); // Call user account menu.
-        
         while (finished == false)
         {
         	System.out.println(); 

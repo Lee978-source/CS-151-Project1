@@ -50,6 +50,8 @@
             // Add the new account object to the General ArrayList of accounts: 
             accounts.add(this); // Add this instance (object) of AccountManager to the "accounts" ArrayList.
             
+            this.accountMenu(); // Call the account menu method to print menu selection of options for user. 
+
             System.out.println("Account creation successful! Welcome to your new account!"); 
     	}
     }
