@@ -5,14 +5,15 @@
  */
 package useraccount;
 
-import java.util.HashMap; // Import the HashMap class to access HashMap and its methods. 
+import java.util.HashMap; // Import the HashMap class to access HashMap and its methods.  
+import PDF.*;
 
 public class Drive {
     
     /** Drive object variables: */
-    private HashMap<String, Drive> docsFiles; // HashMap to hold "docs" Drive objects (files). Key = file name, Value = docs Drive object (file). 
-    private HashMap<String, Drive> slidesFiles; // HashMap to hold "slides" Drive objects (files). Key = file name, Value = slides Drive object (file). 
-    private HashMap<String, Drive> spreadsheetsFiles; // HashMap to hold "spreadsheets" Drive objects (files). Key = file name, Value = spreadsheets Drive object (file). 
+    private HashMap<String, DocPDF> docsFiles; // HashMap to hold "docs" Drive objects (files). Key = file name, Value = docs Drive object (file). 
+    private HashMap<String, Slides> slidesFiles; // HashMap to hold "slides" Drive objects (files). Key = file name, Value = slides Drive object (file). 
+    private HashMap<String, Spreadsheet> spreadsheetsFiles; // HashMap to hold "spreadsheets" Drive objects (files). Key = file name, Value = spreadsheets Drive object (file). 
     private final int MAX_DOCS = 3; // Maximum number of Docs that is allowed in the HashMap. 
     private final int MAX_SLIDES = 2; // Maximum number of Slides that is allowed in the HashMap. 
     private final int MAX_SPREADSHEETS = 2; // Maximum number of Spreadsheets that is allowed in the HashMap. 
@@ -26,13 +27,13 @@ public class Drive {
     }
 
     /** Method to create a PDF: */
-    public void createPDF(int option, String fileName) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
+    public void createPDF(int option, String fileName, String username, String email) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
 
         if (option == 1) // Option 1: create document.
         {
         	if (this.docsFiles.size() < MAX_DOCS) // Check to ensure we have capacity. 
         	{
-	            Drive doc = new Doc(); // Create a new Doc object. 
+        		DocPDF doc = new DocPDF(); // Create a new Doc object. 
 	            this.docsFiles.put(fileName, doc); // Add the new Doc object to the docs HashMap, using the file name as the key.
         
         	}
@@ -47,7 +48,7 @@ public class Drive {
         {
         	if (this.slidesFiles.size() < MAX_SLIDES) // Check to ensure we have capacity.
         	{
-	            Drive slides = new Slides(); // Create a new Slides object. 
+	            Slides slides = new Slides(username, email, "OWNER"); // Create a new Slides object. 
 	            this.slidesFiles.put(fileName, slides); // Add the new Slides object to the slides HashMap, using the file name as the key. 
         
         	}
@@ -62,14 +63,14 @@ public class Drive {
         {
         	if (this.spreadsheetsFiles.size() < MAX_SPREADSHEETS) // Check to ensure we have capacity.
         	{
-	            Drive sheets = new Slides.Spreadsheet(); // Create a new Slides.Spreadsheet object.
-	            this.spreadsheetsFiles.put(fileName, sheets); // Add the new Slides.Spreadsheet object to the spreadsheets HashMap, using the file name as the key.
+	            Spreadsheet sheets = new Spreadsheet(); // Create a new Spreadsheet object.
+	            this.spreadsheetsFiles.put(fileName, sheets); // Add the new Spreadsheet object to the spreadsheets HashMap, using the file name as the key.
         
         	}
         	
         	else // Print error message stating capacity is maxed out. 
         	{
-        		System.out.println("Error: Max capacity reached for Spreadsheets! Delete existing Slides.Spreadsheet files to create a new one!");
+        		System.out.println("Error: Max capacity reached for Spreadsheets! Delete existing Spreadsheet files to create a new one!");
         	}
         }
     }
@@ -103,7 +104,7 @@ public class Drive {
     		}
     	}
     	
-    	else if (option == 3) // Slides.Spreadsheet file to be deleted.
+    	else if (option == 3) // Spreadsheet file to be deleted.
     	{
     		if (spreadsheetsFiles.containsKey(fileName)) // If the spreadsheet file exists in the Drive, 
     		{
