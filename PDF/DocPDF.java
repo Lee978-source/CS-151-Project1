@@ -3,6 +3,7 @@
  * @version 1.0
  * CS151 Fall 2025 - Project 1
  */
+package PDF; 
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,8 @@
      * @version 1.0
      * CS151 Fall 2025 - Project 1
      */
-
+    package PDF;
+     
     public static class Spreadsheet extends GenericPDF {
         private final int rows, cols;
         private final String[][] matrix;

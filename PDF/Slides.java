@@ -1,9 +1,12 @@
-import java.util.*;
 /**
  * @author [Phuong Hua]
  * @version 1.0 
  * CS151 Fall 2025 - Project 1 
  */
+package PDF;
+
+import java.util.*;
+
 public class Slides extends GenericPDF {
     private int slideCount;
     private String sequence;
