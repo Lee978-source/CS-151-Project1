@@ -18,7 +18,9 @@ public class Main {
                 "Alice Nguyen",
                 "alice@gmail.com",
                 "secret123",
-                "01/01/2000"
+                01, 
+                01, 
+                2000
         );
         
         boolean finished = false; // Flag to mark when user is done using the program. 
@@ -106,10 +108,14 @@ public class Main {
         			acc.setEmail(string);
         			break;
         		case 13: // Change date of birth. 
-        			System.out.println("Enter your new date of birth: ");
-        			string = scan.nextLine(); // newDateOfBirth
+        			System.out.println("Enter your new month of birth (Integer): ");
+        			Integer newMonth = scan.nextInt();
+        			System.out.println("Enter your new day of birth (Integer): ");
+        			Integer newDay = scan.nextInt();
+        			System.out.println("Enter your new year of birth (Integer): ");
+        			Integer newYear = scan.nextInt();
         			acc.accountMenu(); // Call user account menu.
-        			acc.setUsername(string);
+        			acc.setDateOfBirth(newMonth, newDay, newYear);
         			break;
         		case 14: // Logout. 
         			acc = null; // Sign out. 
@@ -119,10 +125,6 @@ public class Main {
                         
                     	option = scan.nextInt(); 
                     	scan.nextLine(); // Flush out rest of the line to clear the buffer. 
-                    	//String username = null; 
-                    	//String email = null; 
-                    	//String password = null; 
-                    	//String dateOfBirth = null; 
                     	
                     	switch (option)
                     	{
@@ -135,20 +137,25 @@ public class Main {
                     			String email = scan.nextLine(); 
                     			System.out.println("Enter a password (must be at least 8 characters long): ");
                     			String password = scan.nextLine();
-                    			System.out.println("Enter your date of birth: ");
-                    			String dateOfBirth = scan.nextLine();
-                    			acc = new AccountManager(
+                    			System.out.println("Enter your month of birth (Integer): ");
+                    			Integer month = scan.nextInt();
+                    			System.out.println("Enter your day of birth (Integer): ");
+                    			Integer day = scan.nextInt();
+                    			System.out.println("Enter your year of birth (Integer): ");
+                    			Integer year = scan.nextInt();
+                    			acc = new AccountManager( // If any of the fields are invalid as developed in the constructor, all fields will be assigned as "null" by default. 
                     	                username,
                     	                email,
                     	                password,
-                    	                dateOfBirth
-                    	        );
-                    			System.out.println(acc.getUsername()); // Debugging for when user account creation fails.
-                    			System.out.println(acc.getEmail()); // Debugging for when user account creation fails. 
-                    			System.out.println(acc.getPassword()); // Debugging for when user account creation fails. 
-                    			System.out.println(acc.getDateOfBirth()); // Debugging for when user account creation fails.
+                    	                month, 
+                    	                day,
+                    	                year
+                    	        );                   			
+                    			// Fields being assigned as "null" when account creation fails are used to determine whether acc=null (to determine if user is signed into their new account or not):
                     			if (acc.getUsername() == null || acc.getEmail() == null || acc.getPassword() == null || acc.getDateOfBirth() == null)
-                    				acc = null;                    	
+                    				acc = null;
+                    			else
+                    				acc.accountMenu(); 
                     			break; 
                     		case 2: // Sign in.                     			
                     			while (acc == null)

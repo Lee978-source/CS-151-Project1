@@ -23,7 +23,7 @@
     private Drive drive; // Drive object that will hold all files (Docs, Slides, Spreadsheets). 
 
     /** Constructor to initialize User Account object: */
-    public AccountManager(String username, String email, String password, String dateOfBirth) {
+    public AccountManager(String username, String email, String password, Integer month, Integer day, Integer year) {
         
     	if (!email.contains("@gmail.com")) // Ensure that the email has "@gmail.com" in it. 
     	{
@@ -40,7 +40,7 @@
     		System.out.println("Account creation failed! Username must not be blank!"); 
     	}
     	
-    	else if (dateOfBirth.isBlank()) // Ensure that the date of birth is NOT just blank with white spaces. 
+    	else if (month.toString().isBlank() || day.toString().isBlank() || year.toString().isBlank()) // Ensure that the date of birth is NOT just blank with white spaces. 
     	{
     		System.out.println("Account creation failed! Date of birth must not be blank!"); 
     	}
@@ -51,7 +51,7 @@
             this.username = username; 
             this.email = email; 
             this.password = password; 
-            this.dateOfBirth = dateOfBirth;
+            this.dateOfBirth = month.toString() + "/" + day.toString() + "/" + year.toString();
 
             // Initalize Account Attributes: 
             this.inbox = new ArrayList<>(); // Initialize empty inbox for the new user account. 
@@ -184,17 +184,6 @@
     	return getInbox().size(); // Return the number of emails to the user. The "Main" class will use this number to print a message to the user either asking them to enter an email number to read (if inbox size > 0), or a message that just tells them they have no emails to read (else inbox size == 0). 
     }
     
-    /**
-    // Method to show number of emails in inbox and to call another method to read a specific email: 
-    public void getNumberOfEmails() // If the user had entered Option 7, the "Main" class will call this method first, then it will call "fetchEmail()" in the "Main" class once the user enters an email number. 
-    {
-    	if (this.inbox.size() > 0) // Condition if user has at least one email. 
-    		System.out.println("You have " + this.inbox.size() + " emails! Read which email? (Enter any number from 1 to " + this.inbox.size() + "): "); // Tell user how many emails they currently have, and ask them for a number for what email to read. 
-    	else // Condition if user has no emails. 
-    		System.out.println("You have " + this.inbox.size() + " emails! No emails to read!"); // Tell user they have no emails. 
-    }
-    **/
-    
     /** Method to read specified email: */ 
     public void fetchEmail(int emailNumber) // Call this method NEXT in the "Main" class (from Option 7) once the user has entered an email number to read. 
     {
@@ -241,14 +230,24 @@
     		System.out.println("Password change successful!"); 
     	}
     	else
+    	{
     		System.out.println("Password change failed! Password must be at least 8 characters long!"); 
+    	}
     }
     
     /** Method to change the user's username: */
     public void setUsername(String newUsername) // In "Main" class, if user has selected Option 11, prompt them to enter new username. 
     {
-    	this.username = newUsername; 
-    	System.out.println("Username change successful!"); 
+    	if (newUsername.isBlank()) // Ensure that the username is NOT just blank with white spaces. 
+    	{
+    		System.out.println("Username change failed! Username must not be blank!"); 
+    	}
+    	
+    	else
+    	{
+    		this.username = newUsername; 
+    		System.out.println("Username change successful!"); 
+    	}
     }
     
     /** Method to change the user's email: */
@@ -267,9 +266,17 @@
     }
     
     /** Method to change the user's date of birth: */
-    public void setDateOfBirth(String newDateOfBirth) // In "Main" class, if user has selected Option 13, prompt them to enter new date of birth. 
+    public void setDateOfBirth(Integer newMonth, Integer newDay, Integer newYear) // In "Main" class, if user has selected Option 13, prompt them to enter new date of birth. 
     {
-    	this.dateOfBirth = newDateOfBirth; 
-    	System.out.println("Date of Birth change successful!"); 
+    	if (newMonth.toString().isBlank() || newDay.toString().isBlank() || newYear.toString().isBlank()) // Ensure that the date of birth is NOT just blank with white spaces. 
+    	{
+    		System.out.println("Birthdate change failed! Date of birth must not be blank!"); 
+    	}
+    	
+    	else 
+    	{
+    		this.dateOfBirth = newMonth.toString() + "/" + newDay.toString() + "/" + newYear.toString(); 
+    		System.out.println("Date of Birth change successful!"); 
+    	}
     }
  }
