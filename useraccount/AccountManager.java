@@ -35,6 +35,16 @@
     		System.out.println("Account creation failed! Password must be at least 8 characters long!"); 
     	}
     	
+    	else if (username.isBlank()) // Ensure that the username is NOT just blank with white spaces. 
+    	{
+    		System.out.println("Account creation failed! Username must not be blank!"); 
+    	}
+    	
+    	else if (dateOfBirth.isBlank()) // Ensure that the date of birth is NOT just blank with white spaces. 
+    	{
+    		System.out.println("Account creation failed! Date of birth must not be blank!"); 
+    	}
+    	
     	else 
     	{
     		// Initialize Account Information: 

@@ -119,30 +119,36 @@ public class Main {
                         
                     	option = scan.nextInt(); 
                     	scan.nextLine(); // Flush out rest of the line to clear the buffer. 
-                    	String username = null; 
-                    	String email = null; 
-                    	String password = null; 
-                    	String dateOfBirth = null; 
+                    	//String username = null; 
+                    	//String email = null; 
+                    	//String password = null; 
+                    	//String dateOfBirth = null; 
                     	
                     	switch (option)
                     	{
                     		case 1: // Create an account. 
                     			System.out.println("Enter a username (enter CANCEL to cancel): ");
-                    			username = scan.nextLine(); 
+                    			String username = scan.nextLine(); 
                     			if (username.equals("CANCEL"))
                     				break; 
                     			System.out.println("Enter an email (must contain \"@gmail.com\"): ");
-                    			email = scan.nextLine(); 
+                    			String email = scan.nextLine(); 
                     			System.out.println("Enter a password (must be at least 8 characters long): ");
-                    			password = scan.nextLine();
+                    			String password = scan.nextLine();
                     			System.out.println("Enter your date of birth: ");
-                    			dateOfBirth = scan.nextLine();
+                    			String dateOfBirth = scan.nextLine();
                     			acc = new AccountManager(
                     	                username,
                     	                email,
                     	                password,
                     	                dateOfBirth
                     	        );
+                    			System.out.println(acc.getUsername()); // Debugging for when user account creation fails.
+                    			System.out.println(acc.getEmail()); // Debugging for when user account creation fails. 
+                    			System.out.println(acc.getPassword()); // Debugging for when user account creation fails. 
+                    			System.out.println(acc.getDateOfBirth()); // Debugging for when user account creation fails.
+                    			if (acc.getUsername() == null || acc.getEmail() == null || acc.getPassword() == null || acc.getDateOfBirth() == null)
+                    				acc = null;                    	
                     			break; 
                     		case 2: // Sign in.                     			
                     			while (acc == null)
