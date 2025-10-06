@@ -23,6 +23,8 @@ public class Main {
         
         boolean finished = false; // Flag to mark when user is done using the program. 
         
+        acc.accountMenu(); // Call user account menu.
+        
         while (finished == false)
         {
         	System.out.println(); 
@@ -113,13 +115,7 @@ public class Main {
         			acc = null; // Sign out. 
         			while (acc == null && finished == false)
         			{
-        				System.out.println("\nChoose an option number to create an account, sign in, or exit the program: ");
-                    	
-                    	// Program Menu Options:
-                        System.out.println("Program Menu Options: \n");
-                        System.out.println("(1) Create an account"); 
-                        System.out.println("(2) Sign in"); 
-                        System.out.println("(3) Exit Program");
+        				AccountManager.programMenu(); // Print the program menu (user is signed out). 
                         
                     	option = scan.nextInt(); 
                     	scan.nextLine(); // Flush out rest of the line to clear the buffer. 

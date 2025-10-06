@@ -50,8 +50,6 @@
             // Add the new account object to the General ArrayList of accounts: 
             accounts.add(this); // Add this instance (object) of AccountManager to the "accounts" ArrayList.
             
-            this.accountMenu(); // Call the account menu method to print menu selection of options for user. 
-
             System.out.println("Account creation successful! Welcome to your new account!"); 
     	}
     }
@@ -75,7 +73,7 @@
         return null; 
     }
 
-    /** Method to print menu options for user to select: */
+    /** Method to print menu options for user to select (when signed in): */
     public void accountMenu() {
 
         System.out.println("\n--------------------------------------------------------------------------------"); 
@@ -92,6 +90,18 @@
         System.out.println("(13) Change date of birth\t(14) Logout\n--------------------------------------------------------------------------------");
         
         //System.out.println("What would you like to do? Enter option number: "); 
+    }
+    
+    /** Static Method to print program options for user to select (when signed out): */ 
+    public static void programMenu() {
+    	
+    	System.out.println("\nChoose an option number to create an account, sign in, or exit the program: ");
+    	
+    	// Program Menu Options:
+        System.out.println("Program Menu Options: \n");
+        System.out.println("(1) Create an account"); 
+        System.out.println("(2) Sign in"); 
+        System.out.println("(3) Exit Program");
     }
     
     /** Getter methods for each private property of the user account: */
