@@ -1,14 +1,18 @@
+package PDF;
+
 /**
  * @author [Phuong Hua]
  * @version 1.0
  * CS151 Fall 2025 - Project 1 
  */
-package PDF;
+
+import java.util.HashMap; 
 
 public abstract class GenericPDF implements Exportable {
     protected String username;
     protected String email;
     protected String role;
+    protected HashMap<String, String> roles; // Key = username, Value = role. 
 
     /**
      * Constructor for GenericPDF
@@ -21,10 +25,14 @@ public abstract class GenericPDF implements Exportable {
         this.username = username;
         this.email = email;
         this.role = role;
+        this.roles = new HashMap<>(); 
+        
+        this.roles.put(this.getUsername(), this.getRole()); 
      }
 
      public abstract void merge();
-     public abstract void split();
+     public abstract void split();     
+     public abstract void contextMenu();
 
      public String getUsername(){
         return username;
@@ -37,16 +45,21 @@ public abstract class GenericPDF implements Exportable {
      public String getRole(){
         return role;
      }
+     
+     public HashMap<String, String> getListOfRoles()
+     {
+    	 return this.roles; 
+     }
 
      public void setUsername(String username) {
         this.username = username;
      }
 
-     public void setEmail(String username) {
+     public void setEmail(String email) {
         this.email = email;
      }
 
-     public void setRole(String username) {
+     public void setRole(String role) {
         this.role = role;
      }
 
