@@ -155,10 +155,10 @@
     {
     	switch (option) {
     		case 1, 2, 3:
-    			getDrive().createPDF(option, fileName, getUsername(), getEmail()); // Create a new PDF based on user option, their scanned file name, and their username and email.
+    			this.getDrive().createPDF(option, fileName, getUsername(), getEmail()); // Create a new PDF based on user option, their scanned file name, and their username and email.
     			break; 
     		case 4:
-    			getDrive().editPDF(fileName); // Use the file name to locate the appropriate PDF to view and edit. 
+    			this.getDrive().editPDF(fileName); // Use the file name to locate the appropriate PDF to view and edit. 
     			break; 
     		default: 
     			break; 
@@ -170,10 +170,10 @@
     {
     	switch (option) {
 		    case 5: 
-				getDrive().viewAllFileTitles(); // View all of the existing files in the Drive. 
+				this.getDrive().viewAllFileTitles(); // View all of the existing files in the Drive. 
 				break; 
 			case 6: 
-				getDrive().checkStorage(); // Check used Drive storage and remaining Drive storage. 
+				this.getDrive().checkStorage(); // Check used Drive storage and remaining Drive storage. 
 				break; 
     	}
     }
@@ -181,13 +181,13 @@
     /** Method to return number of emails in inbox (another Getter method): */
     public int getNumberOfEmails() // Call this method FIRST in the "Main" class if the user had selected Option 7. 
     {
-    	return getInbox().size(); // Return the number of emails to the user. The "Main" class will use this number to print a message to the user either asking them to enter an email number to read (if inbox size > 0), or a message that just tells them they have no emails to read (else inbox size == 0). 
+    	return this.getInbox().size(); // Return the number of emails to the user. The "Main" class will use this number to print a message to the user either asking them to enter an email number to read (if inbox size > 0), or a message that just tells them they have no emails to read (else inbox size == 0). 
     }
     
     /** Method to read specified email: */ 
     public void fetchEmail(int emailNumber) // Call this method NEXT in the "Main" class (from Option 7) once the user has entered an email number to read. 
     {
-    	System.out.println("Email " + emailNumber + ":\n" + getInbox().get(emailNumber-1)); // Print the message number and the message itself. 
+    	System.out.println("Email " + emailNumber + ":\n" + this.getInbox().get(emailNumber-1)); // Print the message number and the message itself. 
     }
     
 	/** Method to send an email: */ 
@@ -199,7 +199,7 @@
     	{
     		if (account.getEmail().equals(recipient)) // If the recipient email exists, 
     		{
-    			account.getInbox().add("To: " + account.getUsername() + "\n(" + account.getEmail() + ")" + "\n\n" + message + "\n\nFrom: " + getUsername() + "\n(" + getEmail() + ")"); // then send the message to their inbox. 
+    			account.getInbox().add("To: " + account.getUsername() + "\n(" + account.getEmail() + ")" + "\n\n" + message + "\n\nFrom: " + this.getUsername() + "\n(" + this.getEmail() + ")"); // then send the message to their inbox. 
     			System.out.println("Email sent to " + account.getUsername() + " successfully!"); 
     			sent = true; // Mark the "sent" flag to true. 
     			break; 
@@ -216,7 +216,7 @@
     @Override
     public String toString() // In "Main" class, call this method if user has selected Option 9. 
     {
-    	return "Username: " + getUsername() + "\nEmail: " + getEmail() + "\nPassword: " + getPassword() + "\nDate of Birth: " + getDateOfBirth() + "\nNumber of Emails in Inbox: " + getNumberOfEmails(); 
+    	return "Username: " + this.getUsername() + "\nEmail: " + this.getEmail() + "\nPassword: " + this.getPassword() + "\nDate of Birth: " + this.getDateOfBirth() + "\nNumber of Emails in Inbox: " + this.getNumberOfEmails(); 
     }
 	
     /** Setter methods for each private property of the user account: */

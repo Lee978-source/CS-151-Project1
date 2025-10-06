@@ -5,8 +5,8 @@
  */
 package useraccount;
 
-import java.util.HashMap; // Import the HashMap class to access HashMap and its methods.  
-import PDF.*;
+import PDF.*; // Import the HashMap class to access HashMap and its methods.
+import java.util.HashMap; 
 
 public class Drive {
     
@@ -28,7 +28,7 @@ public class Drive {
 
     /** Method to create a PDF: */
     public void createPDF(int option, String fileName, String username, String email) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
-
+/*
         if (option == 1) // Option 1: create document.
         {
         	if (this.docsFiles.size() < MAX_DOCS) // Check to ensure we have capacity. 
@@ -43,8 +43,9 @@ public class Drive {
         		System.out.println("Error! Max capacity reached for Documents! Delete existing Document files to create a new one!");
         	}
         }
-
-        else if (option == 2) // Option 2: create slides.
+*/
+        //else 
+    	if (option == 2) // Option 2: create slides.
         {
         	if (this.slidesFiles.size() < MAX_SLIDES) // Check to ensure we have capacity.
         	{
@@ -58,7 +59,7 @@ public class Drive {
         		System.out.println("Error! Max capacity reached for Slides! Delete existing Slide files to create a new one!");
         	}
         }
-        
+  /*      
         else if (option == 3) // Option 3: create spreadsheet.
         {
         	if (this.spreadsheetsFiles.size() < MAX_SPREADSHEETS) // Check to ensure we have capacity.
@@ -72,7 +73,7 @@ public class Drive {
         	{
         		System.out.println("Error: Max capacity reached for Spreadsheets! Delete existing Spreadsheet files to create a new one!");
         	}
-        }
+        }*/
     }
 
     /** Method to delete a PDF: */
@@ -115,6 +116,33 @@ public class Drive {
     		{
     			System.out.println("Error: File does not exist in the Drive!"); 
     		}
+    	}
+    }
+    
+    /** Method to edit a PDF: */
+    public void editPDF(String fileName)
+    {
+    	if (docsFiles.containsKey(fileName))
+    	{
+    		DocPDF document = docsFiles.get(fileName); 
+    		System.out.println(document.toString());
+    	}
+    	
+    	else if (slidesFiles.containsKey(fileName))
+    	{
+    		Slides slideDeck = slidesFiles.get(fileName); 
+    		System.out.println(slideDeck.toString()); 
+    	}
+    	
+    	else if (spreadsheetsFiles.containsKey(fileName))
+    	{
+    		Spreadsheet sheet = spreadsheetsFiles.get(fileName); 
+    		System.out.println(sheet.toString());
+    	}
+    	
+    	else
+    	{
+    		System.out.println("File does not exist in your Drive!"); 
     	}
     }
 }
