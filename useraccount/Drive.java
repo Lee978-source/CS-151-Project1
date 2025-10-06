@@ -120,29 +120,34 @@ public class Drive {
     }
     
     /** Method to edit a PDF: */
-    public void editPDF(String fileName)
+    public GenericPDF editPDF(String fileName)
     {
     	if (docsFiles.containsKey(fileName))
     	{
     		DocPDF document = docsFiles.get(fileName); 
     		System.out.println(document.toString());
+    		return document;
     	}
     	
     	else if (slidesFiles.containsKey(fileName))
     	{
     		Slides slideDeck = slidesFiles.get(fileName); 
     		System.out.println(slideDeck.toString()); 
+    		slideDeck.contextMenu(); // Call method to print user actions for the Slide Deck.
+    		return slideDeck;
     	}
     	
     	else if (spreadsheetsFiles.containsKey(fileName))
     	{
     		Spreadsheet sheet = spreadsheetsFiles.get(fileName); 
     		System.out.println(sheet.toString());
+    		return sheet;
     	}
     	
     	else
     	{
     		System.out.println("File does not exist in your Drive!"); 
+    		return null; 
     	}
     }
 }
