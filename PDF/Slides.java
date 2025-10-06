@@ -80,9 +80,11 @@ public class Slides extends GenericPDF {
     	 {
     		 String existingText = this.getSequence().get(slideNumber); // Fetch the current existing text at specified slide number. 
     		 
-    		 this.getSequence().add(slideNumber, existingText.concat(newText)); // Append the new text with the existing text, then re-insert this at the specified slide number. 
+    		 this.getSequence().remove(slideNumber); // Remove the current existing slide first to avoid duplicates. 
     		 
-    		 System.out.println("New text appended to slide " + slideNumber);  
+    		 this.getSequence().add(slideNumber, existingText.concat(newText)); // Append the new text with the existing text, then insert this at the specified slide number. 
+    		 
+    		 System.out.println("New text appended to slide " + slideNumber); 
     	 }
      }
 
@@ -93,7 +95,7 @@ public class Slides extends GenericPDF {
      }
 
      public void deleteSlide(int slideNumber){
-        if(slideCount > 1){
+        if(slideCount > 0){
             slideCount--;
             this.getSequence().remove(slideNumber);
             System.out.println("Slide deleted. Total slides: " + slideCount);
@@ -102,7 +104,7 @@ public class Slides extends GenericPDF {
         }
      }
 
-     public void swapSlideOrder() {
+     public void swapSlideOrder() { // Still need to properly implement. 
         if (slideCount >= 2) {
             System.out.println("Slide order swapped.");
         } else {
@@ -158,7 +160,7 @@ public class Slides extends GenericPDF {
 
     public void setSlideCount(int slideCount) {
         this.slideCount = slideCount;
-        updateSequence();
+        //updateSequence();
     }
 
     public void setSequence(ArrayList<String> sequence) {
