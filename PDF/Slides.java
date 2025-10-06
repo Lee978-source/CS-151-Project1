@@ -1,15 +1,14 @@
+package PDF;
+
+import java.util.*;
 /**
  * @author [Phuong Hua]
  * @version 1.0 
  * CS151 Fall 2025 - Project 1 
  */
-package PDF;
-
-import java.util.*;
-
 public class Slides extends GenericPDF {
     private int slideCount;
-    private String sequence;
+    private ArrayList<String> sequence;
 
     /**
      * @param username Creator's username
@@ -20,19 +19,83 @@ public class Slides extends GenericPDF {
      public Slides(String username, String email, String role) {
         super(username, email, role);
         this.slideCount = 0;
-        this.sequence = "";
+        this.sequence = new ArrayList<>();
+     }
+     
+     @Override
+     public void contextMenu()
+     {
+    	 if (this.getListOfRoles().get(username).equals("OWNER"))
+    	 {
+    		 System.out.println("Select option (enter a number): ");
+    		 System.out.println("(1) Add a slide"); 
+    		 System.out.println("(2) Delete a slide"); 
+    		 System.out.println("(3) Add text to a slide"); 
+    		 System.out.println("(4) Merge two Slide Decks"); 
+    		 System.out.println("(5) Split two Slide Decks"); 
+    		 System.out.println("(6) Swap slide order between 2 slides"); 
+    		 System.out.println("(7) Add a Hashtag to your slides"); 
+    		 System.out.println("(8) Export Slide Deck as PDF");
+    		 System.out.println("(9) Export Slide Deck as HTML"); 
+    		 System.out.println("(10) Export Slide Deck as Word Document"); 
+    		 System.out.println("(11) Update User Roles"); 
+    	 }
+    	 
+    	 else if (this.getListOfRoles().get(username).equals("EDITOR"))
+    	 {
+    		 System.out.println("Select option (enter a number): ");
+    		 System.out.println("(1) Add a slide"); 
+    		 System.out.println("(2) Delete a slide"); 
+    		 System.out.println("(3) Add text to a slide"); 
+    		 System.out.println("(4) Merge two Slide Decks"); 
+    		 System.out.println("(5) Split two Slide Decks"); 
+    		 System.out.println("(6) Swap slide order between 2 slides"); 
+    		 System.out.println("(7) Add a Hashtag to your slides"); 
+    		 System.out.println("(8) Export Slide Deck as PDF");
+    		 System.out.println("(9) Export Slide Deck as HTML"); 
+    		 System.out.println("(10) Export Slide Deck as Word Document"); 
+    	 }
+    	 
+    	 else if (this.getListOfRoles().get(username).equals("COMMENTER"))
+    	 {
+    		 System.out.println("Select option (enter a number): ");
+    		 System.out.println("(1) Add comment to the last slide"); 
+    		 System.out.println("(2) Export Slide Deck as PDF");
+    		 System.out.println("(3) Export Slide Deck as HTML"); 
+    		 System.out.println("(4) Export Slide Deck as Word Document"); 
+    	 }
+    	 
+    	 else // User role is: VIEWER
+    	 {
+    		 System.out.println("Select option (enter a number): ");
+    		 System.out.println("(1) Export Slide Deck as PDF");
+    		 System.out.println("(2) Export Slide Deck as HTML"); 
+    		 System.out.println("(3) Export Slide Deck as Word Document"); 
+    	 }
+     }
+     
+     public void editText(String newText, int slideNumber)
+     {
+    	 if (this.getSequence() != null)
+    	 {
+    		 String existingText = this.getSequence().get(slideNumber); // Fetch the current existing text at specified slide number. 
+    		 
+    		 this.getSequence().add(slideNumber, existingText.concat(newText)); // Append the new text with the existing text, then re-insert this at the specified slide number. 
+    		 
+    		 System.out.println("New text appended to slide " + slideNumber);  
+    	 }
      }
 
      public void addSlide(){
         slideCount++;
-        updateSequence();
+        this.getSequence().add(""); 
         System.out.println("Slide added. Total slides: " + slideCount);
      }
 
-     public void deleteSlide(){
+     public void deleteSlide(int slideNumber){
         if(slideCount > 1){
             slideCount--;
-            updateSequence();
+            this.getSequence().remove(slideNumber);
             System.out.println("Slide deleted. Total slides: " + slideCount);
         } else {
             System.out.println("No slides to delete.");
@@ -49,7 +112,7 @@ public class Slides extends GenericPDF {
      public void addHashTag(String tag) {
         System.out.println("Hashtag '" + tag + "' added to the slides.");
      }
-
+/*
      private void updateSequence() {
         StringBuilder seqBuilder = new StringBuilder();
         for (int i = 1; i <= slideCount; i++) {
@@ -59,7 +122,7 @@ public class Slides extends GenericPDF {
             }
         }
         sequence = seqBuilder.toString();
-     }
+     }*/
     @Override
     public void merge() {
         System.out.println("Merging presentation with another presentation");
@@ -89,7 +152,7 @@ public class Slides extends GenericPDF {
         return slideCount;
     }
 
-    public String getSequence() {
+    public ArrayList<String> getSequence() {
         return sequence;
     }
 
@@ -98,7 +161,7 @@ public class Slides extends GenericPDF {
         updateSequence();
     }
 
-    public void setSequence(String sequence) {
+    public void setSequence(ArrayList<String> sequence) {
         this.sequence = sequence;
     }
 
@@ -116,5 +179,5 @@ public class Slides extends GenericPDF {
                 '}';
     }
 }
-}
+
 
