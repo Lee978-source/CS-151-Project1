@@ -6,7 +6,8 @@
 
 package useraccount;
 
-import java.util.Scanner; 
+import PDF.*;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -43,11 +44,76 @@ public class Main {
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
         			acc.createOption(option, string); 
+        			acc.accountMenu(); // Call user account menu. 
         			break;
         		case 4: // Edit a PDF file. 
         			System.out.println("Enter an existing file name: "); 
         			string = scan.nextLine(); // fileName
-        			acc.createOption(option, string);
+        			GenericPDF PDF = acc.getDrive().editPDF(string);
+        			int editOption = scan.nextInt(); 
+        			scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+        			if (editOption == 1 && (PDF.getRole() == "OWNER" || PDF.getRole() == "EDITOR")) // Add new content to PDF. 
+        			{
+        				if (PDF instanceof DocPDF)
+        				{
+        					
+        				}
+        				
+        				else if (PDF instanceof Slides)
+        				{
+        					((Slides) PDF).addSlide(); 
+        				}
+        				
+        				else if (PDF instanceof Spreadsheet)
+        				{
+        					
+        				}
+        			}
+        			
+        			else if (editOption == 2 && (PDF.getRole() == "OWNER" || PDF.getRole() == "EDITOR")) // Delete content from PDF. 
+        			{
+        				if (PDF instanceof DocPDF)
+        				{
+        					
+        				}
+        				
+        				else if (PDF instanceof Slides)
+        				{
+        					System.out.println("What slide number would you like to delete? Enter a number: "); 
+        					editOption = scan.nextInt(); 
+        					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+        					((Slides) PDF).deleteSlide(editOption); 
+        				}
+        				
+        				else if (PDF instanceof Spreadsheet)
+        				{
+        					
+        				}
+        			}
+        			
+        			else if (editOption == 3 && (PDF.getRole() == "OWNER" || PDF.getRole() == "EDITOR")) // Edit content on PDF. 
+        			{
+        				if (PDF instanceof DocPDF)
+        				{
+        					
+        				}
+        				
+        				else if (PDF instanceof Slides)
+        				{
+        					System.out.println("What slide number would you like to add text to? Enter a number: "); 
+        					editOption = scan.nextInt(); 
+        					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+        					System.out.println("Enter the text that you would like to append to the slide: "); 
+        					string = scan.nextLine(); 
+        					((Slides) PDF).editText(string, editOption); 
+        				}
+        				
+        				else if (PDF instanceof Spreadsheet)
+        				{
+        					
+        				}
+        			}
+        			acc.accountMenu(); // Call user account menu. 
         			break;
         		case 5, 6: // View Drive contents. 
         			acc.viewDriveOption(option); 
