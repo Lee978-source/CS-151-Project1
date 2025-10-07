@@ -154,9 +154,15 @@
     public void createOption(int option, String fileName) // In "Main" class, user will be prompted to enter the File Name if they have selected Options 1-3 ("Main" class would call this method). 
     {
     	switch (option) {
-    		case 1, 2, 3:
+    		case 1:
     			this.getDrive().createPDF(option, fileName, getUsername(), getEmail()); // Create a new PDF based on user option, their scanned file name, and their username and email.
     			break; 
+            case 2:
+    			this.getDrive().createPDF(option, fileName, getUsername(), getEmail()); // Create a new PDF based on user option, their scanned file name, and their username and email.
+    			break;
+            case 3:
+    			this.getDrive().createPDF(option, fileName, getUsername(), getEmail()); // Create a new PDF based on user option, their scanned file name, and their username and email.
+    			break;
     		default: // Option 4 will explicitly call the Drive.java method "editPDF()". 
     			break; 
     	}
