@@ -100,7 +100,7 @@ public class Slides extends GenericPDF {
             this.getSequence().remove(slideNumber);
             System.out.println("Slide deleted. Total slides: " + slideCount);
         } else {
-            System.out.println("No slides to delete.");
+            System.out.println("No slides to delete!");
         }
      }
 
@@ -126,13 +126,46 @@ public class Slides extends GenericPDF {
         sequence = seqBuilder.toString();
      }*/
     @Override
-    public void merge() {
-        System.out.println("Merging presentation with another presentation");
+    public void merge(Slides otherSlides) {
+        if (otherSlides == null) {
+            System.out.println("Cannot merge with null Slides :(");
+            return;
+        }
+        if (!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
+            System.out.println("You do not have permission to merge slides.");
+            return;
+        }
+        int originalSlideCount = this.slideCount;
+
+        this.slideCount += otherSlides.slideCount;
+        this.sequence.addAll(otherSlides.sequence);
+
+        System.out.println("Original slide count: " + originalSlideCount);
+        System.out.println("Merged slide count: " + this.slideCount);
+        System.out.println("Merged slides. Total slides: " + this.slideCount + " (added " + otherSlides.slideCount + " slides)");
     }
 
     @Override
-    public void split() {
-        System.out.println("Splitting presentation into separate presentations");
+    public Slides split(int splitIndex) {
+        if (splitIndex <= 0 || splitIndex >= this.slideCount) {
+            System.out.println("Invalid split index." + (this.slideCount - 1));
+            return null;
+        }
+
+         Slides newSlides = new Slides(this.username, this.email, this.role);
+        
+         ArrayList<String> newSequence = new ArrayList<>(this.sequence.subList(splitIndex, this.slideCount));
+         this.sequence.subList(splitIndex, this.slideCount).clear();
+
+         newSlides.sequence = newSequence;
+         newSlides.slideCount = newSequence.size();
+
+         this.slideCount = this.sequence.size();
+
+         System.out.println("Original slide count after split: " + this.slideCount);
+         System.out.println("New slide count after split: " + newSlides.slideCount);
+         System.out.println("Slides split at index " + splitIndex);
+         return newSlides;
     }
 
     @Override
