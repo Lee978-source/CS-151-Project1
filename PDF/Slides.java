@@ -1,226 +1,265 @@
 package PDF;
 
+
 import java.util.*;
 /**
- * @author [Phuong Hua]
- * @version 1.0 
- * CS151 Fall 2025 - Project 1 
- */
+* @author [Phuong Hua]
+* @version 1.0
+* CS151 Fall 2025 - Project 1
+*/
 public class Slides extends GenericPDF {
-    private int slideCount;
-    private ArrayList<String> sequence;
+   private int slideCount;
+   private ArrayList<String> sequence;
 
-    /**
-     * @param username Creator's username
-     * @param email Creator's email
-     * @param role User's role
-     */
 
-     public Slides(String username, String email, String role) {
-        super(username, email, role);
-        this.slideCount = 0;
-        this.sequence = new ArrayList<>();
-     }
-     
-     @Override
-     public void contextMenu()
-     {
-    	 if (this.getListOfRoles().get(username).equals("OWNER"))
-    	 {
-    		 System.out.println("Select option (enter a number): ");
-    		 System.out.println("(1) Add a slide"); 
-    		 System.out.println("(2) Delete a slide"); 
-    		 System.out.println("(3) Add text to a slide"); 
-    		 System.out.println("(4) Merge two Slide Decks"); 
-    		 System.out.println("(5) Split two Slide Decks"); 
-    		 System.out.println("(6) Swap slide order between 2 slides"); 
-    		 System.out.println("(7) Add a Hashtag to your slides"); 
-    		 System.out.println("(8) Export Slide Deck as PDF");
-    		 System.out.println("(9) Export Slide Deck as HTML"); 
-    		 System.out.println("(10) Export Slide Deck as Word Document"); 
-    		 System.out.println("(11) Update User Roles"); 
-    	 }
-    	 
-    	 else if (this.getListOfRoles().get(username).equals("EDITOR"))
-    	 {
-    		 System.out.println("Select option (enter a number): ");
-    		 System.out.println("(1) Add a slide"); 
-    		 System.out.println("(2) Delete a slide"); 
-    		 System.out.println("(3) Add text to a slide"); 
-    		 System.out.println("(4) Merge two Slide Decks"); 
-    		 System.out.println("(5) Split two Slide Decks"); 
-    		 System.out.println("(6) Swap slide order between 2 slides"); 
-    		 System.out.println("(7) Add a Hashtag to your slides"); 
-    		 System.out.println("(8) Export Slide Deck as PDF");
-    		 System.out.println("(9) Export Slide Deck as HTML"); 
-    		 System.out.println("(10) Export Slide Deck as Word Document"); 
-    	 }
-    	 
-    	 else if (this.getListOfRoles().get(username).equals("COMMENTER"))
-    	 {
-    		 System.out.println("Select option (enter a number): ");
-    		 System.out.println("(1) Add comment to the last slide"); 
-    		 System.out.println("(2) Export Slide Deck as PDF");
-    		 System.out.println("(3) Export Slide Deck as HTML"); 
-    		 System.out.println("(4) Export Slide Deck as Word Document"); 
-    	 }
-    	 
-    	 else // User role is: VIEWER
-    	 {
-    		 System.out.println("Select option (enter a number): ");
-    		 System.out.println("(1) Export Slide Deck as PDF");
-    		 System.out.println("(2) Export Slide Deck as HTML"); 
-    		 System.out.println("(3) Export Slide Deck as Word Document"); 
-    	 }
-     }
-     
-     public void editText(String newText, int slideNumber)
-     {
-    	 if (this.getSequence() != null)
-    	 {
-    		 String existingText = this.getSequence().get(slideNumber); // Fetch the current existing text at specified slide number. 
-    		 
-    		 this.getSequence().remove(slideNumber); // Remove the current existing slide first to avoid duplicates. 
-    		 
-    		 this.getSequence().add(slideNumber, existingText.concat(newText)); // Append the new text with the existing text, then insert this at the specified slide number. 
-    		 
-    		 System.out.println("New text appended to slide " + slideNumber); 
-    	 }
-     }
+   /**
+    * @param username Creator's username
+    * @param email Creator's email
+    * @param role User's role
+    */
 
-     public void addSlide(){
-        slideCount++;
-        this.getSequence().add(""); 
-        System.out.println("Slide added. Total slides: " + slideCount);
-     }
 
-     public void deleteSlide(int slideNumber){
-        if(slideCount > 0){
-            slideCount--;
-            this.getSequence().remove(slideNumber);
-            System.out.println("Slide deleted. Total slides: " + slideCount);
-        } else {
-            System.out.println("No slides to delete!");
+    public Slides(String username, String email, String role) {
+       super(username, email, role);
+       this.slideCount = 0;
+       this.sequence = new ArrayList<>();
+    }
+   
+    @Override
+    public void contextMenu()
+    {
+        if (this.getListOfRoles().get(username).equals("OWNER"))
+        {
+            System.out.println("Select option (enter a number): ");
+            System.out.println("(1) Add a slide");
+            System.out.println("(2) Delete a slide");
+            System.out.println("(3) Add text to a slide");
+            System.out.println("(4) Merge two Slide Decks");
+            System.out.println("(5) Split two Slide Decks");
+            System.out.println("(6) Swap slide order between 2 slides");
+            System.out.println("(7) Add a Hashtag to your slides");
+            System.out.println("(8) Export Slide Deck as PDF");
+            System.out.println("(9) Export Slide Deck as HTML");
+            System.out.println("(10) Export Slide Deck as Word Document");
+            System.out.println("(11) Update User Roles");
         }
-     }
-
-     public void swapSlideOrder(int firstIndex, int secondIndex) {
-        if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
-            System.out.println("Invalid slide indices.");
-            return;
-        } if (firstIndex == secondIndex) {
-            System.out.println("No swap needed; indices are the same.");
-            return;
-     }
-     String temp = sequence.get(firstIndex);
-     String temp2 = sequence.get(secondIndex);
-        sequence.set(firstIndex, temp2);
-        sequence.set(secondIndex, temp);
-        System.out.println("Swapped slides at indices " + firstIndex + " and " + secondIndex);
+       
+        else if (this.getListOfRoles().get(username).equals("EDITOR"))
+        {
+            System.out.println("Select option (enter a number): ");
+            System.out.println("(1) Add a slide");
+            System.out.println("(2) Delete a slide");
+            System.out.println("(3) Add text to a slide");
+            System.out.println("(4) Merge two Slide Decks");
+            System.out.println("(5) Split two Slide Decks");
+            System.out.println("(6) Swap slide order between 2 slides");
+            System.out.println("(7) Add a Hashtag to your slides");
+            System.out.println("(8) Export Slide Deck as PDF");
+            System.out.println("(9) Export Slide Deck as HTML");
+            System.out.println("(10) Export Slide Deck as Word Document");
+        }
+       
+        else if (this.getListOfRoles().get(username).equals("COMMENTER"))
+        {
+            System.out.println("Select option (enter a number): ");
+            System.out.println("(1) Add comment to the last slide");
+            System.out.println("(2) Export Slide Deck as PDF");
+            System.out.println("(3) Export Slide Deck as HTML");
+            System.out.println("(4) Export Slide Deck as Word Document");
+        }
+       
+        else // User role is: VIEWER
+        {
+            System.out.println("Select option (enter a number): ");
+            System.out.println("(1) Export Slide Deck as PDF");
+            System.out.println("(2) Export Slide Deck as HTML");
+            System.out.println("(3) Export Slide Deck as Word Document");
+        }
+    }
+   
+    public void editText(String newText, int slideNumber)
+    {
+        if (this.getSequence() != null)
+        {
+            String existingText = this.getSequence().get(slideNumber); // Fetch the current existing text at specified slide number.
+           
+            this.getSequence().remove(slideNumber); // Remove the current existing slide first to avoid duplicates.
+           
+            this.getSequence().add(slideNumber, existingText.concat(newText)); // Append the new text with the existing text, then insert this at the specified slide number.
+           
+            System.out.println("New text appended to slide " + slideNumber);
+        }
     }
 
-     public void addHashTag(String tag) {
-        System.out.println("Hashtag '" + tag + "' added to the slides.");
-     }
+
+    public void addSlide(){
+       slideCount++;
+       this.getSequence().add("");
+       System.out.println("Slide added. Total slides: " + slideCount);
+    }
+
+
+    public void deleteSlide(int slideNumber){
+       if(slideCount > 0){
+           slideCount--;
+           this.getSequence().remove(slideNumber);
+           System.out.println("Slide deleted. Total slides: " + slideCount);
+       } else {
+           System.out.println("No slides to delete!");
+       }
+    }
+
+
+    public void swapSlideOrder(int firstIndex, int secondIndex) {
+       if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
+           System.out.println("Invalid slide indices.");
+           return;
+       } if (firstIndex == secondIndex) {
+           System.out.println("No swap needed; indices are the same.");
+           return;
+    }
+    String temp = sequence.get(firstIndex);
+    String temp2 = sequence.get(secondIndex);
+       sequence.set(firstIndex, temp2);
+       sequence.set(secondIndex, temp);
+       System.out.println("Swapped slides at indices " + firstIndex + " and " + secondIndex);
+   }
+
+
+    public void addHashTag(String tag) {
+       System.out.println("Hashtag '" + tag + "' added to the slides.");
+    }
 /*
-     private void updateSequence() {
-        StringBuilder seqBuilder = new StringBuilder();
-        for (int i = 1; i <= slideCount; i++) {
-            seqBuilder.append(i);
-            if (i < slideCount) {
-                seqBuilder.append("->");
-            }
-        }
-        sequence = seqBuilder.toString();
-     }*/
-    @Override
-    public void merge(GenericPDF otherSlides) {
-        if (otherSlides == null) {
-            System.out.println("Cannot merge with null Slides :(");
-            return;
-        }
-        if (!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
-            System.out.println("You do not have permission to merge slides.");
-            return;
-        }
-        int originalSlideCount = this.slideCount;
+    private void updateSequence() {
+       StringBuilder seqBuilder = new StringBuilder();
+       for (int i = 1; i <= slideCount; i++) {
+           seqBuilder.append(i);
+           if (i < slideCount) {
+               seqBuilder.append("->");
+           }
+       }
+       sequence = seqBuilder.toString();
+    }*/
+   @Override
+   public void merge(GenericPDF other) {
+      
+       if (!(other instanceof Slides)) {
+      
+               System.out.println("Can only merge with another Slides document!");
+               return;
+           }
+           Slides otherSlides = (Slides) other;
 
-        this.slideCount += ((Slides) otherSlides).slideCount;
-        this.sequence.addAll(((Slides) otherSlides).sequence);
 
-        System.out.println("Original slide count: " + originalSlideCount);
-        System.out.println("Merged slide count: " + this.slideCount);
-        System.out.println("Merged slides. Total slides: " + this.slideCount + " (added " + otherSlides.slideCount + " slides)");
-    }
+       if (otherSlides == null) {
+               System.out.println("Cannot merge with null Slides :(");
+               return;
+           }
 
-    @Override
-    public Slides split(int splitIndex) {
-        if (splitIndex <= 0 || splitIndex >= this.slideCount) {
-            System.out.println("Invalid split index." + (this.slideCount - 1));
-            return null;
-        }
 
-         Slides newSlides = new Slides(this.username, this.email, this.role);
-        
-         ArrayList<String> newSequence = new ArrayList<>(this.sequence.subList(splitIndex, this.slideCount));
-         this.sequence.subList(splitIndex, this.slideCount).clear();
+          
 
-         newSlides.sequence = newSequence;
-         newSlides.slideCount = newSequence.size();
 
-         this.slideCount = this.sequence.size();
+       if (!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
+           System.out.println("You do not have permission to merge slides.");
+           return;
+       }
+       int originalSlideCount = this.slideCount;
+       this.slideCount += otherSlides.slideCount;
+       this.sequence.add(other.sequence);
 
-         System.out.println("Original slide count after split: " + this.slideCount);
-         System.out.println("New slide count after split: " + newSlides.slideCount);
-         System.out.println("Slides split at index " + splitIndex);
-         return newSlides;
-    }
 
-    @Override
-    public void exportAsPDF() {
-        System.out.println("Exporting slides as PDF");
-    }
+       System.out.println("Original slide count: " + originalSlideCount);
+       System.out.println("Merged slide count: " + this.slideCount);
+       System.out.println("Merged slides. Total slides: " + this.slideCount + " (added " + otherSlides.slideCount + " slides)");
+   }
 
-    @Override
-    public void exportAsHTML() {
-        System.out.println("Exporting slides as HTML");
-    }
 
-    @Override
-    public void exportAsWordDoc() {
-        System.out.println("Exporting slides as Word Document");
-    }
+   @Override
+   public GenericPDF split(int splitIndex) {
+       if (splitIndex <= 0 || splitIndex >= this.slideCount) {
+           System.out.println("Invalid split index." + (this.slideCount - 1));
+           return null;
+       }
 
-    public int getSlideCount() {
-        return slideCount;
-    }
 
-    public ArrayList<String> getSequence() {
-        return sequence;
-    }
+        Slides newSlides = new Slides(this.username, this.email, this.role);
+      
+        ArrayList<String> newSequence = new ArrayList<>(this.sequence.subList(splitIndex, this.slideCount));
+        this.sequence.subList(splitIndex, this.slideCount).clear();
 
-    public void setSlideCount(int slideCount) {
-        this.slideCount = slideCount;
-        //updateSequence();
-    }
 
-    public void setSequence(ArrayList<String> sequence) {
-        this.sequence = sequence;
-    }
+        newSlides.sequence = newSequence;
+        newSlides.slideCount = newSequence.size();
 
-    /**
-     * @return String containing object state
-     */
-    @Override
-    public String toString() {
-        return "Slides{" +
-                "slideCount=" + slideCount +
-                ", sequence='" + sequence + '\'' +
-                ", username='" + getUsername() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", role='" + getRole() + '\'' +
-                '}';
-    }
+
+        this.slideCount = this.sequence.size();
+
+
+        System.out.println("Original slide count after split: " + this.slideCount);
+        System.out.println("New slide count after split: " + newSlides.slideCount);
+        System.out.println("Slides split at index " + splitIndex);
+        return newSlides;
+   }
+
+
+   @Override
+   public void exportAsPDF() {
+       System.out.println("Exporting slides as PDF");
+   }
+
+
+   @Override
+   public void exportAsHTML() {
+       System.out.println("Exporting slides as HTML");
+   }
+
+
+   @Override
+   public void exportAsWordDoc() {
+       System.out.println("Exporting slides as Word Document");
+   }
+
+
+   public int getSlideCount() {
+       return slideCount;
+   }
+
+
+   public ArrayList<String> getSequence() {
+       return sequence;
+   }
+
+
+   public void setSlideCount(int slideCount) {
+       this.slideCount = slideCount;
+       //updateSequence();
+   }
+
+
+   public void setSequence(ArrayList<String> sequence) {
+       this.sequence = sequence;
+   }
+
+
+   /**
+    * @return String containing object state
+    */
+   @Override
+   public String toString() {
+       return "Slides{" +
+               "slideCount=" + slideCount +
+               ", sequence='" + sequence + '\'' +
+               ", username='" + getUsername() + '\'' +
+               ", email='" + getEmail() + '\'' +
+               ", role='" + getRole() + '\'' +
+               '}';
+   }
 }
+
+
+
+
+
 
 
