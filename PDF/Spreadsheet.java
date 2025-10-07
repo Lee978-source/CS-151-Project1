@@ -46,9 +46,9 @@ public class Spreadsheet extends GenericPDF {
 
     public void deleteRow() {
         String[][] newMatrix = new String[this.rows -= 1][this.cols];
-        for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
+        for (int row = 0; row < this.rows; row++) // Old content from OG sheet has the same indices.
         {
-            for (int col = 0; col < this.matrix[0].length; col++)
+            for (int col = 0; col < this.cols; col++)
             {
                 newMatrix[row][col] = this.matrix[row][col];
             }
@@ -59,9 +59,9 @@ public class Spreadsheet extends GenericPDF {
 
     public void deleteCol() {
         String[][] newMatrix = new String[this.rows][this.cols -= 1];
-        for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
+        for (int row = 0; row < this.rows; row++) // Old content from OG sheet has the same indices.
         {
-            for (int col = 0; col < this.matrix[0].length; col++)
+            for (int col = 0; col < this.cols; col++)
             {
                 newMatrix[row][col] = this.matrix[row][col];
             }
@@ -166,41 +166,63 @@ public class Spreadsheet extends GenericPDF {
     public void contextMenu() {
         if (this.getListOfRoles().get(username).equals("OWNER")) {
             System.out.println("Select option (enter a number): ");
-            System.out.println("(1) Add a row to the sheet");
-            System.out.println("(2) Add a col to the sheet");
-            System.out.println("(3) Add text to a slide");
-            System.out.println("(4) Merge two Slide Decks");
-            System.out.println("(5) Split two Slide Decks");
-            System.out.println("(6) Swap slide order between 2 slides");
-            System.out.println("(8) Export Slide Deck as PDF");
-            System.out.println("(9) Export Slide Deck as HTML");
-            System.out.println("(10) Export Slide Deck as Word Document");
+            System.out.println("(1) Add a row/col to the sheet");
+            System.out.println("(2) Delete a row/col to the sheet");
+            System.out.println("(3) Add text to a cell");
+            System.out.println("(4) Merge two Spreadsheets");
+            System.out.println("(5) Split two Spreadsheets");
+            System.out.println("(6) Swap content between 2 cells");
+            System.out.println("(7) View content of a cell");
+            System.out.println("(8) Export Spreadsheet as PDF");
+            System.out.println("(9) Export Spreadsheet as HTML");
+            System.out.println("(10) Export Spreadsheet as Word Document");
             System.out.println("(11) Update User Roles");
         } else if (this.getListOfRoles().get(username).equals("EDITOR")) {
             System.out.println("Select option (enter a number): ");
-            System.out.println("(1) Add a slide");
-            System.out.println("(2) Delete a slide");
-            System.out.println("(3) Add text to a slide");
-            System.out.println("(4) Merge two Slide Decks");
-            System.out.println("(5) Split two Slide Decks");
-            System.out.println("(6) Swap slide order between 2 slides");
-            System.out.println("(8) Export Slide Deck as PDF");
-            System.out.println("(9) Export Slide Deck as HTML");
-            System.out.println("(10) Export Slide Deck as Word Document");
+            System.out.println("(1) Add a row/col to the sheet");
+            System.out.println("(2) Delete a row/col to the sheet");
+            System.out.println("(3) Add text to a cell");
+            System.out.println("(4) Merge two Spreadsheets");
+            System.out.println("(5) Split two Spreadsheets");
+            System.out.println("(6) Swap content between 2 cells");
+            System.out.println("(7) View content of a cell");
+            System.out.println("(8) Export Spreadsheet as PDF");
+            System.out.println("(9) Export Spreadsheet as HTML");
+            System.out.println("(10) Export Spreadsheet as Word Document");
         } else if (this.getListOfRoles().get(username).equals("COMMENTER")) {
             System.out.println("Select option (enter a number): ");
             System.out.println("(1) Add comment to the last cell");
-            System.out.println("(2) Export Slide Deck as PDF");
-            System.out.println("(3) Export Slide Deck as HTML");
-            System.out.println("(4) Export Slide Deck as Word Document");
+            System.out.println("(2) Export Spreadsheet as PDF");
+            System.out.println("(3) Export Spreadsheet as HTML");
+            System.out.println("(4) Export Spreadsheet as Word Document");
         } else // User role is: VIEWER
         {
             System.out.println("Select option (enter a number): ");
-            System.out.println("(1) Export spreadsheet as PDF");
-            System.out.println("(2) Export spreadsheet as HTML");
-            System.out.println("(3) Export spreadsheet as Word Document");
+            System.out.println("(1) Export Spreadsheet as PDF");
+            System.out.println("(2) Export Spreadsheet as HTML");
+            System.out.println("(3) Export Spreadsheet as Word Document");
         }
     }
+
+    public void editCell(String newText, int rowNumber, int colNumber)
+    {
+        if (this.getMatrix() != null)
+        {
+            String existingText = this.getMatrix()[rowNumber][colNumber]; // Fetch the current existing text at specified slide number.
+           
+            if (existingText == null) 
+                existingText = ""; // If the cell is empty, define it as an empty string to be appended to.
+
+            this.getMatrix()[rowNumber][colNumber] = existingText.concat(newText); // Append the new text with the existing text, then insert this at the specified cell.
+           
+            System.out.println("New text appended to row " + rowNumber + ", column " + colNumber + " successfully!");
+        }
+    }
+
+    public String[][] getMatrix() {
+        return this.matrix;
+    }
+
         @Override
         public String toString() {
 
