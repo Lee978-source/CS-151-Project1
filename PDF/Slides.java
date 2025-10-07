@@ -134,7 +134,7 @@ public class Slides extends GenericPDF {
         sequence = seqBuilder.toString();
      }*/
     @Override
-    public void merge(Slides otherSlides) {
+    public void merge(GenericPDF otherSlides) {
         if (otherSlides == null) {
             System.out.println("Cannot merge with null Slides :(");
             return;
@@ -145,8 +145,8 @@ public class Slides extends GenericPDF {
         }
         int originalSlideCount = this.slideCount;
 
-        this.slideCount += otherSlides.slideCount;
-        this.sequence.addAll(otherSlides.sequence);
+        this.slideCount += ((Slides) otherSlides).slideCount;
+        this.sequence.addAll(((Slides) otherSlides).sequence);
 
         System.out.println("Original slide count: " + originalSlideCount);
         System.out.println("Merged slide count: " + this.slideCount);
