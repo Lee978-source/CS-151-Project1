@@ -40,7 +40,19 @@ public class Main {
         	
         	switch (option)
         	{
-        		case 1, 2, 3: // Create a PDF file. 
+        		case 1: // Create a PDF file. 
+        			System.out.println("Enter a new file name: "); 
+        			string = scan.nextLine(); // fileName. 
+        			acc.createOption(option, string); 
+        			acc.accountMenu(); // Call user account menu. 
+        			break;
+				case 2: // Create a PDF file. 
+        			System.out.println("Enter a new file name: "); 
+        			string = scan.nextLine(); // fileName. 
+        			acc.createOption(option, string); 
+        			acc.accountMenu(); // Call user account menu. 
+        			break;
+				case 3: // Create a PDF file. 
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
         			acc.createOption(option, string); 
@@ -115,7 +127,10 @@ public class Main {
         			}
         			acc.accountMenu(); // Call user account menu. 
         			break;
-        		case 5, 6: // View Drive contents. 
+        		case 5: // View Drive contents. 
+        			acc.viewDriveOption(option); 
+        			break;
+				case 6: // View Drive contents. 
         			acc.viewDriveOption(option); 
         			break;
         		case 7: // View Inbox Emails. 
