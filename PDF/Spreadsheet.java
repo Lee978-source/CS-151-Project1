@@ -44,9 +44,30 @@ public class Spreadsheet extends GenericPDF {
         this.matrix = newMatrix;
     }
 
-    public void deleteCell(int r, int c) {
-        if (in(r, c)) { matrix[r][c] = null; System.out.println("Cleared ("+r+","+c+")"); }
-        else System.out.println("Out of bounds");
+    public void deleteRow() {
+        String[][] newMatrix = new String[this.rows -= 1][this.cols];
+        for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
+        {
+            for (int col = 0; col < this.matrix[0].length; col++)
+            {
+                newMatrix[row][col] = this.matrix[row][col];
+            }
+        }
+
+        this.matrix = newMatrix;
+    }
+
+    public void deleteCol() {
+        String[][] newMatrix = new String[this.rows][this.cols -= 1];
+        for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
+        {
+            for (int col = 0; col < this.matrix[0].length; col++)
+            {
+                newMatrix[row][col] = this.matrix[row][col];
+            }
+        }
+
+        this.matrix = newMatrix;
     }
 
     public String viewCell(int r, int c) {
