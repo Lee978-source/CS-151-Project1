@@ -13,8 +13,8 @@ public class Spreadsheet extends GenericPDF {
 
     public Spreadsheet(String username, String email, String role) {
         super(username, email, role);
-        this.rows = Math.min(rows, 10);   // limit size
-        this.cols = Math.min(cols, 10);
+        this.rows = 10;   // limit size
+        this.cols = 10;
         this.matrix = new String[this.rows][this.cols];
     }
 
@@ -113,7 +113,7 @@ public class Spreadsheet extends GenericPDF {
         {
             for (int col = 0; col < this.cols; col++)
             {
-                newMatrix[this.rows+row][this.cols+col] = this.matrix[row][col];
+                newMatrix[this.rows+row-1][this.cols+col-1] = this.matrix[row][col];
             }
         }
 
@@ -163,10 +163,8 @@ public class Spreadsheet extends GenericPDF {
         return newSheet;
     }
     @Override
-    public void contextMenu()
-    {
-        if (this.getListOfRoles().get(username).equals("OWNER"))
-        {
+    public void contextMenu() {
+        if (this.getListOfRoles().get(username).equals("OWNER")) {
             System.out.println("Select option (enter a number): ");
             System.out.println("(1) Add a row to the sheet");
             System.out.println("(2) Add a col to the sheet");
@@ -178,10 +176,7 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(9) Export Slide Deck as HTML");
             System.out.println("(10) Export Slide Deck as Word Document");
             System.out.println("(11) Update User Roles");
-        }
-
-        else if (this.getListOfRoles().get(username).equals("EDITOR"))
-        {
+        } else if (this.getListOfRoles().get(username).equals("EDITOR")) {
             System.out.println("Select option (enter a number): ");
             System.out.println("(1) Add a slide");
             System.out.println("(2) Delete a slide");
@@ -192,27 +187,46 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(8) Export Slide Deck as PDF");
             System.out.println("(9) Export Slide Deck as HTML");
             System.out.println("(10) Export Slide Deck as Word Document");
-        }
-
-        else if (this.getListOfRoles().get(username).equals("COMMENTER"))
-        {
+        } else if (this.getListOfRoles().get(username).equals("COMMENTER")) {
             System.out.println("Select option (enter a number): ");
             System.out.println("(1) Add comment to the last cell");
             System.out.println("(2) Export Slide Deck as PDF");
             System.out.println("(3) Export Slide Deck as HTML");
             System.out.println("(4) Export Slide Deck as Word Document");
-        }
-
-        else // User role is: VIEWER
+        } else // User role is: VIEWER
         {
             System.out.println("Select option (enter a number): ");
             System.out.println("(1) Export spreadsheet as PDF");
             System.out.println("(2) Export spreadsheet as HTML");
             System.out.println("(3) Export spreadsheet as Word Document");
         }
+    }
+        @Override
+        public String toString() {
+
+
+                for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
+                {
+                    for (int col = 0; col < this.matrix[0].length; col++)
+                    {
+                        System.out.print(this.matrix[row][col] + ", ");
+                    }
+                    System.out.println();
+                }
+            return "SpreadSheets{" +
+                "RowCount=" + this.rows +
+                ", ColumnCount='" + this.cols + '\'' +
+                ", username='" + getUsername() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", role='" + getRole() + '\'' +
+                '}';
+    }
 
     @Override public void exportAsPDF()      { System.out.println("Exporting sheet as PDF"); }
-    @Override public void exportAsHTML()     { System.out.println("Ex";}
+    @Override public void exportAsHTML()     { System.out.println("Ex");}
+    @Override public void exportAsWordDoc()     { System.out.println("Ex");}
+
+
 
 }
 
