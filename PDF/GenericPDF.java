@@ -30,7 +30,7 @@ public abstract class GenericPDF implements Exportable {
         this.roles.put(this.getUsername(), this.getRole()); 
      }
 
-     public abstract void merge(GenericPDF file1, GenericPDF file2);
+     public abstract void merge(GenericPDF file1);
      public abstract GenericPDF split(int splitIndex);     
      public abstract void contextMenu();
 
