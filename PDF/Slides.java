@@ -155,18 +155,14 @@ public class Slides extends GenericPDF {
                System.out.println("Cannot merge with null Slides :(");
                return;
            }
-
-
           
-
-
        if (!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
            System.out.println("You do not have permission to merge slides.");
            return;
        }
        int originalSlideCount = this.slideCount;
        this.slideCount += otherSlides.slideCount;
-       this.sequence.add(other.sequence);
+       this.sequence.add(other.toString());
 
 
        System.out.println("Original slide count: " + originalSlideCount);
