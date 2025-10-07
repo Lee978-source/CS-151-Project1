@@ -3,7 +3,7 @@
  * @version 1.0
  * CS151 Fall 2025 - Project 1
  */
-package PDF; 
+package PDF;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
 
     public DocPDF(String username, String email, String role, String textContent) {
         super(username, email, role);
+        this.textContent = textContent;
 
         if (textContent == null) {
             pages.add("");
@@ -37,8 +38,14 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
 
     public void addPageBreaker() {
-        pages.add("");
-        System.out.println("Page " + pages.size() + " created.");
+        if(pages.size() > 3) {
+            System.out.println("Max pages exceeded!" );
+        }
+        else {
+            pages.add("");
+            System.out.println("----------------------------------");
+            System.out.println("Page " + pages.size() + " created.");
+        }
     }
 
     public void deleteLatestPage() {
@@ -47,7 +54,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
             pages.remove(last);
         }
         else {
-            System.out.println("No pages to delete");
+            System.out.println("No pages to delete!");
         }
     }
 
@@ -67,7 +74,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
             if(page != null && !page.trim().isEmpty()) {
                 total += page.trim().length();
             }
-    }
+        }
         return total;
     }
 
@@ -85,30 +92,74 @@ public class DocPDF extends GenericPDF implements Exportable   {
             return false;
         }
     }
-
+    // abstract methods
     @Override
-    public void merge() {
-        System.out.println("Merging doc with another doc");
+    public void merge(GenericPDF file1) {
+
+
+
+
     }
 
     @Override
-    public void split() {
-        System.out.println("Splitting doc into separate doc");
+    public GenericPDF split(int splitIndex) {
+
+
+
+
     }
+
+    @Override
+    public void contextMenu() {
+
+        if (this.getListOfRoles().get(username).equals("OWNER")) {
+            System.out.println("\n--------------------------------------------------------------------------------");
+            System.out.println("Document Menu Options: \n");
+            System.out.println("(1) Create new page: \n");
+            System.out.println("(2) Add Text to Page: \n");
+            System.out.println("(3) Delete Page: \n");
+            System.out.println("(4) Find Word: \n");
+            System.out.println("(5) Get Word Count: \n");
+            System.out.println("(6) Get Char Count: \n");
+            System.out.println("(7) Get Page Count: \n");
+            System.out.println("(8) Export Slide Deck as PDF");
+            System.out.println("(9) Export Slide Deck as HTML");
+            System.out.println("(10) Export Slide Deck as Word Document");
+            System.out.println("(11) Update User Roles");
+            System.out.println("\n--------------------------------------------------------------------------------");
+        }
+        else if (this.getListOfRoles().get(username).equals("EDITOR")) {
+            System.out.println("\n--------------------------------------------------------------------------------");
+            System.out.println("Document Menu Options: \n");
+            System.out.println("(1) Create new page: \n");
+            System.out.println("(2) Add Text to Page: \n");
+            System.out.println("(3) Delete Page: \n");
+            System.out.println("(4) Find Word: \n");
+            System.out.println("(5) Get Word Count: \n");
+            System.out.println("(6) Get Char Count: \n");
+            System.out.println("(7) Get Page Count: \n");
+            System.out.println("(8) Export Slide Deck as PDF");
+            System.out.println("(9) Export Slide Deck as HTML");
+            System.out.println("(10) Export Slide Deck as Word Document");
+            System.out.println("\n--------------------------------------------------------------------------------");
+        }
+
+    }
+
 
     @Override
     public void exportAsPDF() {
-        System.out.println("Exporting slides as PDF");
+        System.out.println("Exporting Doc as PDF");
     }
 
     @Override
     public void exportAsHTML() {
-        System.out.println("Exporting slides as HTML");
+        System.out.println("Exporting Doc as HTML");
     }
 
     @Override
     public void exportAsWordDoc() {
-        System.out.println("Exporting slides as Word Document");
+        System.out.println("Exporting Doc as Word Document");
     }
 
 
