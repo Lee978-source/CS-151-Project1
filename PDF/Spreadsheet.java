@@ -5,11 +5,11 @@
      */
     package PDF;
      
-    public static class Spreadsheet extends GenericPDF {
+    public class Spreadsheet extends GenericPDF {
         private final int rows, cols;
         private final String[][] matrix;
 
-        public Spreadsheet(String username, String email, String role, int rows, int cols) {
+        public Spreadsheet(String username, String email, String role) {
             super(username, email, role);
             this.rows = Math.min(rows, 10);   // limit size
             this.cols = Math.min(cols, 10);
@@ -39,8 +39,8 @@
 
         private boolean in(int r, int c) { return r>=0 && r<rows && c>=0 && c<cols; }
 
-        @Override public void merge()            { System.out.println("Merging spreadsheets"); }
-        @Override public void split()            { System.out.println("Splitting spreadsheet"); }
+        @Override public void merge(GenericPDF file1, GenericPDF file2)            { System.out.println("Merging spreadsheets"); }
+        @Override public GenericPDF split(int splitIndex)            { System.out.println("Splitting spreadsheet"); return null;}
         @Override public void exportAsPDF()      { System.out.println("Exporting sheet as PDF"); }
         //@Override public void exportAsHTML()     { System.out.println("Ex";}
 
