@@ -104,13 +104,21 @@ public class Slides extends GenericPDF {
         }
      }
 
-     public void swapSlideOrder() { // Still need to properly implement. 
-        if (slideCount >= 2) {
-            System.out.println("Slide order swapped.");
-        } else {
-            System.out.println("Not enough slides to swap.");
-        }
+     public void swapSlideOrder(int firstIndex, int secondIndex) {
+        if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
+            System.out.println("Invalid slide indices.");
+            return;
+        } if (firstIndex == secondIndex) {
+            System.out.println("No swap needed; indices are the same.");
+            return;
      }
+     String temp = sequence.get(firstIndex);
+     String temp2 = sequence.get(secondIndex);
+        sequence.set(firstIndex, temp2);
+        sequence.set(secondIndex, temp);
+        System.out.println("Swapped slides at indices " + firstIndex + " and " + secondIndex);
+    }
+
      public void addHashTag(String tag) {
         System.out.println("Hashtag '" + tag + "' added to the slides.");
      }
