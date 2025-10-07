@@ -153,7 +153,6 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(4) Merge two Slide Decks");
             System.out.println("(5) Split two Slide Decks");
             System.out.println("(6) Swap slide order between 2 slides");
-            //System.out.println("(7) Add a Hashtag to your slides");
             System.out.println("(8) Export Slide Deck as PDF");
             System.out.println("(9) Export Slide Deck as HTML");
             System.out.println("(10) Export Slide Deck as Word Document");
@@ -169,7 +168,6 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(4) Merge two Slide Decks");
             System.out.println("(5) Split two Slide Decks");
             System.out.println("(6) Swap slide order between 2 slides");
-            //System.out.println("(7) Add a Hashtag to your slides");
             System.out.println("(8) Export Slide Deck as PDF");
             System.out.println("(9) Export Slide Deck as HTML");
             System.out.println("(10) Export Slide Deck as Word Document");
