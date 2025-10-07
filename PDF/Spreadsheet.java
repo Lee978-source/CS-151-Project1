@@ -32,12 +32,12 @@ public class Spreadsheet extends GenericPDF {
     }
 
     public void addCol() {
-        String[][] newMatrix = new String[this.rows += 1][this.cols];
-        for (int col = 0; col < this.matrix.length; col++) // Old content from OG sheet has the same indices.
+        String[][] newMatrix = new String[this.rows][this.cols += 1];
+        for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
         {
-            for (int row = 0; row < this.matrix[0].length; row++)
+            for (int col = 0; col < this.matrix[0].length; col++)
             {
-                newMatrix[col][row] = this.matrix[col][row];
+                newMatrix[row][col] = this.matrix[row][col];
             }
         }
 
@@ -147,8 +147,10 @@ public class Spreadsheet extends GenericPDF {
         if (this.getListOfRoles().get(username).equals("OWNER"))
         {
             System.out.println("Select option (enter a number): ");
-            System.out.println("(1) Add row to a sheet");
-            System.out.println("(4) Add col to a sheet");
+            System.out.println("(1) Add a row to the sheet");
+            System.out.println("(2) Add a col to the sheet");
+            System.out.println("(3) Add text to a slide");
+            System.out.println("(4) Merge two Slide Decks");
             System.out.println("(5) Split two Slide Decks");
             System.out.println("(6) Swap slide order between 2 slides");
             System.out.println("(7) Add a Hashtag to your slides");
