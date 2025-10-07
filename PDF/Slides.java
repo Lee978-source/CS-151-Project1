@@ -77,7 +77,7 @@ public class Slides extends GenericPDF {
         }
     }
    
-    public void editText(String newText, int slideNumber)
+    public void editSlides(String newText, int slideNumber)
     {
         if (this.getSequence() != null)
         {
@@ -126,7 +126,7 @@ public class Slides extends GenericPDF {
    }
 
 
-    public void addHashTag(String tag) {
+    /*public void addHashTag(String tag) {
        System.out.println("Hashtag '" + tag + "' added to the slides.");
     }
 /*
@@ -150,11 +150,11 @@ public class Slides extends GenericPDF {
            }
            Slides otherSlides = (Slides) other;
 
-
+/* 
        if (otherSlides == null) {
                System.out.println("Cannot merge with null Slides :(");
                return;
-           }
+           }*/
           
        if (!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
            System.out.println("You do not have permission to merge slides.");
