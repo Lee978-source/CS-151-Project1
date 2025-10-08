@@ -11,6 +11,24 @@ public class Spreadsheet extends GenericPDF {
     private int rows, cols;
     private String[][] matrix;
 
+    // Getters
+    public int getRows() { return this.rows; }
+    public int getCols() { return this.cols; }
+
+
+    //Setters
+    public void setRows(int newRows) {
+        if (newRows <= 0) throw new IllegalArgumentException("rows must be > 0");
+        this.rows = newRows;
+        this.matrix = new String[this.rows][this.cols]; // clears all data
+    }
+
+    public void setCols(int newCols) {
+        if (newCols <= 0) throw new IllegalArgumentException("cols must be > 0");
+        this.cols = newCols;
+        this.matrix = new String[this.rows][this.cols]; // clears all data
+    }
+
     public Spreadsheet(String username, String email, String role) {
         super(username, email, role);
         this.rows = 10;   // limit size
