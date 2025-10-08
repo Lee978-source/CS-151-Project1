@@ -100,18 +100,29 @@ public class Slides extends GenericPDF {
 
 
     public void deleteSlide(int slideNumber){
-       if(slideCount > 0){
+       /*if(slideCount > 0){
            slideCount--;
            this.getSequence().remove(slideNumber);
            System.out.println("Slide deleted. Total slides: " + slideCount);
        } else {
            System.out.println("No slides to delete!");
-       }
+       }*/
+      
+         // Enhanced error handling with exceptions
+       if (slideCount == 0 ) {
+        throw new SlideException("No slides to delete!");
+    }
+    if (slideNumber < 0 || slideNumber >= slideCount) {
+        throw new SlideException("Invalid slide number!");
+    }
+    slideCount--;
+    sequence.remove(slideNumber);
+    System.out.println("Slide deleted. Total slides: " + slideCount);
     }
 
 
     public void swapSlideOrder(int firstIndex, int secondIndex) {
-       if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
+       /*if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
            System.out.println("Invalid slide indices.");
            return;
        } if (firstIndex == secondIndex) {
@@ -122,8 +133,21 @@ public class Slides extends GenericPDF {
     String temp2 = sequence.get(secondIndex);
        sequence.set(firstIndex, temp2);
        sequence.set(secondIndex, temp);
-       System.out.println("Swapped slides at indices " + firstIndex + " and " + secondIndex);
+       System.out.println("Swapped slides at indices " + firstIndex + " and " + secondIndex);*/
+
+       // Enhanced error handling with exceptions
+        if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
+          throw new SlideException("Invalid slide indices.");
    }
+        if (firstIndex == secondIndex) {
+          throw new SlideException("No swap needed; indices are the same :)");
+        }
+        String temp = sequence.get(firstIndex);
+        String temp2 = sequence.get(secondIndex);
+        sequence.set(firstIndex, temp2);
+        sequence.set(secondIndex, temp);
+        System.out.println("Swapped slides at indices " + firstIndex + " and " + secondIndex);
+}
 
 
     /*public void addHashTag(String tag) {
@@ -250,6 +274,12 @@ public class Slides extends GenericPDF {
                ", email='" + getEmail() + '\'' +
                ", role='" + getRole() + '\'' +
                '}';
+   }
+   
+   public class SlideException extends RuntimeException {
+       public SlideException(String message) {
+           super(message);
+       }
    }
 }
 
