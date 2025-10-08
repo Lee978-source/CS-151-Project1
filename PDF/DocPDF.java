@@ -36,6 +36,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
         // update text content
         this.textContent = String.join(" ", this.pages).trim();
 
+        // print confirmation
         System.out.println("Added text to page " + (last + 1));
     }
 
