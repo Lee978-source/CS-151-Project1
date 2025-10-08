@@ -12,16 +12,9 @@ public class DocPDF extends GenericPDF implements Exportable   {
     private String textContent;
     private List<String> pages = new ArrayList<>();
 
-
-    public DocPDF(String username, String email, String role, String textContent) {
+    public DocPDF(String username, String email, String role) {
         super(username, email, role);
-        this.textContent = textContent;
-
-        if (textContent == null) {
-            pages.add("");
-        } else {
-            pages.add(textContent);
-        }
+        this.textContent = "";
     }
 
     public String getText() {
@@ -33,30 +26,48 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
 
     public void addTextToCurrPage(String text) {
+        if (pages.isEmpty()) {
+            pages.add("");
+        }
         int last = pages.size() - 1;
-        pages.set(last, pages.get(last) + " " + text);
+        String current = pages.get(last);
+        pages.set(last, current + " " + text);
+
+        // update text content
+        this.textContent = String.join(" ", this.pages).trim();
+
+        System.out.println("Added text to page " + (last + 1));
     }
 
     public void addPageBreaker() {
-        if(pages.size() > 3) {
-            System.out.println("Max pages exceeded!" );
-        }
-        else {
+
+
             pages.add("");
             System.out.println("----------------------------------");
             System.out.println("Page " + pages.size() + " created.");
-        }
+            this.textContent = String.join(" ", this.pages).trim();
+
     }
 
     public void deleteLatestPage() {
-        if (!pages.isEmpty()) {
-            int last = pages.size() - 1;
-            pages.remove(last);
+        // checks if the current page is empty
+        if (pages.isEmpty()) {
+            throw new IllegalStateException("Cannot delete page! Document has no pages to delete.");
         }
-        else {
-            System.out.println("No pages to delete!");
+
+        // find the index of the last page in the list
+        int last = pages.size() - 1;
+        pages.remove(last);
+
+        if (pages.isEmpty()) {
+            this.textContent = "";
+        } else {
+            // updates the text content to match after deleting the latest page
+            this.textContent = String.join(" ", this.pages).trim();
         }
+        System.out.println("Deleted page " + (last + 1) + ". Remaining pages: " + pages.size());
     }
+
 
     public int getWordCount() {
         int total = 0;
@@ -94,7 +105,21 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
     // abstract methods
     @Override
-    public void merge(GenericPDF file1) {
+    public void merge(GenericPDF otherDoc) {
+        if(otherDoc == null) {
+            System.out.println("Cannot merge with null document :(");
+            return;
+        }
+        if(!(otherDoc instanceof DocPDF)) {
+            System.out.println("Cannot merge: incompatible type" + otherDoc.getClass().getTypeName());
+            return;
+        }
+        if(!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
+            System.out.println("You do not have permission to merge document.");
+
+        }
+
+
 
 
 
@@ -104,9 +129,48 @@ public class DocPDF extends GenericPDF implements Exportable   {
     @Override
     public GenericPDF split(int splitIndex) {
 
+        // checks if the split is valid
+        if (splitIndex <= 0 || splitIndex >= this.getPageCount()) {
+            System.out.println("Invalid split index." + (this.getPageCount() - 1));
+            return null;
+        }
+
+        // creating new document object
+        DocPDF newDoc = new DocPDF(this.username, this.email, this.role);
+        newDoc.pages.clear();
+
+        // copy everything from the original document from the index to the end
+        // and add them to a list
+        List<String> newPages = new ArrayList<>(this.pages.subList(splitIndex, this.pages.size()));
+
+        // add the new pages to the new document
+        newDoc.pages.addAll(newPages);
+
+        // remove the pages from the original document
+        this.pages.subList(splitIndex, this.pages.size()).clear();
 
 
+        // if new document has no pages, add an empty string to textContent
+        if (this.pages.isEmpty()) {
+            this.textContent = "";
+            // takes the content of the page and put it together in textContent
+        } else {
+            this.textContent = String.join(" ", this.pages).trim();
+        }
 
+        if (newDoc.pages.isEmpty()) {
+            newDoc.textContent = "";
+        } else {
+            newDoc.textContent = String.join(" ", newDoc.pages).trim();
+        }
+
+        // prints out success split with page count for each document
+        System.out.println("Split at index " + splitIndex
+                + " -> this doc has " + this.getPageCount() + " pages"
+                + ", new doc has " + newDoc.getPageCount() + " pages.");
+
+        // returns the new document
+        return newDoc;
     }
 
     @Override
@@ -143,9 +207,15 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("(10) Export Slide Deck as Word Document");
             System.out.println("\n--------------------------------------------------------------------------------");
         }
+        else {
+            // viewer
+            System.out.println("Document Menu Options: \n");
+            System.out.println("(1) Export spreadsheet as PDF");
+            System.out.println("(2) Export spreadsheet as HTML");
+            System.out.println("(3) Export spreadsheet as Word Document");
+        }
 
     }
-
 
     @Override
     public void exportAsPDF() {
@@ -165,7 +235,8 @@ public class DocPDF extends GenericPDF implements Exportable   {
 
     @Override
     public String toString() {
-        return "GenericPDF{" +
+        return "DocPDF{" +
+                "Text Content: " + this.textContent + '\'' +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", PDF Text='" + textContent + '\'' +
