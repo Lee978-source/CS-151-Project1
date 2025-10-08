@@ -107,17 +107,20 @@ public class Slides extends GenericPDF {
        } else {
            System.out.println("No slides to delete!");
        }*/
-      
+
          // Enhanced error handling with exceptions
-       if (slideCount == 0 ) {
-        throw new SlideException("No slides to delete!");
-    }
-    if (slideNumber < 0 || slideNumber >= slideCount) {
-        throw new SlideException("Invalid slide number!");
-    }
-    slideCount--;
-    sequence.remove(slideNumber);
-    System.out.println("Slide deleted. Total slides: " + slideCount);
+        try {
+             if (slideCount == 0 ) {
+                 throw new SlideException("No slides to delete!");
+             }
+             if (slideNumber < 0 || slideNumber >= slideCount) {
+                 throw new SlideException("Invalid slide number!");
+             }
+         } catch (SlideException e) {
+             System.out.println(e.getMessage());
+             return;
+         }
+            slideCount--;
     }
 
 
@@ -136,18 +139,24 @@ public class Slides extends GenericPDF {
        System.out.println("Swapped slides at indices " + firstIndex + " and " + secondIndex);*/
 
        // Enhanced error handling with exceptions
-        if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
-          throw new SlideException("Invalid slide indices.");
-   }
-        if (firstIndex == secondIndex) {
-          throw new SlideException("No swap needed; indices are the same :)");
+        try {
+            if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
+                throw new SlideException("Invalid slide indices!");
+            }
+            if (firstIndex == secondIndex) {
+                throw new SlideException("No swap needed; indices are the same :)");
+            }
+        } catch (SlideException e) {
+            System.out.println(e.getMessage());
+            return;
         }
+
         String temp = sequence.get(firstIndex);
         String temp2 = sequence.get(secondIndex);
         sequence.set(firstIndex, temp2);
         sequence.set(secondIndex, temp);
         System.out.println("Swapped slides at indices " + firstIndex + " and " + secondIndex);
-}
+    }
 
 
     /*public void addHashTag(String tag) {
@@ -184,6 +193,7 @@ public class Slides extends GenericPDF {
            System.out.println("You do not have permission to merge slides.");
            return;
        }
+
        int originalSlideCount = this.slideCount;
        this.slideCount += otherSlides.slideCount;
        this.sequence.add(other.toString());
@@ -201,7 +211,6 @@ public class Slides extends GenericPDF {
            System.out.println("Invalid split index." + (this.slideCount - 1));
            return null;
        }
-
 
         Slides newSlides = new Slides(this.username, this.email, this.role);
       
@@ -222,20 +231,17 @@ public class Slides extends GenericPDF {
         return newSlides;
    }
 
-
    @Override
    public void exportAsPDF() {
        System.out.println("Exporting slides as PDF");
    }
-
 
    @Override
    public void exportAsHTML() {
        System.out.println("Exporting slides as HTML");
    }
 
-
-   @Override
+    @Override
    public void exportAsWordDoc() {
        System.out.println("Exporting slides as Word Document");
    }
