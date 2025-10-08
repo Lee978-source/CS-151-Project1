@@ -28,12 +28,12 @@ public class Drive {
 
     /** Method to create a PDF: */
     public void createPDF(int option, String fileName, String username, String email) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
-/*
+/* 
         if (option == 1) // Option 1: create document.
         {
         	if (this.docsFiles.size() < MAX_DOCS) // Check to ensure we have capacity. 
         	{
-        		DocPDF doc = new DocPDF(); // Create a new Doc object. 
+        		DocPDF doc = new DocPDF(username, email, "OWNER"); // Create a new Doc object. 
 	            this.docsFiles.put(fileName, doc); // Add the new Doc object to the docs HashMap, using the file name as the key.
         
         	}
@@ -59,12 +59,12 @@ public class Drive {
         		System.out.println("Error! Max capacity reached for Slides! Delete existing Slide files to create a new one!");
         	}
         }
-  /*      
+        
         else if (option == 3) // Option 3: create spreadsheet.
         {
         	if (this.spreadsheetsFiles.size() < MAX_SPREADSHEETS) // Check to ensure we have capacity.
         	{
-	            Spreadsheet sheets = new Spreadsheet(); // Create a new Spreadsheet object.
+	            Spreadsheet sheets = new Spreadsheet(username, email, "OWNER"); // Create a new Spreadsheet object.
 	            this.spreadsheetsFiles.put(fileName, sheets); // Add the new Spreadsheet object to the spreadsheets HashMap, using the file name as the key.
         
         	}
@@ -73,7 +73,7 @@ public class Drive {
         	{
         		System.out.println("Error: Max capacity reached for Spreadsheets! Delete existing Spreadsheet files to create a new one!");
         	}
-        }*/
+        }
     }
 
     /** Method to delete a PDF: */
@@ -126,6 +126,7 @@ public class Drive {
     	{
     		DocPDF document = docsFiles.get(fileName); 
     		System.out.println(document.toString());
+			document.contextMenu(); // Call method to print user actions for the Slide Deck.
     		return document;
     	}
     	
@@ -141,6 +142,7 @@ public class Drive {
     	{
     		Spreadsheet sheet = spreadsheetsFiles.get(fileName); 
     		System.out.println(sheet.toString());
+			sheet.contextMenu(); // Call method to print user actions for the Slide Deck.
     		return sheet;
     	}
     	
