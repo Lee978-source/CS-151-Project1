@@ -78,7 +78,18 @@ public class Main {
         				
         				else if (PDF instanceof Spreadsheet)
         				{
-        					
+							System.out.println("Enter 1 to add a new row. Enter 2 to add a new column. Enter a number: "); 
+        					editOption = scan.nextInt(); 
+
+							if (editOption == 1)
+							{
+								((Spreadsheet) PDF).addRow(); // Add a new row to the sheet if the user entered 1. 
+							}
+
+							else if (editOption == 2)
+							{
+								((Spreadsheet) PDF).addCol(); // Add a new column to the sheet if the user entered 2. 
+							}
         				}
         			}
         			
@@ -99,7 +110,19 @@ public class Main {
         				
         				else if (PDF instanceof Spreadsheet)
         				{
-        					
+        					System.out.println("Enter 1 to delete a row. Enter 2 to delete a column. Enter a number: "); 
+        					editOption = scan.nextInt(); 
+							scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+
+							if (editOption == 1)
+							{
+								((Spreadsheet) PDF).deleteRow(); // Add a new row to the sheet if the user entered 1. 
+							}
+
+							else if (editOption == 2)
+							{
+								((Spreadsheet) PDF).deleteCol(); // Add a new column to the sheet if the user entered 2. 
+							}
         				}
         			}
         			
@@ -117,12 +140,20 @@ public class Main {
         					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
         					System.out.println("Enter the text that you would like to append to the slide: "); 
         					string = scan.nextLine(); 
-        					((Slides) PDF).editText(string, editOption); 
+        					((Slides) PDF).editSlides(string, editOption); 
         				}
         				
         				else if (PDF instanceof Spreadsheet)
         				{
-        					
+        					System.out.println("What row number would you like to add text to? Enter a number: "); 
+        					editOption = scan.nextInt(); 
+							scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+							System.out.println("What column number would you like to add text to? Enter a number: ");
+							int editOption2 = scan.nextInt(); 
+        					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+        					System.out.println("Enter the text that you would like to append to the slide: "); 
+        					string = scan.nextLine(); 
+        					((Spreadsheet) PDF).editCell(string, editOption, editOption2); 
         				}
         			}
         			acc.accountMenu(); // Call user account menu. 
