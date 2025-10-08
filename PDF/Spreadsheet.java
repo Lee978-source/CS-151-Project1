@@ -89,7 +89,11 @@ public class Spreadsheet extends GenericPDF {
     }
 
     public String viewCell(int r, int c) {
-        return in(r, c) ? String.valueOf(matrix[r][c]) : "Out of bounds";
+        try {
+            return matrix[r][c];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Out of bounds";
+        }
     }
 
     public void swapCells(int r1, int c1, int r2, int c2) {
