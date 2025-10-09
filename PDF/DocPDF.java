@@ -51,22 +51,30 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
 
     public void deleteLatestPage() {
-        // checks if the current page is empty
-        if (pages.isEmpty()) {
-            throw new IllegalStateException("Cannot delete page! Document has no pages to delete.");
-        }
+        // checks if the current page is empty, throw exception if no page
+        try {
+            if (pages.isEmpty()) {
+                throw new IllegalStateException("Cannot delete page! Document has no pages to delete.");
+            }
 
-        // find the index of the last page in the list
-        int last = pages.size() - 1;
-        pages.remove(last);
+            // find the index of the last page in the list
+            int last = pages.size() - 1;
+            pages.remove(last);
 
-        if (pages.isEmpty()) {
-            this.textContent = "";
-        } else {
-            // updates the text content to match after deleting the latest page
-            this.textContent = String.join(" ", this.pages).trim();
+            if (pages.isEmpty()) {
+                this.textContent = "";
+            } else {
+                // updates the text content to match after deleting the latest page
+                this.textContent = String.join(" ", this.pages).trim();
+            }
+            System.out.println("Deleted page " + (last + 1) + ". Remaining pages: " + pages.size());
+
+        } catch(IllegalStateException e) {
+            System.err.println("Error: " + e.getMessage());
+            // if error wasn't caught, try general exception
+        } catch(Exception e) {
+            System.err.println("Uh oh! Something unexpected happened while deleting page: " + e.getMessage());
         }
-        System.out.println("Deleted page " + (last + 1) + ". Remaining pages: " + pages.size());
     }
 
 
@@ -95,7 +103,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
 
     public boolean findWord(String word) {
-        if(textContent != null && textContent.contains(word)) {
+        if(textContent != null && textContent.contains(word)) { // if textContent is there and contains word, print true
             System.out.println("Word found: " + word);
             return true;
         }
@@ -119,8 +127,6 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("You do not have permission to merge document.");
 
         }
-
-
 
 
 
@@ -151,7 +157,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
         this.pages.subList(splitIndex, this.pages.size()).clear();
 
 
-        // if new document has no pages, add an empty string to textContent
+        // if old list has no pages, add an empty string to textContent
         if (this.pages.isEmpty()) {
             this.textContent = "";
             // takes the content of the page and put it together in textContent
@@ -179,38 +185,38 @@ public class DocPDF extends GenericPDF implements Exportable   {
 
         if (this.getListOfRoles().get(username).equals("OWNER")) {
             System.out.println("\n--------------------------------------------------------------------------------");
-            System.out.println("Document Menu Options: \n");
-            System.out.println("(1) Create new page: \n");
-            System.out.println("(2) Add Text to Page: \n");
-            System.out.println("(3) Delete Page: \n");
-            System.out.println("(4) Find Word: \n");
-            System.out.println("(5) Get Word Count: \n");
-            System.out.println("(6) Get Char Count: \n");
-            System.out.println("(7) Get Page Count: \n");
+            System.out.println("Document Menu Options: ");
+            System.out.println("(1) Create new page: ");
+            System.out.println("(2) Add Text to Page: ");
+            System.out.println("(3) Delete Page: ");
+            System.out.println("(4) Find Word: ");
+            System.out.println("(5) Get Word Count: ");
+            System.out.println("(6) Get Char Count: ");
+            System.out.println("(7) Get Page Count: ");
             System.out.println("(8) Export Slide Deck as PDF");
             System.out.println("(9) Export Slide Deck as HTML");
             System.out.println("(10) Export Slide Deck as Word Document");
             System.out.println("(11) Update User Roles");
-            System.out.println("\n--------------------------------------------------------------------------------");
+            System.out.println("--------------------------------------------------------------------------------");
         }
         else if (this.getListOfRoles().get(username).equals("EDITOR")) {
-            System.out.println("\n--------------------------------------------------------------------------------");
-            System.out.println("Document Menu Options: \n");
-            System.out.println("(1) Create new page: \n");
-            System.out.println("(2) Add Text to Page: \n");
-            System.out.println("(3) Delete Page: \n");
-            System.out.println("(4) Find Word: \n");
-            System.out.println("(5) Get Word Count: \n");
-            System.out.println("(6) Get Char Count: \n");
-            System.out.println("(7) Get Page Count: \n");
+            System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("Document Menu Options: ");
+            System.out.println("(1) Create new page: ");
+            System.out.println("(2) Add Text to Page: ");
+            System.out.println("(3) Delete Page: ");
+            System.out.println("(4) Find Word: ");
+            System.out.println("(5) Get Word Count: ");
+            System.out.println("(6) Get Char Count: ");
+            System.out.println("(7) Get Page Count: ");
             System.out.println("(8) Export Slide Deck as PDF");
             System.out.println("(9) Export Slide Deck as HTML");
             System.out.println("(10) Export Slide Deck as Word Document");
-            System.out.println("\n--------------------------------------------------------------------------------");
+            System.out.println("--------------------------------------------------------------------------------");
         }
         else {
             // viewer
-            System.out.println("Document Menu Options: \n");
+            System.out.println("Document Menu Options: ");
             System.out.println("(1) Export spreadsheet as PDF");
             System.out.println("(2) Export spreadsheet as HTML");
             System.out.println("(3) Export spreadsheet as Word Document");
