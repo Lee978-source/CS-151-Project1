@@ -41,13 +41,10 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
 
     public void addPageBreaker() {
-
-
-            pages.add("");
-            System.out.println("----------------------------------");
-            System.out.println("Page " + pages.size() + " created.");
-            this.textContent = String.join(" ", this.pages).trim();
-
+        pages.add("");
+        System.out.println("----------------------------------");
+        System.out.println("Page " + pages.size() + " created.");
+        this.textContent = String.join(" ", this.pages).trim();
     }
 
     public void deleteLatestPage() {
@@ -125,12 +122,23 @@ public class DocPDF extends GenericPDF implements Exportable   {
         }
         if(!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
             System.out.println("You do not have permission to merge document.");
-
+            return;
         }
 
+        DocPDF docToMerge = (DocPDF) otherDoc;
 
+        int originalPageCount = this.getPageCount();
+        int newPageCount = docToMerge.getPageCount();
 
+        // merge all pages
+        this.pages.addAll(docToMerge.pages);
 
+        // merge all text from both docs
+        this.textContent = String.join(" ", this.pages).trim();
+
+        System.out.println("Merge successful! :D");
+        System.out.println("Original Page Count: " + originalPageCount);
+        System.out.println("New Page Count: " + newPageCount);
     }
 
     @Override
