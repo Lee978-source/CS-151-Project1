@@ -7,6 +7,7 @@
 package useraccount;
 
 import PDF.*;
+
 import java.util.Scanner;
 
 public class Main {
@@ -140,8 +141,8 @@ public class Main {
         					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
         					System.out.println("Enter the text that you would like to append to the slide: "); 
         					string = scan.nextLine(); 
-        					((Slides) PDF).editSlides(string, editOption); 
-        				}
+							((Slides) PDF).editSlides(string, editOption);
+					}
         				
         				else if (PDF instanceof Spreadsheet)
         				{
@@ -234,7 +235,7 @@ public class Main {
         			while (acc == null && finished == false)
         			{
         				AccountManager.programMenu(); // Print the program menu (user is signed out). 
-                        
+						
                     	option = scan.nextInt(); 
                     	scan.nextLine(); // Flush out rest of the line to clear the buffer. 
                     	
