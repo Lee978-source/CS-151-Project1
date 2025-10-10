@@ -118,10 +118,89 @@ public class Main {
                         acc.accountMenu();
                         break;
 
-                    } else if (PDF instanceof Spreadsheet) {
+					} else if (PDF instanceof Slides) {
+						boolean editingSlides = true;
+						while (editingSlides) {
+							((Slides) PDF).contextMenu();
+							System.out.println("Choose an option for this document (0 to exit to Main Menu):");
+							int editOption = scan.nextInt();
+							scan.nextLine();
 
-                    } else if (PDF instanceof Slides) {
+							switch (editOption) {
+								case 1:
+									((Slides) PDF).addSlide();
+									break;
+								case 2:
+									System.out.print("Enter slide number to delete: ");
+									int slideNum = scan.nextInt();
+									scan.nextLine();
+									((Slides) PDF).deleteSlide(slideNum);
+									break;
+								case 3:
+									System.out.print("Enter slide number to edit: ");
+									slideNum = scan.nextInt();
+									scan.nextLine();
+									System.out.print("Enter text to add: ");
+									String text = scan.nextLine();
+									((Slides) PDF).editSlides(text, slideNum);
+									break;
+								case 4:
+									System.out.print("Enter filename of second slide deck to merge: ");
+									String name2 = scan.nextLine();
+									GenericPDF other = acc.getDrive().editPDF(name2);
+									((Slides) PDF).merge(other);
+									break;
+								case 5:
+									System.out.print("Enter split index: ");
+									int splitIndex = scan.nextInt();
+									scan.nextLine();
+									((Slides) PDF).split(splitIndex);
+									break;
+								case 6:
+									System.out.print("Enter first slide index: ");
+									int index1 = scan.nextInt();
+									System.out.print("Enter second slide index: ");
+									int index2 = scan.nextInt();
+									scan.nextLine();
+									((Slides) PDF).swapSlideOrder(index1, index2);
+									break;
+								case 7:
+									PDF.exportAsPDF();
+									break;
+								case 8:
+									PDF.exportAsHTML();
+									break;
+								case 9:
+									PDF.exportAsWordDoc();
+									break;
+								case 10:
+									System.out.println("User roles editing not implemented here.");
+									break;
+								case 0:
+									editingSlides = false;
+									System.out.println("Returning to Main Menu...");
+									break;
+								default:
+									System.out.println("Invalid option. Please try again.");
+							}
+						}
+					} else if (PDF instanceof Spreadsheet) {
+						boolean editingSpreadSheet = true;
+						while (editingSpreadSheet) {
+							((Spreadsheet) PDF).contextMenu();
+							System.out.println("Choose an option for this document (0 to exit to Main Menu):");
+							int editOption = scan.nextInt();
+							scan.nextLine();
 
+							switch (editOption) {
+								case 0:
+									editingSpreadSheet = false;
+									System.out.println("Returning to Main Menu...");
+									break;
+								default:
+									System.out.println("Invalid option. Please try again.");
+							}
+						}
                     } else {
                         System.out.println("Unknown or unsupported PDF type.");
                     }
