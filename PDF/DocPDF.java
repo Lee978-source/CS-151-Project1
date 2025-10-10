@@ -51,7 +51,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
         // checks if the current page is empty, throw exception if no page
         try {
             if (pages.isEmpty()) {
-                throw new IllegalStateException("Cannot delete page! Document has no pages to delete.");
+                throw new IllegalStateException("Cannot delete page! Document has no pages to delete... Exiting...");
             }
 
             // find the index of the last page in the list
@@ -195,8 +195,8 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("\n--------------------------------------------------------------------------------");
             System.out.println("Document Menu Options: ");
             System.out.println("(1) Create new page: ");
-            System.out.println("(2) Add Text to Page: ");
-            System.out.println("(3) Delete Page: ");
+            System.out.println("(2) Delete Page: ");
+            System.out.println("(3) Add Text to Page: ");
             System.out.println("(4) Find Word: ");
             System.out.println("(5) Get Word Count: ");
             System.out.println("(6) Get Char Count: ");
@@ -211,8 +211,8 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Document Menu Options: ");
             System.out.println("(1) Create new page: ");
-            System.out.println("(2) Add Text to Page: ");
-            System.out.println("(3) Delete Page: ");
+            System.out.println("(2) Delete Page: ");
+            System.out.println("(3) Add Text to Page: ");
             System.out.println("(4) Find Word: ");
             System.out.println("(5) Get Word Count: ");
             System.out.println("(6) Get Char Count: ");

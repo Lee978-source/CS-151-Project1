@@ -24,7 +24,7 @@ public class Main {
                 01, 
                 2000
         );
-        
+
         boolean finished = false; // Flag to mark when user is done using the program. 
         
         acc.accountMenu(); // Call user account menu.
@@ -59,17 +59,82 @@ public class Main {
         			acc.createOption(option, string); 
         			acc.accountMenu(); // Call user account menu. 
         			break;
-        		case 4: // Edit a PDF file. 
-        			System.out.println("Enter an existing file name: "); 
-        			string = scan.nextLine(); // fileName
-        			GenericPDF PDF = acc.getDrive().editPDF(string);
+        		case 4: // Edit a PDF file.
+                    System.out.println("Enter an existing file name: ");
+                    string = scan.nextLine(); // fileName
+                    GenericPDF PDF = acc.getDrive().editPDF(string);
+
+                    if (PDF instanceof DocPDF) {
+                        boolean editingDoc = true;
+                        while (editingDoc) {
+                            ((DocPDF) PDF).contextMenu();
+                            System.out.println("Choose an option for this document (0 to exit to Main Menu):");
+                            int editOption = scan.nextInt();
+                            scan.nextLine();
+
+                            switch (editOption) {
+                                case 1:
+                                    ((DocPDF) PDF).addPageBreaker();
+                                    break;
+                                case 2:
+                                    ((DocPDF) PDF).deleteLatestPage();
+                                    break;
+                                case 3:
+                                        System.out.print("Enter text to add: ");
+                                        String text = scan.nextLine();
+                                        ((DocPDF) PDF).addTextToCurrPage(text);
+                                    break;
+                                case 4:
+                                        System.out.print("Enter word to search: ");
+                                        String word = scan.nextLine();
+                                        ((DocPDF) PDF).findWord(word);
+                                    break;
+                                case 5:
+                                        System.out.println("Word count: " + ((DocPDF) PDF).getWordCount());
+                                    break;
+                                case 6:
+                                        System.out.println("Char count: " + ((DocPDF) PDF).getCharCount());
+                                    break;
+                                case 7:
+                                        System.out.println("Page count: " + ((DocPDF) PDF).getPageCount());
+                                    break;
+                                case 8:
+                                    PDF.exportAsPDF();
+                                    break;
+                                case 9:
+                                    PDF.exportAsHTML();
+                                    break;
+                                case 10:
+                                    PDF.exportAsWordDoc();
+                                    break;
+                                case 0:
+                                    editingDoc = false;
+                                    System.out.println("Returning to Main Menu...");
+                                    break;
+                                default:
+                                    System.out.println("Invalid option. Please try again.");
+                            }
+                        }
+                        acc.accountMenu();
+                        break;
+
+                    } else if (PDF instanceof Spreadsheet) {
+
+                    } else if (PDF instanceof Slides) {
+
+                    } else {
+                        System.out.println("Unknown or unsupported PDF type.");
+                    }
+                    break;
+
+                    /*
         			int editOption = scan.nextInt(); 
         			scan.nextLine(); // Flush out rest of the line to clear the buffer. 
         			if (editOption == 1 && (PDF.getRole() == "OWNER" || PDF.getRole() == "EDITOR")) // Add new content to PDF. 
         			{
         				if (PDF instanceof DocPDF)
         				{
-        					
+                            ((DocPDF) PDF).addPageBreaker(); // JUST ADDED
         				}
         				
         				else if (PDF instanceof Slides)
@@ -98,12 +163,13 @@ public class Main {
         			{
         				if (PDF instanceof DocPDF)
         				{
-        					
+        					System.out.println("Deleting current page..."); // JUST ADDED
+                            ((DocPDF) PDF).deleteLatestPage();
         				}
         				
         				else if (PDF instanceof Slides)
         				{
-        					System.out.println("What slide number would you like to delete? Enter a number: "); 
+        					System.out.println("What slide number would you like to delete? Enter a number: ");
         					editOption = scan.nextInt(); 
         					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
         					((Slides) PDF).deleteSlide(editOption); 
@@ -131,8 +197,11 @@ public class Main {
         			{
         				if (PDF instanceof DocPDF)
         				{
-        					
-        				}
+        					System.out.println("What text do you want to add to the current page?"); // JUST ADDED
+                            scan.nextLine();
+                            string = scan.nextLine();
+                            ((DocPDF) PDF).addTextToCurrPage(string);
+                        }
         				
         				else if (PDF instanceof Slides)
         				{
@@ -159,8 +228,11 @@ public class Main {
         			}
         			acc.accountMenu(); // Call user account menu. 
         			break;
+
+
+                     */
         		case 5: // View Drive contents. 
-        			acc.viewDriveOption(option); 
+        			acc.viewDriveOption(option);
         			break;
 				case 6: // View Drive contents. 
         			acc.viewDriveOption(option); 
