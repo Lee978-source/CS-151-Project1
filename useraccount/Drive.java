@@ -11,9 +11,9 @@ import java.util.HashMap;
 public class Drive {
     
     /** Drive object variables: */
-    private HashMap<String, DocPDF> docsFiles; // HashMap to hold "docs" Drive objects (files). Key = file name, Value = docs Drive object (file). 
-    private HashMap<String, Slides> slidesFiles; // HashMap to hold "slides" Drive objects (files). Key = file name, Value = slides Drive object (file). 
-    private HashMap<String, Spreadsheet> spreadsheetsFiles; // HashMap to hold "spreadsheets" Drive objects (files). Key = file name, Value = spreadsheets Drive object (file). 
+    private final HashMap<String, DocPDF> docsFiles; // HashMap to hold "docs" Drive objects (files). Key = file name, Value = docs Drive object (file). 
+    private final HashMap<String, Slides> slidesFiles; // HashMap to hold "slides" Drive objects (files). Key = file name, Value = slides Drive object (file). 
+    private final HashMap<String, Spreadsheet> spreadsheetsFiles; // HashMap to hold "spreadsheets" Drive objects (files). Key = file name, Value = spreadsheets Drive object (file). 
     private final int MAX_DOCS = 3; // Maximum number of Docs that is allowed in the HashMap. 
     private final int MAX_SLIDES = 2; // Maximum number of Slides that is allowed in the HashMap. 
     private final int MAX_SPREADSHEETS = 2; // Maximum number of Spreadsheets that is allowed in the HashMap. 
@@ -152,4 +152,76 @@ public class Drive {
     		return null; 
     	}
     }
+
+	/** Method to view all File titles in the Drive: */
+	public void viewAllFiles() 
+	{
+		System.out.println("Your existing files in your Drive:"); 
+
+		if (this.getDocsFiles().isEmpty() && this.getSlidesFiles().isEmpty() && this.getSheetFiles().isEmpty()) // Check if you have any existing files in your Drive first. 
+		{
+			System.out.println("No files currently exist in your Drive!"); 
+		}
+
+		else 
+		{
+			for (String docTitle : this.getDocsFiles().keySet()) // Loop through all the titles (Keys from HashMap) of existing Doc files in the Drive. 
+			{
+				System.out.println("Document: " + docTitle); 
+			}
+
+			for (String slideTitle : this.getSlidesFiles().keySet()) // Loop through all the titles (Keys from HashMap) of existing Slide files in the Drive. 
+			{
+				System.out.println("Slide Deck: " + slideTitle); 
+			}
+
+			for (String sheetTitle : this.getSheetFiles().keySet()) // Loop through all the titles (Keys from HashMap) of existing Spreadsheet files in the Drive. 
+			{
+				System.out.println("Spreadsheet: " + sheetTitle); 
+			}
+		}
+	}
+
+	 
+	/** toString() method to check storage of the Drive and compare it to max limits: */
+	@Override
+	public String toString()
+	{
+		return "Current Drive Storage:\n" +
+			"Documents: " + this.getDocsFiles().size() + " created out of " + this.getMaxDocLimit() + " max limit.\n" +
+			"Slides: " + this.getSlidesFiles().size() + " created out of " + this.getMaxSlidesLimit() + " max limit.\n" +
+			"Spreadsheets: " + this.getSheetFiles().size() + " created out of " + this.getMaxSheetLimit() + " max limit."; 
+	}
+
+	/** Getter methods for Drive object variables: */
+	public HashMap<String, DocPDF> getDocsFiles() 
+	{
+		return docsFiles; 
+	}
+
+	public HashMap<String, Slides> getSlidesFiles() 
+	{
+		return slidesFiles; 
+	}
+
+	public HashMap<String, Spreadsheet> getSheetFiles() 
+	{
+		return spreadsheetsFiles; 
+	}
+
+	public int getMaxDocLimit()
+	{
+		return MAX_DOCS; 
+	}
+
+	public int getMaxSlidesLimit()
+	{
+		return MAX_SLIDES; 
+	}
+
+	public int getMaxSheetLimit()
+	{
+		return MAX_SPREADSHEETS; 
+	}
+
 }
