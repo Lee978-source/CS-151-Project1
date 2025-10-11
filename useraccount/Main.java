@@ -89,22 +89,25 @@ public class Main {
                                         String word = scan.nextLine();
                                         ((DocPDF) PDF).findWord(word);
                                     break;
-                                case 5:
+								case 5:
+									System.out.println(((DocPDF) PDF).getText());
+									break;
+                                case 6:
                                         System.out.println("Word count: " + ((DocPDF) PDF).getWordCount());
                                     break;
-                                case 6:
+                                case 7:
                                         System.out.println("Char count: " + ((DocPDF) PDF).getCharCount());
                                     break;
-                                case 7:
+                                case 8:
                                         System.out.println("Page count: " + ((DocPDF) PDF).getPageCount());
                                     break;
-                                case 8:
+                                case 9:
                                     PDF.exportAsPDF();
                                     break;
-                                case 9:
+                                case 10:
                                     PDF.exportAsHTML();
                                     break;
-                                case 10:
+                                case 11:
                                     PDF.exportAsWordDoc();
                                     break;
                                 case 0:

@@ -198,13 +198,14 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("(2) Delete Page: ");
             System.out.println("(3) Add Text to Page: ");
             System.out.println("(4) Find Word: ");
-            System.out.println("(5) Get Word Count: ");
-            System.out.println("(6) Get Char Count: ");
-            System.out.println("(7) Get Page Count: ");
-            System.out.println("(8) Export Slide Deck as PDF");
-            System.out.println("(9) Export Slide Deck as HTML");
-            System.out.println("(10) Export Slide Deck as Word Document");
-            System.out.println("(11) Update User Roles");
+            System.out.println("(5) View Document Content: ");
+            System.out.println("(6) Get Word Count: ");
+            System.out.println("(7) Get Char Count: ");
+            System.out.println("(8) Get Page Count: ");
+            System.out.println("(9) Export Slide Deck as PDF");
+            System.out.println("(10) Export Slide Deck as HTML");
+            System.out.println("(11) Export Slide Deck as Word Document");
+            System.out.println("(12) Update User Roles");
             System.out.println("--------------------------------------------------------------------------------");
         }
         else if (this.getListOfRoles().get(username).equals("EDITOR")) {
