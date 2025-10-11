@@ -135,22 +135,9 @@ public class Slides extends GenericPDF {
 
 
    public void swapSlideOrder(int firstIndex, int secondIndex) {
-      /*if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
-          System.out.println("Invalid slide indices.");
-          return;
-      } if (firstIndex == secondIndex) {
-          System.out.println("No swap needed; indices are the same.");
-          return;
-   }
-   String temp = sequence.get(firstIndex);
-   String temp2 = sequence.get(secondIndex);
-      sequence.set(firstIndex, temp2);
-      sequence.set(secondIndex, temp);
-      System.out.println("Swapped slides at indices " + firstIndex + " and " + secondIndex);*/
-
-
       // Enhanced error handling with exceptions
-      
+      firstIndex--; 
+      secondIndex--;// Convert to 0-based index
        try {
            if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
                throw new SlideException("Invalid slide indices!");
@@ -170,23 +157,6 @@ public class Slides extends GenericPDF {
        System.out.println("Swapped slides at order " + firstIndex + " and " + secondIndex);
    }
 
-
-
-
-   /*public void addHashTag(String tag) {
-      System.out.println("Hashtag '" + tag + "' added to the slides.");
-   }
-/*
-   private void updateSequence() {
-      StringBuilder seqBuilder = new StringBuilder();
-      for (int i = 1; i <= slideCount; i++) {
-          seqBuilder.append(i);
-          if (i < slideCount) {
-              seqBuilder.append("->");
-          }
-      }
-      sequence = seqBuilder.toString();
-   }*/
   @Override
   public void merge(GenericPDF other) {
     

@@ -67,6 +67,7 @@ public class Main {
                         boolean editingDoc = true;
                         while (editingDoc) {
                             ((DocPDF) PDF).contextMenu();
+							System.out.println(((DocPDF)PDF).toString());
                             System.out.println("Choose an option for this document (0 to exit to Main Menu):");
                             int editOption = scan.nextInt();
                             scan.nextLine();
