@@ -150,6 +150,7 @@ public class Slides extends GenericPDF {
 
 
       // Enhanced error handling with exceptions
+      
        try {
            if (firstIndex < 0 || secondIndex < 0 || firstIndex >= slideCount || secondIndex >= slideCount) {
                throw new SlideException("Invalid slide indices!");
@@ -162,12 +163,11 @@ public class Slides extends GenericPDF {
            return;
        }
 
-
        String temp = sequence.get(firstIndex);
        String temp2 = sequence.get(secondIndex);
        sequence.set(firstIndex, temp2);
        sequence.set(secondIndex, temp);
-       System.out.println("Swapped slides at indices " + firstIndex + " and " + secondIndex);
+       System.out.println("Swapped slides at order " + firstIndex + " and " + secondIndex);
    }
 
 
@@ -240,19 +240,11 @@ public class Slides extends GenericPDF {
        ArrayList<String> newSequence = new ArrayList<>(this.sequence.subList(splitIndex, this.slideCount));
        this.sequence.subList(splitIndex, this.slideCount).clear();
 
-
-
-
        newSlides.sequence = newSequence;
        newSlides.slideCount = newSequence.size();
 
 
-
-
        this.slideCount = this.sequence.size();
-
-
-
 
        System.out.println("Original slide count after split: " + this.slideCount);
        System.out.println("New slide count after split: " + newSlides.slideCount);

@@ -98,13 +98,13 @@ public class Main {
                                         System.out.println("Page count: " + ((DocPDF) PDF).getPageCount());
                                     break;
                                 case 8:
-                                    PDF.exportAsPDF();
+                                    ((DocPDF)PDF).exportAsPDF();
                                     break;
                                 case 9:
-                                    PDF.exportAsHTML();
+									((DocPDF)PDF).exportAsHTML();
                                     break;
                                 case 10:
-                                    PDF.exportAsWordDoc();
+									((DocPDF)PDF).exportAsWordDoc();
                                     break;
                                 case 0:
                                     editingDoc = false;
@@ -121,6 +121,7 @@ public class Main {
 						boolean editingSlides = true;
 						while (editingSlides) {
 							((Slides) PDF).contextMenu();
+							System.out.println(((Slides)PDF).toString());
 							System.out.println("Choose an option for this document (0 to exit to Main Menu):");
 							int editOption = scan.nextInt();
 							scan.nextLine();
@@ -135,6 +136,7 @@ public class Main {
 									scan.nextLine();
 									int deleteNum = slideIndex - 1; // Convert to zero-based index
 									((Slides) PDF).deleteSlide(deleteNum);
+									
 									break;
 								case 3:
 									System.out.print("Enter slide number to edit: ");
@@ -144,6 +146,7 @@ public class Main {
 									String text = scan.nextLine();
 									int editNum = slideIndex - 1; // Convert to zero-based index
 									((Slides) PDF).editSlide(text, editNum);
+									
 									break;
 								case 4:
 									System.out.print("Enter filename of second slide deck to merge: ");
@@ -158,7 +161,7 @@ public class Main {
 									}
 									break;
 								case 5:
-									System.out.print("Enter split index: ");
+									System.out.print("Enter the slide number you want to split at: ");
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
 									int splitNum = splitIndex - 1;
@@ -170,17 +173,17 @@ public class Main {
 									}
 									break;
 								case 6:
-									System.out.print("Enter first slide index: ");
+									System.out.print("Enter first slide order: ");
 									int index1 = scan.nextInt();
-									System.out.print("Enter second slide index: ");
+									System.out.print("Enter second slide order: ");
 									int index2 = scan.nextInt();
 									scan.nextLine();
-									int userIndex1 = index1 - 1; // Convert to zero-based index
-									int userIndex2 = index2 - 1; // Convert to zero-based index
+									int userIndex1 = index1; // Convert to zero-based index
+									int userIndex2 = index2; // Convert to zero-based index
 									((Slides) PDF).swapSlideOrder(userIndex1, userIndex2);
 									break;
 								case 7:
-									((Slides)PDF).exportAsPDF();
+									((Slides)PDF).exportAsPDF();;
 									break;
 								case 8:
 									((Slides)PDF).exportAsHTML();
@@ -199,7 +202,10 @@ public class Main {
 								default:
 									System.out.println("Invalid option. Please try again.");
 							}
+						
 						}
+						acc.accountMenu();
+						break;
 					} else if (PDF instanceof Spreadsheet) {
 						boolean editingSpreadSheet = true;
 						while (editingSpreadSheet) {
@@ -281,13 +287,13 @@ public class Main {
 									((Spreadsheet) PDF).viewCell(r1-1,c1-1); // convert to 0 index. 
 									break;
 								case 8:
-									PDF.exportAsPDF();
+									((Spreadsheet)PDF).exportAsPDF();
 									break;
 								case 9:
-									PDF.exportAsHTML();
+									((Spreadsheet)PDF).exportAsHTML();
 									break;
 								case 10:
-									PDF.exportAsWordDoc();
+									((Spreadsheet)PDF).exportAsWordDoc();
 									break;
 								case 11:
 									// update user role? don't think we need to do this
