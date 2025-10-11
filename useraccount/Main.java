@@ -195,7 +195,6 @@ public class Main {
 								case 10:
 									System.out.println("User roles editing not implemented here.");
 									// update user role?
-
 									break;
 								case 0:
 									editingSlides = false;
