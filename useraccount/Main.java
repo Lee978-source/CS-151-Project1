@@ -231,7 +231,7 @@ public class Main {
 										((Spreadsheet) PDF).deleteRow();
 									}
 									else if (rowOrCol == 2) {
-										((Spreadsheet) PDF).deleteRow();
+										((Spreadsheet) PDF).deleteCol();
 									}
 									else {
 										System.out.println("Invalid input....");
