@@ -41,8 +41,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
 
     public void addPageBreaker() {
-        pages.add("");
-        System.out.println("----------------------------------");
+        pages.add("\n----------------------------------\n");
         System.out.println("Page " + pages.size() + " created.");
         this.textContent = String.join(" ", this.pages).trim();
     }
@@ -252,13 +251,13 @@ public class DocPDF extends GenericPDF implements Exportable   {
     @Override
     public String toString() {
         return "DocPDF{" +
-                "Text Content: " + this.textContent + '\'' +
-                "username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", PDF Text='" + textContent + '\'' +
-                ", Word Count= " + getWordCount() + '\'' +
-                ", Character Count=" + getCharCount() + '\'' +
-                ", Page Count=" + getPageCount() + '\'' +
+                "\nText Content:\n\n\'" + this.textContent + '\'' +
+                "\n\nusername= \'" + username + '\'' +
+                ", \nemail= \'" + email + '\'' +
+                ", \n\nPDF Text=\n\n'" + textContent + '\'' +
+                ", \n\nWord Count= \'" + getWordCount() + '\'' +
+                ", \nCharacter Count= \'" + getCharCount() + '\'' +
+                ", \nPage Count= \'" + getPageCount() + '\'' +
                 '}';
     }
 }
