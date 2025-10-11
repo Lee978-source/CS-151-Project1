@@ -237,7 +237,7 @@ public class Main {
 										((Spreadsheet) PDF).deleteRow();
 									}
 									else if (rowOrCol == 2) {
-										((Spreadsheet) PDF).deleteRow();
+										((Spreadsheet) PDF).deleteCol();
 									}
 									else {
 										System.out.println("Invalid input....");
@@ -416,11 +416,13 @@ public class Main {
 
                      */
         		case 5: // View Drive contents. 
-        			acc.viewDriveOption(option);
+					acc.accountMenu(); // Call user account menu. 
+        			acc.getDrive().viewAllFiles();
         			break;
 				case 6: // View Drive contents. 
-        			acc.viewDriveOption(option); 
-        			break;
+					acc.accountMenu(); // Call user account menu. 
+        			System.out.println(acc.getDrive().toString()); // Call the toString() method of the Drive class to show existing Drive storage.  
+					break;
         		case 7: // View Inbox Emails. 
         			if (acc.getNumberOfEmails() > 0) // Condition if user has at least one email.
         			{

@@ -48,6 +48,7 @@ public class Spreadsheet extends GenericPDF {
         }
 
         this.matrix = newMatrix;
+        displaySheet();
     }
 
     public void addCol() {
@@ -61,6 +62,7 @@ public class Spreadsheet extends GenericPDF {
         }
 
         this.matrix = newMatrix;
+        displaySheet();
     }
 
     public void deleteRow() {
@@ -74,6 +76,7 @@ public class Spreadsheet extends GenericPDF {
         }
 
         this.matrix = newMatrix;
+        displaySheet();
     }
 
     public void deleteCol() {
@@ -87,6 +90,7 @@ public class Spreadsheet extends GenericPDF {
         }
 
         this.matrix = newMatrix;
+        displaySheet();
     }
 
     public String viewCell(int r, int c) {
@@ -157,6 +161,7 @@ public class Spreadsheet extends GenericPDF {
 
         this.matrix = newMatrix; // Update reference to the NEW matrix.
 
+
         System.out.println("Original sheet row count: " + originalRow + "\nOriginal sheet col count: " + originalCol);
         System.out.println("Merged sheet row count: " + this.rows + "\nMerged sheet col count: " + this.cols);
         System.out.println("Merged sheets. Total cells: " + this.rows * this.cols);
@@ -200,6 +205,21 @@ public class Spreadsheet extends GenericPDF {
 
         return newSheet;
     }
+
+    public void displaySheet() {
+        System.out.println("\n=== Current Spreadsheet Content ===");
+        for (int row = 0; row < this.matrix.length; row++) {
+            for (int col = 0; col < this.matrix[0].length; col++) {
+                String val = this.matrix[row][col];
+                System.out.print((val == null ? "null" : val) + "\t");
+            }
+            System.out.println();
+        }
+        System.out.println("Rows: " + this.rows + ", Cols: " + this.cols);
+        System.out.println("===================================\n");
+    }
+
+
     @Override
     public void contextMenu() {
         if (this.getListOfRoles().get(username).equals("OWNER")) {
@@ -214,7 +234,8 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(8) Export Spreadsheet as PDF");
             System.out.println("(9) Export Spreadsheet as HTML");
             System.out.println("(10) Export Spreadsheet as Word Document");
-            System.out.println("(11) Update User Roles");
+            //I don't think we need to have a User Role
+            // System.out.println("(11) Update User Roles");
         } else if (this.getListOfRoles().get(username).equals("EDITOR")) {
             System.out.println("Select option (enter a number): ");
             System.out.println("(1) Add a row/col to the sheet");
@@ -246,8 +267,8 @@ public class Spreadsheet extends GenericPDF {
     {
         if (this.getMatrix() != null)
         {
-            int r = rowNumber - 1;   // adjust for 1-based user input
-            int c = colNumber - 1;
+            int r = rowNumber;   // adjust for 1-based user input
+            int c = colNumber;
 
             try {
                 String existingText = this.getMatrix()[r][c];
@@ -258,6 +279,7 @@ public class Spreadsheet extends GenericPDF {
                 System.out.println("Out of bounds — cell does not exist.");
             }
         }
+        displaySheet();
     }
 
 

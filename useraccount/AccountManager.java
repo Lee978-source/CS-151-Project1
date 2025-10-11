@@ -10,7 +10,7 @@
  public class AccountManager {
 
     /** General ArrayList to hold user accounts: */
-    private static ArrayList<AccountManager> accounts = new ArrayList<>(); // Overall ArrayList that holds all existing user accounts (only one to belong to WHOLE AccountManager class). 
+    private final static ArrayList<AccountManager> accounts = new ArrayList<>(); // Overall ArrayList that holds all existing user accounts (only one to belong to WHOLE AccountManager class). 
 
     /** User Information Fields: */
     private String username; // First and last name. 
@@ -168,7 +168,8 @@
     	}
     }
     
-    /** Method to take user option for viewing Drive contents: */
+/* 
+    //  Method to take user option for viewing Drive contents: 
     public void viewDriveOption(int option) // Call this method in the "Main" class if the user had selected Options 5-6. 
     {
     	switch (option) {
@@ -180,7 +181,8 @@
 				break; 
     	}
     }
-    
+*/ 
+
     /** Method to return number of emails in inbox (another Getter method): */
     public int getNumberOfEmails() // Call this method FIRST in the "Main" class if the user had selected Option 7. 
     {
