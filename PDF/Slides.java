@@ -69,14 +69,13 @@ public class Slides extends GenericPDF {
 }
 
    
-    public void editSlides(String newText, int slideNumber)
-    {
+    public void editSlide(String newText, int slideNumber) {
         if (slideNumber < 0 || slideNumber >= slideCount) {
-            throw new SlideException("Invalid slide number!");
-        }
-        String existingText = this.getSequence().get(slideNumber); // Fetch the current existing text at specified slide number.
-        sequence.set(slideNumber, existingText.concat(newText)); // Append the new text with the existing text, then update this at the specified slide number.
-        System.out.println("New text added to slide " + slideNumber);
+        throw new SlideException("Invalid slide number! Valid slides are from 1 to " + slideCount + ".");
+    }
+        String existingText = this.getSequence().get(slideNumber);
+        sequence.set(slideNumber, existingText.concat(newText));
+        System.out.println("New text added to slide " + (slideNumber + 1));
         /*if (this.getSequence() != null)
         {
             String existingText = this.getSequence().get(slideNumber); // Fetch the current existing text at specified slide number.
@@ -107,21 +106,17 @@ public class Slides extends GenericPDF {
        }*/
 
          // Enhanced error handling with exceptions
-        try {
-             if (slideCount == 0 ) {
-                 throw new SlideException("No slides to delete!");
-             }
-             if (slideNumber < 0 || slideNumber >= slideCount) {
-                 throw new SlideException("Invalid slide number!");
-             }
-         } catch (SlideException e) {
-             System.out.println(e.getMessage());
-             return;
-         }
+         
+            if (slideCount == 0) {
+                throw new SlideException("No slides to delete!");
+            }
+            if (slideNumber < 0 || slideNumber >= slideCount) {
+                throw new SlideException("Invalid slide number! Valid slides are from 1 to " + slideCount + ".");
+            }
             slideCount--;
             this.getSequence().remove(slideNumber);
-            System.out.println("Slide deleted. Total slides: " + slideCount);
-    }
+            System.out.println("Slide " + (slideNumber + 1) + " deleted. Total slides: " + slideCount);
+        }
 
 
     public void swapSlideOrder(int firstIndex, int secondIndex) {
@@ -195,14 +190,15 @@ public class Slides extends GenericPDF {
        }
 
        int originalSlideCount = this.slideCount;
-       this.slideCount += otherSlides.slideCount;
-       this.sequence.add(other.toString());
+       this.sequence.addAll(otherSlides.sequence);
+         this.slideCount = this.sequence.size();
 
 
        System.out.println("Original slide count: " + originalSlideCount);
        System.out.println("Merged slide count: " + this.slideCount);
-       System.out.println("Merged slides. Total slides: " + this.slideCount + " (added " + otherSlides.slideCount + " slides)");
+       System.out.println("Merged slides. Total slides: " + this.slideCount + " (added " + otherSlides.sequence.size() + " slides)");
    }
+
 
 
    @Override

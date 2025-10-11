@@ -103,10 +103,12 @@ public class Main {
         				
         				else if (PDF instanceof Slides)
         				{
-        					System.out.println("What slide number would you like to delete? Enter a number: "); 
-        					editOption = scan.nextInt(); 
-        					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
-        					((Slides) PDF).deleteSlide(editOption); 
+        					System.out.println("What slide number would you like to delete? (Enter 1 for the first slide): ");
+    						int userInput = scan.nextInt();
+    						scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+    						int slideIndex = userInput - 1; // Convert 1-based input to 0-based index
+       						((Slides) PDF).deleteSlide(slideIndex);
+    					
         				}
         				
         				else if (PDF instanceof Spreadsheet)
@@ -141,7 +143,8 @@ public class Main {
         					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
         					System.out.println("Enter the text that you would like to append to the slide: "); 
         					string = scan.nextLine(); 
-							((Slides) PDF).editSlides(string, editOption);
+							int slideIndex = editOption - 1;
+							((Slides) PDF).editSlide(string, slideIndex);
 					}
         				
         				else if (PDF instanceof Spreadsheet)
@@ -235,7 +238,7 @@ public class Main {
         			while (acc == null && finished == false)
         			{
         				AccountManager.programMenu(); // Print the program menu (user is signed out). 
-						
+
                     	option = scan.nextInt(); 
                     	scan.nextLine(); // Flush out rest of the line to clear the buffer. 
                     	
