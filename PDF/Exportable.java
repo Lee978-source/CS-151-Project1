@@ -5,7 +5,7 @@
  */
  
 package PDF; 
-// interface class
+// interface
 interface Exportable {
     // methods to export into a different format
     void exportAsPDF();
