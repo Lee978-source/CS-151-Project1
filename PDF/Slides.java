@@ -243,7 +243,6 @@ public class Slides extends GenericPDF {
       return sequence;
   }
 
-
   public void setSlideCount(int slideCount) {
       this.slideCount = slideCount;
       //updateSequence();
