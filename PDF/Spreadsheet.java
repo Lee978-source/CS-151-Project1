@@ -90,6 +90,7 @@ public class Spreadsheet extends GenericPDF {
         }
 
         this.matrix = newMatrix;
+        displaySheet();
     }
 
     public String viewCell(int r, int c) {
@@ -233,7 +234,8 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(8) Export Spreadsheet as PDF");
             System.out.println("(9) Export Spreadsheet as HTML");
             System.out.println("(10) Export Spreadsheet as Word Document");
-            System.out.println("(11) Update User Roles");
+            //I don't think we need to have a User Role
+            // System.out.println("(11) Update User Roles");
         } else if (this.getListOfRoles().get(username).equals("EDITOR")) {
             System.out.println("Select option (enter a number): ");
             System.out.println("(1) Add a row/col to the sheet");
@@ -265,8 +267,8 @@ public class Spreadsheet extends GenericPDF {
     {
         if (this.getMatrix() != null)
         {
-            int r = rowNumber - 1;   // adjust for 1-based user input
-            int c = colNumber - 1;
+            int r = rowNumber;   // adjust for 1-based user input
+            int c = colNumber;
 
             try {
                 String existingText = this.getMatrix()[r][c];
