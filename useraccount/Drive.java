@@ -125,24 +125,21 @@ public class Drive {
     	if (docsFiles.containsKey(fileName))
     	{
     		DocPDF document = docsFiles.get(fileName); 
-    		System.out.println(document.toString());
-			document.contextMenu(); // Call method to print user actions for the Slide Deck.
+    		
     		return document;
     	}
     	
     	else if (slidesFiles.containsKey(fileName))
     	{
     		Slides slideDeck = slidesFiles.get(fileName); 
-    		System.out.println(slideDeck.toString()); 
-    		slideDeck.contextMenu(); // Call method to print user actions for the Slide Deck.
+    		
     		return slideDeck;
     	}
     	
     	else if (spreadsheetsFiles.containsKey(fileName))
     	{
     		Spreadsheet sheet = spreadsheetsFiles.get(fileName); 
-    		System.out.println(sheet.toString());
-			sheet.contextMenu(); // Call method to print user actions for the Slide Deck.
+    		
     		return sheet;
     	}
     	
