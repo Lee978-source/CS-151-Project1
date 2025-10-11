@@ -18,7 +18,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
 
     public String getText() {
-        return textContent;
+        return this.textContent;
     }
 
     public void setText(String text) {
@@ -41,7 +41,8 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
 
     public void addPageBreaker() {
-        pages.add("\n----------------------------------\n");
+        System.out.println("\n----------------------------------\n");
+        pages.add("");
         System.out.println("Page " + pages.size() + " created.");
         this.textContent = String.join(" ", this.pages).trim();
     }
@@ -197,14 +198,15 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("(2) Delete Page: ");
             System.out.println("(3) Add Text to Page: ");
             System.out.println("(4) Find Word: ");
-            System.out.println("(5) View Document Content: ");
-            System.out.println("(6) Get Word Count: ");
-            System.out.println("(7) Get Char Count: ");
-            System.out.println("(8) Get Page Count: ");
-            System.out.println("(9) Export Slide Deck as PDF");
-            System.out.println("(10) Export Slide Deck as HTML");
-            System.out.println("(11) Export Slide Deck as Word Document");
-            System.out.println("(12) Update User Roles");
+            System.out.println("(5) Get Word Count: ");
+            System.out.println("(6) Get Char Count: ");
+            System.out.println("(7) Get Page Count: ");
+            System.out.println("(8) Choose document to merge with: ");
+            System.out.println("(9) Split document: ");
+            System.out.println("(10) Export Slide Deck as PDF");
+            System.out.println("(11) Export Slide Deck as HTML");
+            System.out.println("(12) Export Slide Deck as Word Document");
+            System.out.println("(13) Update User Roles");
             System.out.println("--------------------------------------------------------------------------------");
         }
         else if (this.getListOfRoles().get(username).equals("EDITOR")) {
