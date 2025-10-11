@@ -309,10 +309,40 @@ public class Spreadsheet extends GenericPDF {
                 '}';
     }
 
-    @Override public void exportAsPDF()      { System.out.println("Exporting sheet as PDF"); }
+    @Override public void exportAsPDF() {
+        for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
+        {
+            for (int col = 0; col < this.matrix[0].length; col++) {
+                System.out.print(this.matrix[row][col] + ", ");
+            }
+            System.out.println();
+        }
+    }
 
-    @Override public void exportAsHTML()     { System.out.println("Exporting Sheet as HTML");}
-    @Override public void exportAsWordDoc()     { System.out.println("Exporting Sheet as WordDoc");}
+
+
+    @Override public void exportAsHTML()     {
+        for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
+        {
+            for (int col = 0; col < this.matrix[0].length; col++)
+            {
+                System.out.print(this.matrix[row][col] + "\t");
+            }
+            System.out.println();
+        }
+
+    }
+    @Override public void exportAsWordDoc()     {
+            for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
+            {
+                for (int col = 0; col < this.matrix[0].length; col++)
+                {
+                    System.out.print(this.matrix[row][col] + " | ");
+                }
+                System.out.println();
+            }
+
+        }
 
 
 
