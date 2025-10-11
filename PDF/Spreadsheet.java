@@ -48,6 +48,7 @@ public class Spreadsheet extends GenericPDF {
         }
 
         this.matrix = newMatrix;
+        displaySheet();
     }
 
     public void addCol() {
@@ -61,6 +62,7 @@ public class Spreadsheet extends GenericPDF {
         }
 
         this.matrix = newMatrix;
+        displaySheet();
     }
 
     public void deleteRow() {
@@ -74,6 +76,7 @@ public class Spreadsheet extends GenericPDF {
         }
 
         this.matrix = newMatrix;
+        displaySheet();
     }
 
     public void deleteCol() {
@@ -157,6 +160,7 @@ public class Spreadsheet extends GenericPDF {
 
         this.matrix = newMatrix; // Update reference to the NEW matrix.
 
+
         System.out.println("Original sheet row count: " + originalRow + "\nOriginal sheet col count: " + originalCol);
         System.out.println("Merged sheet row count: " + this.rows + "\nMerged sheet col count: " + this.cols);
         System.out.println("Merged sheets. Total cells: " + this.rows * this.cols);
@@ -200,6 +204,21 @@ public class Spreadsheet extends GenericPDF {
 
         return newSheet;
     }
+
+    public void displaySheet() {
+        System.out.println("\n=== Current Spreadsheet Content ===");
+        for (int row = 0; row < this.matrix.length; row++) {
+            for (int col = 0; col < this.matrix[0].length; col++) {
+                String val = this.matrix[row][col];
+                System.out.print((val == null ? "null" : val) + "\t");
+            }
+            System.out.println();
+        }
+        System.out.println("Rows: " + this.rows + ", Cols: " + this.cols);
+        System.out.println("===================================\n");
+    }
+
+
     @Override
     public void contextMenu() {
         if (this.getListOfRoles().get(username).equals("OWNER")) {
@@ -258,6 +277,7 @@ public class Spreadsheet extends GenericPDF {
                 System.out.println("Out of bounds — cell does not exist.");
             }
         }
+        displaySheet();
     }
 
 
