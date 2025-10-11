@@ -235,8 +235,8 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(8) Export Spreadsheet as PDF");
             System.out.println("(9) Export Spreadsheet as HTML");
             System.out.println("(10) Export Spreadsheet as Word Document");
-            //I don't think we need to have a User Role
-            // System.out.println("(11) Update User Roles");
+
+            System.out.println("(11) Update User Roles");
         } else if (this.getListOfRoles().get(username).equals("EDITOR")) {
             System.out.println("Select option (enter a number): ");
             System.out.println("(1) Add a row/col to the sheet");
@@ -317,6 +317,7 @@ public class Spreadsheet extends GenericPDF {
             }
             System.out.println();
         }
+        System.out.println("Exported as PDF");
     }
 
 
@@ -330,6 +331,7 @@ public class Spreadsheet extends GenericPDF {
             }
             System.out.println();
         }
+        System.out.println("Exported as HTML");
 
     }
     @Override public void exportAsWordDoc()     {
@@ -342,6 +344,7 @@ public class Spreadsheet extends GenericPDF {
                 System.out.println();
             }
 
+            System.out.println("Exported as WordDoc");
         }
 
 

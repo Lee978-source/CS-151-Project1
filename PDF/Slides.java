@@ -75,7 +75,6 @@ public class Slides extends GenericPDF {
    }
 }
 
-
  
    public void editSlide(String newText, int slideNumber) {
        if (slideNumber < 0 || slideNumber >= slideCount) {
@@ -97,8 +96,6 @@ public class Slides extends GenericPDF {
    }
 
 
-
-
    public void addSlide(){
       slideCount++;
       this.getSequence().add("");
@@ -106,18 +103,7 @@ public class Slides extends GenericPDF {
    }
 
 
-
-
    public void deleteSlide(int slideNumber){
-      /*if(slideCount > 0){
-          slideCount--;
-          this.getSequence().remove(slideNumber);
-          System.out.println("Slide deleted. Total slides: " + slideCount);
-      } else {
-          System.out.println("No slides to delete!");
-      }*/
-
-
         // Enhanced error handling with exceptions
        
            if (slideCount == 0) {
@@ -184,18 +170,10 @@ public class Slides extends GenericPDF {
       this.sequence.addAll(otherSlides.sequence);
       this.slideCount = this.sequence.size();
 
-
-
-
       System.out.println("Original slide count: " + originalSlideCount);
       System.out.println("Merged slide count: " + this.slideCount);
       System.out.println("Merged slides. Total slides: " + this.slideCount + " (added " + otherSlides.sequence.size() + " slides)");
   }
-
-
-
-
-
 
   @Override
   public GenericPDF split(int splitIndex) {
@@ -224,23 +202,36 @@ public class Slides extends GenericPDF {
 
 
   @Override
-  public void exportAsPDF() {
+  public void  exportAsPDF() {
       System.out.println("Exporting slides as PDF");
+      for (int i = 0; i < sequence.size(); i++) {
+          System.out.println(sequence.get(i));
+      }
+      //System.out.println(sequence);
+
   }
 
 
   @Override
   public void exportAsHTML() {
       System.out.println("Exporting slides as HTML");
-  }
+      //for loop for each slide content in a new slide
+      for (String slide : sequence) {
+          System.out.println("<div class='slide'>" + slide + "</div>");
+      }
 
+  }
 
    @Override
   public void exportAsWordDoc() {
       System.out.println("Exporting slides as Word Document");
+      //for loop as one long string with appending arrows (->) between each slide
+      for (String slide : sequence) {
+        if (!slide.equals(sequence.get(sequence.size() - 1))) {
+          System.out.print(slide + " -> ");
+      } 
+    } System.out.println(sequence.get(sequence.size() - 1));
   }
-
-
 
 
   public int getSlideCount() {
@@ -248,14 +239,9 @@ public class Slides extends GenericPDF {
   }
 
 
-
-
   public ArrayList<String> getSequence() {
       return sequence;
   }
-
-
-
 
   public void setSlideCount(int slideCount) {
       this.slideCount = slideCount;
@@ -263,13 +249,9 @@ public class Slides extends GenericPDF {
   }
 
 
-
-
   public void setSequence(ArrayList<String> sequence) {
       this.sequence = sequence;
   }
-
-
 
 
   /**
