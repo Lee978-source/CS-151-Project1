@@ -111,6 +111,7 @@ public class Spreadsheet extends GenericPDF {
             String t = matrix[r1][c1]; matrix[r1][c1] = matrix[r2][c2]; matrix[r2][c2] = t;
             System.out.println("Swapped ("+r1+","+c1+") with ("+r2+","+c2+")");
         } else System.out.println("Out of bounds");
+        displaySheet();
     }
 
     private boolean in(int r, int c) { return r>=0 && r<rows && c>=0 && c<cols; }
@@ -122,11 +123,11 @@ public class Spreadsheet extends GenericPDF {
             return;
         }
 
-        // Enforce limit of 20 rows and columns after merging
+        // Enforce limit of 100 rows and columns after merging
         int mergedRows = this.rows + ((Spreadsheet) otherSheet).rows;
         int mergedCols = this.cols + ((Spreadsheet) otherSheet).cols;
 
-        if (mergedRows > 30 || mergedCols > 30) {
+        if (mergedRows > 100 || mergedCols > 100) {
             System.out.println("Merge aborted: limit of 30 rows or columns exceeded.");
             return;
         }
