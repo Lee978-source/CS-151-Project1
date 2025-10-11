@@ -174,7 +174,7 @@ public class Main {
 									PDF.exportAsWordDoc();
 									break;
 								case 10:
-									System.out.println("User roles editing not implemented here.");
+									// update user role?
 									break;
 								case 0:
 									editingSlides = false;
@@ -193,6 +193,88 @@ public class Main {
 							scan.nextLine();
 
 							switch (editOption) {
+								case 1:
+									System.out.println("Enter 1 to add row, 2 to add column: ");
+									int rowOrCol = scan.nextInt();
+									scan.nextLine(); // consume newline character
+									if(rowOrCol == 1) {
+										((Spreadsheet) PDF).addRow();
+									}
+									else if (rowOrCol == 2) {
+										((Spreadsheet) PDF).addCol();
+									}
+									else {
+										System.out.println("Invalid input....");
+									}
+									break;
+								case 2:
+									System.out.println("Enter 1 to delete row, 2 to delete column: ");
+									rowOrCol = scan.nextInt();
+									scan.nextLine(); // consume newline character
+									if(rowOrCol == 1) {
+										((Spreadsheet) PDF).deleteRow();
+									}
+									else if (rowOrCol == 2) {
+										((Spreadsheet) PDF).deleteRow();
+									}
+									else {
+										System.out.println("Invalid input....");
+									}
+									break;
+								case 3:
+									System.out.println("Enter row number: ");
+									int row = scan.nextInt();
+									System.out.println("Enter column number: ");
+									int col = scan.nextInt(); scan.nextLine();
+									System.out.print("Enter text to add: ");
+									String text = scan.nextLine();
+									((Spreadsheet) PDF).editCell(text, row, col);
+								case 4:
+									System.out.print("Enter name of second Spreadsheet to merge: ");
+									String fileName = scan.nextLine();
+									Spreadsheet other = (Spreadsheet) acc.getDrive().editPDF(fileName);
+									((Spreadsheet) PDF).merge(other);
+									break;
+								case 5:
+									System.out.println("Enter column to split: ");
+									int splitIndex = scan.nextInt();
+									scan.nextLine();
+									((Spreadsheet) PDF).split(splitIndex);
+									break;
+								case 6:
+									System.out.println("Please choose which cell row and cell col to switch....");
+									System.out.print("First cell row: ");
+									int r1 = scan.nextInt();
+									System.out.print("First cell col: ");
+									int c1 = scan.nextInt();
+									System.out.print("Second cell row: ");
+									int r2 = scan.nextInt();
+									System.out.print("Second cell col: ");
+									int c2 = scan.nextInt();
+									scan.nextLine(); // consume newline character
+									((Spreadsheet) PDF).swapCells(r1,c1,r2,c2);
+									break;
+								case 7:
+									System.out.println("Please choose which cell content to view");
+									System.out.print("Cell row: ");
+									r1 = scan.nextInt();
+									System.out.print("Cell col: ");
+									c1 = scan.nextInt();
+									scan.nextLine();
+									((Spreadsheet) PDF).viewCell(r1,c1);
+									break;
+								case 8:
+									PDF.exportAsPDF();
+									break;
+								case 9:
+									PDF.exportAsHTML();
+									break;
+								case 10:
+									PDF.exportAsWordDoc();
+									break;
+								case 11:
+									// update user role?
+									break;
 								case 0:
 									editingSpreadSheet = false;
 									System.out.println("Returning to Main Menu...");
