@@ -211,6 +211,7 @@ public class Main {
 						boolean editingSpreadSheet = true;
 						while (editingSpreadSheet) {
 							((Spreadsheet) PDF).contextMenu();
+							System.out.println(((Spreadsheet)PDF).toString());
 							System.out.println("Choose an option for this document (0 to exit to Main Menu):");
 							int editOption = scan.nextInt();
 							scan.nextLine();
@@ -307,6 +308,8 @@ public class Main {
 									System.out.println("Invalid option. Please try again.");
 							}
 						}
+						acc.accountMenu();
+						break; 
                     } else {
                         System.out.println("Unknown or unsupported PDF type.");
                     }
