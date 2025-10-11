@@ -41,20 +41,17 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
 
     public void addPageBreaker() {
-
-
-            pages.add("");
-            System.out.println("----------------------------------");
-            System.out.println("Page " + pages.size() + " created.");
-            this.textContent = String.join(" ", this.pages).trim();
-
+        pages.add("");
+        System.out.println("----------------------------------");
+        System.out.println("Page " + pages.size() + " created.");
+        this.textContent = String.join(" ", this.pages).trim();
     }
 
     public void deleteLatestPage() {
         // checks if the current page is empty, throw exception if no page
         try {
             if (pages.isEmpty()) {
-                throw new IllegalStateException("Cannot delete page! Document has no pages to delete.");
+                throw new IllegalStateException("Cannot delete page! Document has no pages to delete... Exiting...");
             }
 
             // find the index of the last page in the list
@@ -125,12 +122,23 @@ public class DocPDF extends GenericPDF implements Exportable   {
         }
         if(!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
             System.out.println("You do not have permission to merge document.");
-
+            return;
         }
 
+        DocPDF docToMerge = (DocPDF) otherDoc;
 
+        int originalPageCount = this.getPageCount();
+        int newPageCount = docToMerge.getPageCount();
 
+        // merge all pages
+        this.pages.addAll(docToMerge.pages);
 
+        // merge all text from both docs
+        this.textContent = String.join(" ", this.pages).trim();
+
+        System.out.println("Merge successful! :D");
+        System.out.println("Original Page Count: " + originalPageCount);
+        System.out.println("New Page Count: " + newPageCount);
     }
 
     @Override
@@ -187,24 +195,25 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("\n--------------------------------------------------------------------------------");
             System.out.println("Document Menu Options: ");
             System.out.println("(1) Create new page: ");
-            System.out.println("(2) Add Text to Page: ");
-            System.out.println("(3) Delete Page: ");
+            System.out.println("(2) Delete Page: ");
+            System.out.println("(3) Add Text to Page: ");
             System.out.println("(4) Find Word: ");
-            System.out.println("(5) Get Word Count: ");
-            System.out.println("(6) Get Char Count: ");
-            System.out.println("(7) Get Page Count: ");
-            System.out.println("(8) Export Slide Deck as PDF");
-            System.out.println("(9) Export Slide Deck as HTML");
-            System.out.println("(10) Export Slide Deck as Word Document");
-            System.out.println("(11) Update User Roles");
+            System.out.println("(5) View Document Content: ");
+            System.out.println("(6) Get Word Count: ");
+            System.out.println("(7) Get Char Count: ");
+            System.out.println("(8) Get Page Count: ");
+            System.out.println("(9) Export Slide Deck as PDF");
+            System.out.println("(10) Export Slide Deck as HTML");
+            System.out.println("(11) Export Slide Deck as Word Document");
+            System.out.println("(12) Update User Roles");
             System.out.println("--------------------------------------------------------------------------------");
         }
         else if (this.getListOfRoles().get(username).equals("EDITOR")) {
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Document Menu Options: ");
             System.out.println("(1) Create new page: ");
-            System.out.println("(2) Add Text to Page: ");
-            System.out.println("(3) Delete Page: ");
+            System.out.println("(2) Delete Page: ");
+            System.out.println("(3) Add Text to Page: ");
             System.out.println("(4) Find Word: ");
             System.out.println("(5) Get Word Count: ");
             System.out.println("(6) Get Char Count: ");

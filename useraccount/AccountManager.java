@@ -173,10 +173,10 @@
     {
     	switch (option) {
 		    case 5: 
-				this.getDrive().viewAllFileTitles(); // View all of the existing files in the Drive. 
+			//	this.getDrive().viewAllFileTitles(); // View all of the existing files in the Drive.
 				break; 
 			case 6: 
-				this.getDrive().checkStorage(); // Check used Drive storage and remaining Drive storage. 
+			//	this.getDrive().checkStorage(); // Check used Drive storage and remaining Drive storage.
 				break; 
     	}
     }

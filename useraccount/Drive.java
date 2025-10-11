@@ -28,7 +28,7 @@ public class Drive {
 
     /** Method to create a PDF: */
     public void createPDF(int option, String fileName, String username, String email) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
-/* 
+
         if (option == 1) // Option 1: create document.
         {
         	if (this.docsFiles.size() < MAX_DOCS) // Check to ensure we have capacity. 
@@ -43,7 +43,7 @@ public class Drive {
         		System.out.println("Error! Max capacity reached for Documents! Delete existing Document files to create a new one!");
         	}
         }
-*/
+
         //else 
     	if (option == 2) // Option 2: create slides.
         {
