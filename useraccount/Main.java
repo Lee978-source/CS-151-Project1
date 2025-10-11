@@ -7,7 +7,6 @@
 package useraccount;
 
 import PDF.*;
-
 import java.util.Scanner;
 
 public class Main {
@@ -245,7 +244,7 @@ public class Main {
 									int col = scan.nextInt(); scan.nextLine();
 									System.out.print("Enter text to add: ");
 									String text = scan.nextLine();
-									((Spreadsheet) PDF).editCell(text, row, col);
+									((Spreadsheet) PDF).editCell(text, row-1, col-1); // convert to 0 index. 
 									break;
 								case 4:
 									System.out.print("Enter name of second Spreadsheet to merge: ");
@@ -257,7 +256,7 @@ public class Main {
 									System.out.println("Enter column to split: ");
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
-									((Spreadsheet) PDF).split(splitIndex);
+									((Spreadsheet) PDF).split(splitIndex-1); // convert to 0 index. 
 									break;
 								case 6:
 									System.out.println("Please choose which cell row and cell col to switch....");
@@ -270,7 +269,7 @@ public class Main {
 									System.out.print("Second cell col: ");
 									int c2 = scan.nextInt();
 									scan.nextLine(); // consume newline character
-									((Spreadsheet) PDF).swapCells(r1,c1,r2,c2);
+									((Spreadsheet) PDF).swapCells(r1-1,c1-1,r2-1,c2-1); // convert to 0 index. 
 									break;
 								case 7:
 									System.out.println("Please choose which cell content to view");
@@ -279,7 +278,7 @@ public class Main {
 									System.out.print("Cell col: ");
 									c1 = scan.nextInt();
 									scan.nextLine();
-									((Spreadsheet) PDF).viewCell(r1,c1);
+									((Spreadsheet) PDF).viewCell(r1-1,c1-1); // convert to 0 index. 
 									break;
 								case 8:
 									PDF.exportAsPDF();
