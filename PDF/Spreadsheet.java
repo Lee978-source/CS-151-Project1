@@ -309,15 +309,15 @@ public class Spreadsheet extends GenericPDF {
                 '}';
     }
 
-    @Override public void exportAsPDF()      {
+    @Override public void exportAsPDF() {
         for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
         {
-            for (int col = 0; col < this.matrix[0].length; col++)
-            {
+            for (int col = 0; col < this.matrix[0].length; col++) {
                 System.out.print(this.matrix[row][col] + ", ");
             }
             System.out.println();
         }
+    }
 
 
 
