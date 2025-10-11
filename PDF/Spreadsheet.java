@@ -91,11 +91,16 @@ public class Spreadsheet extends GenericPDF {
 
     public String viewCell(int r, int c) {
         try {
-            return matrix[r][c];
+            // adjust for 1-based user input
+            String content = matrix[r - 1][c - 1];
+            if (content == null) content = "(empty)";
+            System.out.println("Cell content: " + content);
+            return content;
         } catch (ArrayIndexOutOfBoundsException e) {
             return "Out of bounds";
         }
     }
+
 
     public void swapCells(int r1, int c1, int r2, int c2) {
         if (in(r1,c1) && in(r2,c2)) {
@@ -241,16 +246,20 @@ public class Spreadsheet extends GenericPDF {
     {
         if (this.getMatrix() != null)
         {
-            String existingText = this.getMatrix()[rowNumber][colNumber]; // Fetch the current existing text at specified slide number.
-           
-            if (existingText == null) 
-                existingText = ""; // If the cell is empty, define it as an empty string to be appended to.
+            int r = rowNumber - 1;   // adjust for 1-based user input
+            int c = colNumber - 1;
 
-            this.getMatrix()[rowNumber][colNumber] = existingText.concat(newText); // Append the new text with the existing text, then insert this at the specified cell.
-           
-            System.out.println("New text appended to row " + rowNumber + ", column " + colNumber + " successfully!");
+            try {
+                String existingText = this.getMatrix()[r][c];
+                if (existingText == null) existingText = "";
+                this.getMatrix()[r][c] = existingText.concat(newText);
+                System.out.println("New text appended to row " + rowNumber + ", column " + colNumber + " successfully!");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Out of bounds — cell does not exist.");
+            }
         }
     }
+
 
     public String[][] getMatrix() {
         return this.matrix;
