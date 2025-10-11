@@ -229,6 +229,7 @@ public class Main {
 									System.out.print("Enter text to add: ");
 									String text = scan.nextLine();
 									((Spreadsheet) PDF).editCell(text, row, col);
+									break;
 								case 4:
 									System.out.print("Enter name of second Spreadsheet to merge: ");
 									String fileName = scan.nextLine();
