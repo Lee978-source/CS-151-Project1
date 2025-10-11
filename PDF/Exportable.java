@@ -9,6 +9,7 @@ package PDF;
 interface Exportable {
     // methods to export into a different format
     void exportAsPDF();
+
     void exportAsHTML();
     void exportAsWordDoc();
 }

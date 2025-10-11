@@ -291,7 +291,7 @@ public class Main {
 									PDF.exportAsWordDoc();
 									break;
 								case 11:
-									// update user role?
+									// update user role? don't think we need to do this
 									break;
 								case 0:
 									editingSpreadSheet = false;

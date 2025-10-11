@@ -29,6 +29,7 @@ public class Spreadsheet extends GenericPDF {
         this.matrix = new String[this.rows][this.cols]; // clears all data
     }
 
+
     public Spreadsheet(String username, String email, String role) {
         super(username, email, role);
         this.rows = 10;   // limit size
@@ -111,6 +112,17 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("Cannot merge with null Sheet :(");
             return;
         }
+
+        // Enforce limit of 20 rows and columns after merging
+        int mergedRows = this.rows + ((Spreadsheet) otherSheet).rows;
+        int mergedCols = this.cols + ((Spreadsheet) otherSheet).cols;
+
+        if (mergedRows > 30 || mergedCols > 30) {
+            System.out.println("Merge aborted: limit of 30 rows or columns exceeded.");
+            return;
+        }
+
+
         if (!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
             System.out.println("You do not have permission to merge slides.");
             return;
@@ -131,13 +143,12 @@ public class Spreadsheet extends GenericPDF {
             }
         }
 
-        for (int row = 0; row < this.rows; row++) // New content from other sheet shifted by original size.
-        {
-            for (int col = 0; col < this.cols; col++)
-            {
-                newMatrix[this.rows+row-1][this.cols+col-1] = this.matrix[row][col];
+        for (int row = 0; row < ((Spreadsheet) otherSheet).rows; row++) {
+            for (int col = 0; col < ((Spreadsheet) otherSheet).cols; col++) {
+                newMatrix[originalRow + row][originalCol + col] = ((Spreadsheet) otherSheet).matrix[row][col];
             }
         }
+
 
         this.matrix = newMatrix; // Update reference to the NEW matrix.
 
@@ -267,8 +278,9 @@ public class Spreadsheet extends GenericPDF {
     }
 
     @Override public void exportAsPDF()      { System.out.println("Exporting sheet as PDF"); }
-    @Override public void exportAsHTML()     { System.out.println("Ex");}
-    @Override public void exportAsWordDoc()     { System.out.println("Ex");}
+
+    @Override public void exportAsHTML()     { System.out.println("Exporting Sheet as HTML");}
+    @Override public void exportAsWordDoc()     { System.out.println("Exporting Sheet as WordDoc");}
 
 
 
