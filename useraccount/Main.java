@@ -165,7 +165,7 @@ public class Main {
 									System.out.print("Enter the slide number you want to split at: ");
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
-									int splitNum = splitIndex - 1;
+									int splitNum = splitIndex;
 									GenericPDF newSplit = ((Slides) PDF).split(splitNum);
 									if (newSplit != null) {
 										System.out.println("Deck successfully split. New deck created.");
@@ -195,6 +195,7 @@ public class Main {
 								case 10:
 									System.out.println("User roles editing not implemented here.");
 									// update user role?
+									
 									break;
 								case 0:
 									editingSlides = false;
