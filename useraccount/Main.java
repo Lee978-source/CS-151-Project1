@@ -28,7 +28,7 @@ public class Main {
 
         acc.accountMenu(); // Call user account menu.
 
-        while (!finished)
+        while (finished == false)
         {
         	System.out.println(); 
         	System.out.println("What would you like to do? Enter option number: ");
@@ -74,70 +74,38 @@ public class Main {
 
                             switch (editOption) {
                                 case 1:
-                                    ((DocPDF)PDF).addPageBreaker();
+                                    ((DocPDF) PDF).addPageBreaker();
                                     break;
                                 case 2:
-                                    ((DocPDF)PDF).deleteLatestPage();
+                                    ((DocPDF) PDF).deleteLatestPage();
                                     break;
                                 case 3:
                                         System.out.print("Enter text to add: ");
                                         String text = scan.nextLine();
-                                        ((DocPDF)PDF).addTextToCurrPage(text);
+                                        ((DocPDF) PDF).addTextToCurrPage(text);
                                     break;
                                 case 4:
                                         System.out.print("Enter word to search: ");
                                         String word = scan.nextLine();
-                                        ((DocPDF)PDF).findWord(word);
+                                        ((DocPDF) PDF).findWord(word);
                                     break;
                                 case 5:
-                                    System.out.println("Word count: " + ((DocPDF) PDF).getWordCount());
+                                        System.out.println("Word count: " + ((DocPDF) PDF).getWordCount());
                                     break;
                                 case 6:
-                                    System.out.println("Char count: " + ((DocPDF) PDF).getCharCount());
+                                        System.out.println("Char count: " + ((DocPDF) PDF).getCharCount());
                                     break;
                                 case 7:
-                                    System.out.println("Page count: " + ((DocPDF) PDF).getPageCount());
+                                        System.out.println("Page count: " + ((DocPDF) PDF).getPageCount());
                                     break;
                                 case 8:
-                                    System.out.print("Enter filename of document to merge with: ");
-                                    String name1 = scan.nextLine();
-                                    GenericPDF other = acc.getDrive().editPDF(name1);
-                                    if (other == null) {
-                                        System.out.println("File not found. Cannot merge.");
-                                    } else if (!(other instanceof Slides)) {
-                                        System.out.println("Cannot merge. The file is not a slide deck.");
-                                    } else {
-                                        ((DocPDF) PDF).merge(other);
-                                    }
+                                    ((DocPDF)PDF).exportAsPDF();
                                     break;
                                 case 9:
-                                    System.out.print("Enter the page number you want to split at: ");
-                                    int index1 = scan.nextInt();
-                                    int splitNum = index1 - 1;
-                                    GenericPDF newSplit = ((DocPDF)PDF).split(splitNum);
-                                    if (newSplit != null) {
-                                        System.out.println("Document successfully split. New deck created.");
-                                    } else {
-                                        System.out.println("Split index out of bounds. No split performed.");
-                                    }
+									((DocPDF)PDF).exportAsHTML();
                                     break;
                                 case 10:
-                                    ((DocPDF)PDF).exportAsPDF();
-                                    System.out.println("Exporting " + string + ".pdf");
-                                    System.out.println("Returning to Main Menu...");
-                                    editingDoc = false;
-                                    break;
-                                case 11:
-                                    ((DocPDF)PDF).exportAsHTML();
-                                    System.out.println("Exporting " + string + ".html");
-                                    System.out.println("Returning to Main Menu...");
-                                    editingDoc = false;
-                                    break;
-                                case 12:
 									((DocPDF)PDF).exportAsWordDoc();
-                                    System.out.println("Exporting " + string + ".doc");
-                                    System.out.println("Returning to Main Menu...");
-                                    editingDoc = false;
                                     break;
                                 case 0:
                                     editingDoc = false;
@@ -153,7 +121,7 @@ public class Main {
 					} else if (PDF instanceof Slides) {
 						boolean editingSlides = true;
 						while (editingSlides) {
-							((Slides) PDF).contextMenu();
+							((Slides) PDF).contextMenu(acc);
 							System.out.println(((Slides)PDF).toString());
 							System.out.println("Choose an option for this document (0 to exit to Main Menu):");
 							int editOption = scan.nextInt();
@@ -169,6 +137,7 @@ public class Main {
 									scan.nextLine();
 									int deleteNum = slideIndex - 1; // Convert to zero-based index
 									((Slides) PDF).deleteSlide(deleteNum);
+									
 									break;
 								case 3:
 									System.out.print("Enter slide number to edit: ");
@@ -178,6 +147,7 @@ public class Main {
 									String text = scan.nextLine();
 									int editNum = slideIndex - 1; // Convert to zero-based index
 									((Slides) PDF).editSlide(text, editNum);
+									
 									break;
 								case 4:
 									System.out.print("Enter filename of second slide deck to merge: ");
@@ -195,7 +165,7 @@ public class Main {
 									System.out.print("Enter the slide number you want to split at: ");
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
-									int splitNum = splitIndex;
+									int splitNum = splitIndex - 1;
 									GenericPDF newSplit = ((Slides) PDF).split(splitNum);
 									if (newSplit != null) {
 										System.out.println("Deck successfully split. New deck created.");
@@ -214,8 +184,7 @@ public class Main {
 									((Slides) PDF).swapSlideOrder(userIndex1, userIndex2);
 									break;
 								case 7:
-									((Slides)PDF).exportAsPDF();
-
+									((Slides)PDF).exportAsPDF();;
 									break;
 								case 8:
 									((Slides)PDF).exportAsHTML();
@@ -224,7 +193,12 @@ public class Main {
 									((Slides)PDF).exportAsWordDoc();
 									break;
 								case 10:
-									System.out.println("User roles editing not implemented here.");
+									System.out.println("Enter user email you would like to share with / change role:"); 
+									String email = scan.nextLine(); 
+									System.out.println("Enter new role (OWNER, EDITOR, VIEWER, COMMENTER): ");
+									String newRole = scan.nextLine(); 
+									((Slides) PDF).updateUserRole(email, newRole, string); 
+									//System.out.println("User roles editing not implemented here.");
 									// update user role?
 									break;
 								case 0:
@@ -345,6 +319,111 @@ public class Main {
                         System.out.println("Unknown or unsupported PDF type.");
                     }
                     break;
+
+                    /*
+        			int editOption = scan.nextInt(); 
+        			scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+        			if (editOption == 1 && (PDF.getRole() == "OWNER" || PDF.getRole() == "EDITOR")) // Add new content to PDF. 
+        			{
+        				if (PDF instanceof DocPDF)
+        				{
+                            ((DocPDF) PDF).addPageBreaker(); // JUST ADDED
+        				}
+        				
+        				else if (PDF instanceof Slides)
+        				{
+        					((Slides) PDF).addSlide(); 
+        				}
+        				
+        				else if (PDF instanceof Spreadsheet)
+        				{
+							System.out.println("Enter 1 to add a new row. Enter 2 to add a new column. Enter a number: "); 
+        					editOption = scan.nextInt(); 
+
+							if (editOption == 1)
+							{
+								((Spreadsheet) PDF).addRow(); // Add a new row to the sheet if the user entered 1. 
+							}
+
+							else if (editOption == 2)
+							{
+								((Spreadsheet) PDF).addCol(); // Add a new column to the sheet if the user entered 2. 
+							}
+        				}
+        			}
+        			
+        			else if (editOption == 2 && (PDF.getRole() == "OWNER" || PDF.getRole() == "EDITOR")) // Delete content from PDF. 
+        			{
+        				if (PDF instanceof DocPDF)
+        				{
+        					System.out.println("Deleting current page..."); // JUST ADDED
+                            ((DocPDF) PDF).deleteLatestPage();
+        				}
+        				
+        				else if (PDF instanceof Slides)
+        				{
+        					System.out.println("What slide number would you like to delete? Enter a number: ");
+        					editOption = scan.nextInt(); 
+        					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+        					((Slides) PDF).deleteSlide(editOption); 
+        				}
+        				
+        				else if (PDF instanceof Spreadsheet)
+        				{
+        					System.out.println("Enter 1 to delete a row. Enter 2 to delete a column. Enter a number: "); 
+        					editOption = scan.nextInt(); 
+							scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+
+							if (editOption == 1)
+							{
+								((Spreadsheet) PDF).deleteRow(); // Add a new row to the sheet if the user entered 1. 
+							}
+
+							else if (editOption == 2)
+							{
+								((Spreadsheet) PDF).deleteCol(); // Add a new column to the sheet if the user entered 2. 
+							}
+        				}
+        			}
+        			
+        			else if (editOption == 3 && (PDF.getRole() == "OWNER" || PDF.getRole() == "EDITOR")) // Edit content on PDF. 
+        			{
+        				if (PDF instanceof DocPDF)
+        				{
+        					System.out.println("What text do you want to add to the current page?"); // JUST ADDED
+                            scan.nextLine();
+                            string = scan.nextLine();
+                            ((DocPDF) PDF).addTextToCurrPage(string);
+                        }
+        				
+        				else if (PDF instanceof Slides)
+        				{
+        					System.out.println("What slide number would you like to add text to? Enter a number: "); 
+        					editOption = scan.nextInt(); 
+        					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+        					System.out.println("Enter the text that you would like to append to the slide: "); 
+        					string = scan.nextLine(); 
+							((Slides) PDF).editSlides(string, editOption);
+					}
+        				
+        				else if (PDF instanceof Spreadsheet)
+        				{
+        					System.out.println("What row number would you like to add text to? Enter a number: "); 
+        					editOption = scan.nextInt(); 
+							scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+							System.out.println("What column number would you like to add text to? Enter a number: ");
+							int editOption2 = scan.nextInt(); 
+        					scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+        					System.out.println("Enter the text that you would like to append to the slide: "); 
+        					string = scan.nextLine(); 
+        					((Spreadsheet) PDF).editCell(string, editOption, editOption2); 
+        				}
+        			}
+        			acc.accountMenu(); // Call user account menu. 
+        			break;
+
+
+                     */
         		case 5: // View Drive contents. 
 					acc.accountMenu(); // Call user account menu. 
         			acc.getDrive().viewAllFiles();
@@ -420,7 +499,7 @@ public class Main {
         			break;
         		case 14: // Logout. 
         			acc = null; // Sign out. 
-        			while (acc == null && !finished)
+        			while (acc == null && finished == false)
         			{
         				AccountManager.programMenu(); // Print the program menu (user is signed out). 
 
