@@ -74,15 +74,15 @@ public class Main {
 
                             switch (editOption) {
                                 case 1:
-                                    ((DocPDF)PDF).addPageBreaker();
+                                    ((DocPDF)PDF).addPageBreaker(acc);
                                     break;
                                 case 2:
-                                    ((DocPDF)PDF).deleteLatestPage();
+                                    ((DocPDF)PDF).deleteLatestPage(acc);
                                     break;
                                 case 3:
                                         System.out.print("Enter text to add: ");
                                         String text = scan.nextLine();
-                                        ((DocPDF)PDF).addTextToCurrPage(text);
+                                        ((DocPDF)PDF).addTextToCurrPage(text, acc);
                                     break;
                                 case 4:
                                         System.out.print("Enter word to search: ");
@@ -107,14 +107,14 @@ public class Main {
                                     } else if (!(other instanceof Slides)) {
                                         System.out.println("Cannot merge. The file is not a slide deck.");
                                     } else {
-                                        ((DocPDF) PDF).merge(other);
+                                        ((DocPDF) PDF).merge(other, acc);
                                     }
                                     break;
                                 case 9:
                                     System.out.print("Enter the page number you want to split at: ");
                                     int index1 = scan.nextInt();
                                     int splitNum = index1 - 1;
-                                    GenericPDF newSplit = ((DocPDF)PDF).split(splitNum);
+                                    GenericPDF newSplit = ((DocPDF)PDF).split(splitNum, acc);
                                     if (newSplit != null) {
                                         System.out.println("Document successfully split. New deck created.");
                                     } else {
@@ -139,6 +139,13 @@ public class Main {
                                     System.out.println("Returning to Main Menu...");
                                     editingDoc = false;
                                     break;
+								case 13:
+									System.out.println("Enter user email you would like to share with / change role:"); 
+									String email = scan.nextLine(); 
+									System.out.println("Enter new role (OWNER, EDITOR, VIEWER, COMMENTER): ");
+									String newRole = scan.nextLine(); 
+									((DocPDF) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Docs object to share with new user. 
+									break;
                                 case 0:
                                     editingDoc = false;
                                     System.out.println("Returning to Main Menu...");
