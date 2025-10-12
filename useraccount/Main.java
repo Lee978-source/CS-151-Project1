@@ -129,14 +129,14 @@ public class Main {
 
 							switch (editOption) {
 								case 1:
-									((Slides) PDF).addSlide();
+									((Slides) PDF).addSlide(acc);
 									break;
 								case 2:
 									System.out.print("Enter slide number to delete: ");
 									int slideIndex = scan.nextInt();
 									scan.nextLine();
 									int deleteNum = slideIndex - 1; // Convert to zero-based index
-									((Slides) PDF).deleteSlide(deleteNum);
+									((Slides) PDF).deleteSlide(deleteNum, acc);
 									
 									break;
 								case 3:
@@ -146,7 +146,7 @@ public class Main {
 									System.out.print("Enter text to add: ");
 									String text = scan.nextLine();
 									int editNum = slideIndex - 1; // Convert to zero-based index
-									((Slides) PDF).editSlide(text, editNum);
+									((Slides) PDF).editSlide(text, editNum, acc);
 									
 									break;
 								case 4:
@@ -158,7 +158,7 @@ public class Main {
 									} else if (!(other instanceof Slides)) {
 										System.out.println("Cannot merge. The file is not a slide deck.");
 									} else {
-										((Slides) PDF).merge(other);
+										((Slides) PDF).merge(other, acc);
 									}
 									break;
 								case 5:
@@ -166,7 +166,7 @@ public class Main {
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
 									int splitNum = splitIndex - 1;
-									GenericPDF newSplit = ((Slides) PDF).split(splitNum);
+									GenericPDF newSplit = ((Slides) PDF).split(splitNum, acc);
 									if (newSplit != null) {
 										System.out.println("Deck successfully split. New deck created.");
 									} else {
@@ -181,7 +181,7 @@ public class Main {
 									scan.nextLine();
 									int userIndex1 = index1; // Convert to zero-based index
 									int userIndex2 = index2; // Convert to zero-based index
-									((Slides) PDF).swapSlideOrder(userIndex1, userIndex2);
+									((Slides) PDF).swapSlideOrder(userIndex1, userIndex2, acc);
 									break;
 								case 7:
 									((Slides)PDF).exportAsPDF();;
@@ -197,9 +197,7 @@ public class Main {
 									String email = scan.nextLine(); 
 									System.out.println("Enter new role (OWNER, EDITOR, VIEWER, COMMENTER): ");
 									String newRole = scan.nextLine(); 
-									((Slides) PDF).updateUserRole(email, newRole, string); 
-									//System.out.println("User roles editing not implemented here.");
-									// update user role?
+									((Slides) PDF).updateUserRole(email, newRole, string, acc); 
 									break;
 								case 0:
 									editingSlides = false;
