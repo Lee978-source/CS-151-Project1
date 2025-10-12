@@ -118,8 +118,6 @@ public class Slides extends GenericPDF {
        }
 
 
-
-
    public void swapSlideOrder(int firstIndex, int secondIndex) {
       // Enhanced error handling with exceptions
       firstIndex--; 
@@ -149,6 +147,7 @@ public class Slides extends GenericPDF {
         System.out.println("Can only merge with another Slides document!");
         return;
     }
+    
     Slides otherSlides = (Slides) other;
 
     if (this == otherSlides) {
@@ -162,7 +161,7 @@ public class Slides extends GenericPDF {
     }
 
     int originalSlideCount = this.slideCount;
-    this.sequence.addAll(otherSlides.sequence)
+    this.sequence.addAll(otherSlides.sequence);
 
     this.slideCount = this.sequence.size();
     System.out.println("Original slide count: " + originalSlideCount);
@@ -177,7 +176,6 @@ public class Slides extends GenericPDF {
           System.out.println("Invalid split index." + (this.slideCount - 1));
           return null;
       }
-
 
        Slides newSlides = new Slides(this.username, this.email, this.role);
     

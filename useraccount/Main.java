@@ -169,7 +169,6 @@ public class Main {
 									scan.nextLine();
 									int deleteNum = slideIndex - 1; // Convert to zero-based index
 									((Slides) PDF).deleteSlide(deleteNum);
-									
 									break;
 								case 3:
 									System.out.print("Enter slide number to edit: ");
@@ -179,7 +178,6 @@ public class Main {
 									String text = scan.nextLine();
 									int editNum = slideIndex - 1; // Convert to zero-based index
 									((Slides) PDF).editSlide(text, editNum);
-									
 									break;
 								case 4:
 									System.out.print("Enter filename of second slide deck to merge: ");
