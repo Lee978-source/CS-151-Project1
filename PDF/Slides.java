@@ -84,24 +84,27 @@ public class Slides extends GenericPDF {
  
    public void editSlide(String newText, int slideNumber, AccountManager acc) {
     if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
-{
-    if (slideNumber < 0 || slideNumber >= slideCount) {
-       throw new SlideException("Invalid slide number! Valid slides are from 1 to " + slideCount + ".");
-   }
-       String existingText = this.getSequence().get(slideNumber);
-       sequence.set(slideNumber, existingText.concat(newText));
-       System.out.println("New text added to slide " + (slideNumber + 1));
-       /*if (this.getSequence() != null)
-       {
-           String existingText = this.getSequence().get(slideNumber); // Fetch the current existing text at specified slide number.
-         
-           this.getSequence().remove(slideNumber); // Remove the current existing slide first to avoid duplicates.
-         
-           this.getSequence().add(slideNumber, existingText.concat(newText)); // Append the new text with the existing text, then insert this at the specified slide number.
-         
-           System.out.println("New text appended to slide " + slideNumber);
-       }*/
-}   
+    {
+        if (slideNumber < 0 || slideNumber >= slideCount) {
+        throw new SlideException("Invalid slide number! Valid slides are from 1 to " + slideCount + ".");
+    }
+        String existingText = this.getSequence().get(slideNumber);
+        sequence.set(slideNumber, existingText.concat(newText));
+        System.out.println("New text added to slide " + (slideNumber + 1));
+        /*if (this.getSequence() != null)
+        {
+            String existingText = this.getSequence().get(slideNumber); // Fetch the current existing text at specified slide number.
+            
+            this.getSequence().remove(slideNumber); // Remove the current existing slide first to avoid duplicates.
+            
+            this.getSequence().add(slideNumber, existingText.concat(newText)); // Append the new text with the existing text, then insert this at the specified slide number.
+            
+            System.out.println("New text appended to slide " + slideNumber);
+        }*/
+    }   
+    else{
+        System.out.println("Only OWNER and EDITOR can edit slides.");
+      }
     
    }
 
