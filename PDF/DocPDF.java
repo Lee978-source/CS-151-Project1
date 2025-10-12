@@ -134,7 +134,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
     // abstract methods
     @Override
     public void merge(GenericPDF otherDoc, AccountManager acc) {
-        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
+        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER"))
         {
             if(otherDoc == null) {
             System.out.println("Cannot merge with null document :(");
@@ -142,10 +142,6 @@ public class DocPDF extends GenericPDF implements Exportable   {
         }
         if(!(otherDoc instanceof DocPDF)) {
             System.out.println("Cannot merge: incompatible type" + otherDoc.getClass().getTypeName());
-            return;
-        }
-        if(!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
-            System.out.println("You do not have permission to merge document.");
             return;
         }
 
@@ -165,14 +161,14 @@ public class DocPDF extends GenericPDF implements Exportable   {
         System.out.println("New Page Count: " + newPageCount);
         }
         else{
-            System.out.println("Only OWNER and EDITOR can merge documents.");
+            System.out.println("Only OWNER can merge documents.");
         }
         
     }
 
     @Override
     public GenericPDF split(int splitIndex, AccountManager acc) {
-        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
+        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER"))
         {
             // checks if the split is valid
         if (splitIndex <= 0 || splitIndex >= this.getPageCount()) {
@@ -218,7 +214,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
         return newDoc;
         }
         else{
-            System.out.println("Only OWNER and EDITOR can split the document.");
+            System.out.println("Only OWNER can split the document.");
             return null; 
         }
         
@@ -256,22 +252,6 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("(5) Get Word Count: ");
             System.out.println("(6) Get Char Count: ");
             System.out.println("(7) Get Page Count: ");
-            System.out.println("(8) Choose document to merge with: ");
-            System.out.println("(9) Split document ");
-            System.out.println("(10) Export Slide Deck as PDF");
-            System.out.println("(11) Export Slide Deck as HTML");
-            System.out.println("(12) Export Slide Deck as Word Document");
-            System.out.println("--------------------------------------------------------------------------------");
-            System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
-        }
-        else if (this.getListOfRoles().get(acc.getEmail()).equals("COMMENTER")) {
-            System.out.println("Document Menu Options: ");
-            System.out.println("(1) Add comment to the end of the document");
-            System.out.println("(4) Find Word: ");
-            System.out.println("(5) Get Word Count: ");
-            System.out.println("(6) Get Char Count: ");
-            System.out.println("(7) Get Page Count: ");
-            // System.out.println("(2) Add a Hashtag to your slides"); // removed
             System.out.println("(10) Export Slide Deck as PDF");
             System.out.println("(11) Export Slide Deck as HTML");
             System.out.println("(12) Export Slide Deck as Word Document");
