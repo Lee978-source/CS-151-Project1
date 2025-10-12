@@ -7,6 +7,7 @@ package PDF;
  */
 
 import java.util.HashMap; 
+import useraccount.*; 
 
 public abstract class GenericPDF implements Exportable {
     protected String username;
@@ -27,12 +28,13 @@ public abstract class GenericPDF implements Exportable {
         this.role = role;
         this.roles = new HashMap<>(); 
         
-        this.roles.put(this.getUsername(), this.getRole()); 
+        this.roles.put(this.getEmail(), this.getRole()); 
      }
 
-     public abstract void merge(GenericPDF file1);
-     public abstract GenericPDF split(int splitIndex);     
-     public abstract void contextMenu();
+     public abstract void merge(GenericPDF file1, AccountManager acc);
+     public abstract GenericPDF split(int splitIndex, AccountManager acc);     
+     public abstract void contextMenu(AccountManager acc);
+     public abstract void updateUserRole(String username, String newRole, String fileName, AccountManager acc); 
 
      public String getUsername(){
         return username;
