@@ -91,13 +91,14 @@
         // Drive Menu Options:
         System.out.println("Drive Menu Options: \n");
         System.out.println("(1) Create Document\t(2) Create Slides\t\t(3) Create Spreadsheet");      
-        System.out.println("(4) Edit PDF\t\t(5) View Drive File Names\t(6) View Drive Storage\n--------------------------------------------------------------------------------");  
+        System.out.println("(4) Edit PDF\t\t(5) View Drive File Names\t(6) View Drive Storage");  
+        System.out.println("(7) Delete PDF\n--------------------------------------------------------------------------------");
 
         // Account Menu Options: 
         System.out.println("Account Menu Options: \n");
-        System.out.println("(7) View Inbox Emails\t\t(8) Send Email\t\t(9) Get Account Info"); 
-        System.out.println("(10) Change password\t\t(11) Change username\t(12) Change email"); 
-        System.out.println("(13) Change date of birth\t(14) Logout\n--------------------------------------------------------------------------------");
+        System.out.println("(8) View Inbox Emails\t\t(9) Send Email\t\t(10) Get Account Info"); 
+        System.out.println("(11) Change password\t\t(12) Change username\t(13) Change email"); 
+        System.out.println("(14) Change date of birth\t(15) Logout\n--------------------------------------------------------------------------------");
         
         //System.out.println("What would you like to do? Enter option number: "); 
     }

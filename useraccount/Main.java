@@ -424,7 +424,16 @@ public class Main {
 					acc.accountMenu(); // Call user account menu. 
         			System.out.println(acc.getDrive().toString()); // Call the toString() method of the Drive class to show existing Drive storage.  
 					break;
-        		case "7": // View Inbox Emails. 
+				case "7": // Delete a PDF file. 
+					System.out.println("Enter an existing file name: "); 
+					string = scan.nextLine(); // fileName. 
+					System.out.println("Enter the file type number to delete (1 for Document, 2 for Slides, 3 for Spreadsheet): "); 
+					String fileType = scan.nextLine(); // option for PDF type. 
+					acc.getDrive().deletePDF(fileType, string); 
+					acc.accountMenu(); // Call user account menu.
+					System.out.println("\'" + string + "\' file successfully deleted!"); 
+					break; 
+        		case "8": // View Inbox Emails. 
         			if (acc.getNumberOfEmails() > 0) // Condition if user has at least one email.
         			{
         				System.out.println("You have " + acc.getNumberOfEmails() + " emails! Read which email? (Enter any number from 1 to " + acc.getNumberOfEmails() + "): "); // Tell user how many emails they currently have, and ask them for a number for what email to read.
@@ -439,7 +448,7 @@ public class Main {
         	    		System.out.println("You have " + acc.getNumberOfEmails() + " emails! No emails to read!"); // Tell user they have no emails. 
         			}
         	    	break;
-        		case "8": // Send an email. 
+        		case "9": // Send an email. 
 					System.out.println(); // Extra return for clearer readability. 
         			System.out.println("Enter recipient email: "); 
         			string = scan.nextLine(); // recipient
@@ -448,11 +457,11 @@ public class Main {
         			acc.accountMenu(); // Call user account menu.
         			acc.sendEmail(string, message);
         			break;
-        		case "9": // Get Account Info. 
+        		case "10": // Get Account Info. 
         			acc.accountMenu(); // Call user account menu.
         			System.out.println(acc.toString());
         			break;
-        		case "10": // Change password. 
+        		case "11": // Change password. 
         			System.out.println("Enter your old password: ");
         			string = scan.nextLine(); // oldPassword
         			if (string.equals(acc.getPassword()))
@@ -468,19 +477,19 @@ public class Main {
         				System.out.println("Old password does not match! Try again!"); 
         			}
         			break;
-        		case "11": // Change username. 
+        		case "12": // Change username. 
         			System.out.println("Enter your new username: ");
         			string = scan.nextLine(); // newUsername
         			acc.accountMenu(); // Call user account menu.
         			acc.setUsername(string);
         			break;
-        		case "12": // Change email. 
+        		case "13": // Change email. 
         			System.out.println("Enter your new email: ");
         			string = scan.nextLine(); // newEmail
         			acc.accountMenu(); // Call user account menu.
         			acc.setEmail(string);
         			break;
-        		case "13": // Change date of birth. 
+        		case "14": // Change date of birth. 
         			System.out.println("Enter your new month of birth (Integer): ");
         			Integer newMonth = scan.nextInt();
         			System.out.println("Enter your new day of birth (Integer): ");
@@ -490,7 +499,7 @@ public class Main {
         			acc.accountMenu(); // Call user account menu.
         			acc.setDateOfBirth(newMonth, newDay, newYear);
         			break;
-        		case "14": // Logout. 
+        		case "15": // Logout. 
         			acc = null; // Sign out. 
         			while (acc == null && !finished)
         			{
