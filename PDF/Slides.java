@@ -116,8 +116,6 @@ public class Slides extends GenericPDF {
        }
 
 
-
-
    public void swapSlideOrder(int firstIndex, int secondIndex) {
       // Enhanced error handling with exceptions
       firstIndex--; 
@@ -127,7 +125,7 @@ public class Slides extends GenericPDF {
                throw new SlideException("Invalid slide indices!");
            }
            if (firstIndex == secondIndex) {
-               throw new SlideException("No swap needed; indices are the same :)");
+               throw new SlideException("No swap needed; indices are the same.");
            }
        } catch (SlideException e) {
            System.out.println(e.getMessage());
@@ -142,36 +140,33 @@ public class Slides extends GenericPDF {
    }
 
   @Override
-  public void merge(GenericPDF other) {
+    public void merge(GenericPDF other) {
+    if (!(other instanceof Slides)) {
+        System.out.println("Can only merge with another Slides document!");
+        return;
+    }
     
-      if (!(other instanceof Slides)) {
-    
-              System.out.println("Can only merge with another Slides document!");
-              return;
-          }
-          Slides otherSlides = (Slides) other;
+    Slides otherSlides = (Slides) other;
 
+    if (this == otherSlides) {
+        System.out.println("Cannot merge the slide deck with itself!");
+        return;
+    }
 
-/*
-      if (otherSlides == null) {
-              System.out.println("Cannot merge with null Slides :(");
-              return;
-          }*/
-        
-      if (!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
-          System.out.println("You do not have permission to merge slides.");
-          return;
-      }
+    if (!this.getRole().equals("OWNER") && !this.getRole().equals("EDITOR")) {
+        System.out.println("You do not have permission to merge slides!");
+        return;
+    }
 
+    int originalSlideCount = this.slideCount;
+    this.sequence.addAll(otherSlides.sequence);
 
-      int originalSlideCount = this.slideCount;
-      this.sequence.addAll(otherSlides.sequence);
-      this.slideCount = this.sequence.size();
+    this.slideCount = this.sequence.size();
+    System.out.println("Original slide count: " + originalSlideCount);
+    System.out.println("Merged slide count: " + this.slideCount);
+    System.out.println("Merged slides. Total slides: " + this.slideCount + " (added " + otherSlides.sequence.size() + " slides)");
+}
 
-      System.out.println("Original slide count: " + originalSlideCount);
-      System.out.println("Merged slide count: " + this.slideCount);
-      System.out.println("Merged slides. Total slides: " + this.slideCount + " (added " + otherSlides.sequence.size() + " slides)");
-  }
 
   @Override
   public GenericPDF split(int splitIndex) {
@@ -179,7 +174,6 @@ public class Slides extends GenericPDF {
           System.out.println("Invalid split index." + (this.slideCount - 1));
           return null;
       }
-
 
        Slides newSlides = new Slides(this.username, this.email, this.role);
     

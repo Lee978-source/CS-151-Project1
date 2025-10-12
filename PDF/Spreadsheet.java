@@ -317,7 +317,9 @@ public class Spreadsheet extends GenericPDF {
             }
             System.out.println();
         }
+        System.out.println();
         System.out.println("Exported as PDF");
+        System.out.println();
     }
 
 
@@ -331,7 +333,9 @@ public class Spreadsheet extends GenericPDF {
             }
             System.out.println();
         }
+        System.out.println();
         System.out.println("Exported as HTML");
+        System.out.println();
 
     }
     @Override public void exportAsWordDoc()     {
@@ -344,7 +348,9 @@ public class Spreadsheet extends GenericPDF {
                 System.out.println();
             }
 
+            System.out.println();
             System.out.println("Exported as WordDoc");
+            System.out.println();
         }
 
 
