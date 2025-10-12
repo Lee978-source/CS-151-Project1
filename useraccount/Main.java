@@ -123,6 +123,7 @@ public class Main {
                                         System.out.println("Cannot merge. The file is not a slide deck.");
                                     } else {
                                         ((DocPDF) PDF).merge(other, acc);
+										acc.getDrive().deletePDF("1", name1); // Delete the other document after merging it with the current document. 
                                     }
                                     break;
                                 case "9":
@@ -222,6 +223,7 @@ public class Main {
 										System.out.println("Cannot merge. The file is not a slide deck.");
 									} else {
 										((Slides) PDF).merge(other, acc);
+										acc.getDrive().deletePDF("2", name2); // Delete the other slide deck after merging it with the current slide deck. 
 									}
 									break;
 								case "5":
@@ -342,6 +344,7 @@ public class Main {
 									String fileName = scan.nextLine();
 									Spreadsheet other = (Spreadsheet) acc.getDrive().editPDF(fileName);
 									((Spreadsheet) PDF).merge(other, acc);
+									acc.getDrive().deletePDF("3", fileName); // Delete the other spreadsheet after merging it with the current spreadsheet.
 									break;
 								case "5":
 									System.out.println("Enter column to split: ");
@@ -428,7 +431,7 @@ public class Main {
 					System.out.println("Enter an existing file name: "); 
 					string = scan.nextLine(); // fileName. 
 					System.out.println("Enter the file type number to delete (1 for Document, 2 for Slides, 3 for Spreadsheet): "); 
-					String fileType = scan.nextLine(); // option for PDF type. 
+					String fileType = scan.nextLine(); // option number for PDF type. 
 					acc.getDrive().deletePDF(fileType, string); 
 					acc.accountMenu(); // Call user account menu.
 					System.out.println("\'" + string + "\' file successfully deleted!"); 
