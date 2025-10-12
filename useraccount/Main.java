@@ -131,6 +131,7 @@ public class Main {
                                     int splitNum = index1 - 1;
                                     GenericPDF newSplit = ((DocPDF)PDF).split(splitNum, acc);
                                     if (newSplit != null) {
+										acc.getDrive().getDocsFiles().put(string + " part2", (DocPDF)newSplit); // Add the new split document to the Drive with " part2" appended as part of the new file name.
                                         System.out.println("Document successfully split. New deck created.");
                                     } else {
                                         System.out.println("Split index out of bounds. No split performed.");
@@ -230,6 +231,7 @@ public class Main {
 									int splitNum = splitIndex;
 									GenericPDF newSplit = ((Slides) PDF).split(splitNum, acc);
 									if (newSplit != null) {
+										acc.getDrive().getSlidesFiles().put(string + " part2", (Slides)newSplit); // Add the new split slide deck to the Drive with " part2" appended as part of the new file name.
 										System.out.println("Deck successfully split. New deck created.");
 									} else {
 										System.out.println("Split index out of bounds. No split performed.");
@@ -345,7 +347,13 @@ public class Main {
 									System.out.println("Enter column to split: ");
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
-									((Spreadsheet) PDF).split(splitIndex-1, acc); // convert to 0 index. 
+									GenericPDF newSplit = ((Spreadsheet) PDF).split(splitIndex-1, acc); // convert to 0 index. 
+									if (newSplit != null) {
+										acc.getDrive().getSheetFiles().put(string + " part2", (Spreadsheet)newSplit); // Add the new split spreadsheet to the Drive with " part2" appended as part of the new file name.
+										System.out.println("Deck successfully split. New deck created.");
+									} else {
+										System.out.println("Split index out of bounds. No split performed.");
+									}
 									break;
 								case "6":
 									System.out.println("Please choose which cell row and cell col to switch....");
