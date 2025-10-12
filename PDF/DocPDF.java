@@ -7,6 +7,7 @@ package PDF;
 
 import java.util.ArrayList;
 import java.util.List;
+import useraccount.*; 
 
 public class DocPDF extends GenericPDF implements Exportable   {
     private String textContent;
@@ -25,8 +26,10 @@ public class DocPDF extends GenericPDF implements Exportable   {
         this.textContent = text;
     }
 
-    public void addTextToCurrPage(String text) {
-        if (pages.isEmpty()) {
+    public void addTextToCurrPage(String text, AccountManager acc) {
+        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
+        {
+            if (pages.isEmpty()) {
             pages.add("");
         }
         int last = pages.size() - 1;
@@ -38,17 +41,31 @@ public class DocPDF extends GenericPDF implements Exportable   {
 
         // print confirmation
         System.out.println("Added text to page " + (last + 1));
+        }
+        else{
+            System.out.println("Only OWNER and EDITOR can add text to pages.");
+        }
+        
     }
 
-    public void addPageBreaker() {
-        System.out.println("\n----------------------------------\n");
-        pages.add("");
-        System.out.println("Page " + pages.size() + " created.");
-        this.textContent = String.join(" ", this.pages).trim();
+    public void addPageBreaker(AccountManager acc) {
+        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
+        {
+            System.out.println("\n----------------------------------\n");
+            pages.add("");
+            System.out.println("Page " + pages.size() + " created.");
+            this.textContent = String.join(" ", this.pages).trim();
+        }
+        else{
+            System.out.println("Only OWNER and EDITOR can add pages.");
+        }
+        
     }
 
-    public void deleteLatestPage() {
-        // checks if the current page is empty, throw exception if no page
+    public void deleteLatestPage(AccountManager acc) {
+        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
+        {
+            // checks if the current page is empty, throw exception if no page
         try {
             if (pages.isEmpty()) {
                 throw new IllegalStateException("Cannot delete page! Document has no pages to delete... Exiting...");
@@ -72,6 +89,11 @@ public class DocPDF extends GenericPDF implements Exportable   {
         } catch(Exception e) {
             System.err.println("Uh oh! Something unexpected happened while deleting page: " + e.getMessage());
         }
+        }
+        else{
+            System.out.println("Only OWNER and EDITOR can delete pages.");
+        }
+        
     }
 
 
@@ -189,9 +211,9 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
 
     @Override
-    public void contextMenu() {
+    public void contextMenu(AccountManager acc) {
 
-        if (this.getListOfRoles().get(username).equals("OWNER")) {
+        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER")) {
             System.out.println("\n--------------------------------------------------------------------------------");
             System.out.println("Document Menu Options: ");
             System.out.println("(1) Create new page: ");
@@ -208,8 +230,9 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("(12) Export Slide Deck as Word Document");
             System.out.println("(13) Update User Roles");
             System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
         }
-        else if (this.getListOfRoles().get(username).equals("EDITOR")) {
+        else if (this.getListOfRoles().get(acc.getEmail()).equals("EDITOR")) {
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Document Menu Options: ");
             System.out.println("(1) Create new page: ");
@@ -219,20 +242,84 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("(5) Get Word Count: ");
             System.out.println("(6) Get Char Count: ");
             System.out.println("(7) Get Page Count: ");
-            System.out.println("(8) Export Slide Deck as PDF");
-            System.out.println("(9) Export Slide Deck as HTML");
-            System.out.println("(10) Export Slide Deck as Word Document");
+            System.out.println("(10) Export Slide Deck as PDF");
+            System.out.println("(11) Export Slide Deck as HTML");
+            System.out.println("(12) Export Slide Deck as Word Document");
             System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
+        }
+        else if (this.getListOfRoles().get(acc.getEmail()).equals("COMMENTER")) {
+            System.out.println("Document Menu Options: ");
+            System.out.println("(1) Add comment to the end of the document");
+            System.out.println("(4) Find Word: ");
+            System.out.println("(5) Get Word Count: ");
+            System.out.println("(6) Get Char Count: ");
+            System.out.println("(7) Get Page Count: ");
+            // System.out.println("(2) Add a Hashtag to your slides"); // removed
+            System.out.println("(10) Export Slide Deck as PDF");
+            System.out.println("(11) Export Slide Deck as HTML");
+            System.out.println("(12) Export Slide Deck as Word Document");
+            System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
         }
         else {
             // viewer
             System.out.println("Document Menu Options: ");
-            System.out.println("(1) Export spreadsheet as PDF");
-            System.out.println("(2) Export spreadsheet as HTML");
-            System.out.println("(3) Export spreadsheet as Word Document");
+            System.out.println("(4) Find Word: ");
+            System.out.println("(5) Get Word Count: ");
+            System.out.println("(6) Get Char Count: ");
+            System.out.println("(7) Get Page Count: ");
+            System.out.println("(10) Export spreadsheet as PDF");
+            System.out.println("(11) Export spreadsheet as HTML");
+            System.out.println("(12) Export spreadsheet as Word Document");
+            System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
         }
 
     }
+
+    @Override 
+   public void updateUserRole(String email, String newRole, String fileName, AccountManager acc) 
+   {
+         if (!this.getListOfRoles().get(acc.getEmail()).equals("OWNER")) {
+              System.out.println("Only OWNER can update user roles.");
+         }
+         else if (!newRole.equals("OWNER") && !newRole.equals("EDITOR") && !newRole.equals("VIEWER") && !newRole.equals("COMMENTER")) {
+              System.out.println("Invalid role. Valid roles are: OWNER, EDITOR, VIEWER, COMMENTER.");
+         }
+         
+         else 
+         {
+            for (AccountManager account : AccountManager.getAccountsDatabase())
+            {
+                if (account.getEmail().equals(email))
+                {
+                    if (newRole.equals("OWNER")) 
+                    {
+                        this.getListOfRoles().remove(acc.getEmail()); // Remove current OWNER.
+                        this.getListOfRoles().put(acc.getEmail(), "EDITOR"); // Downgrade the current OWNER to EDITOR. 
+
+                        this.setUsername(account.getUsername());
+                        this.setEmail(account.getEmail()); 
+                        this.roles.put(account.getEmail(), newRole);
+                        account.getDrive().getDocsFiles().put(fileName, this); // Update the Docs object in the user's Drive.  
+                        System.out.println("Updated " + account.getEmail() + "'s role to " + newRole);
+                    }
+
+                    else 
+                    {
+                        this.roles.put(account.getEmail(), newRole);
+                        account.getDrive().getDocsFiles().put(fileName, this); // Update the Docs object in the user's Drive.  
+                        System.out.println("Updated " + account.getEmail() + "'s role to " + newRole);
+                    }
+                    return; 
+                }
+            }
+
+            System.out.println("No user exists with the email: " + email); 
+            
+         }
+   }
 
     @Override
     public void exportAsPDF() {
