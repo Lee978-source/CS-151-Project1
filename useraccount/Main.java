@@ -66,7 +66,7 @@ public class Main {
                     if (PDF instanceof DocPDF) {
                         boolean editingDoc = true;
                         while (editingDoc) {
-                            ((DocPDF) PDF).contextMenu();
+                            ((DocPDF) PDF).contextMenu(acc);
 							System.out.println(((DocPDF)PDF).toString());
                             System.out.println("Choose an option for this document (0 to exit to Main Menu):");
                             int editOption = scan.nextInt();
@@ -223,8 +223,11 @@ public class Main {
 									((Slides)PDF).exportAsWordDoc();
 									break;
 								case 10:
-									System.out.println("User roles editing not implemented here.");
-									// update user role?
+									System.out.println("Enter user email you would like to share with / change role:"); 
+									String email = scan.nextLine(); 
+									System.out.println("Enter new role (OWNER, EDITOR, VIEWER, COMMENTER): ");
+									String newRole = scan.nextLine(); 
+									((Slides) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Slides object to share with new user. 
 									break;
 								case 0:
 									editingSlides = false;
