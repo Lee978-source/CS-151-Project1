@@ -54,18 +54,8 @@ public class Slides extends GenericPDF {
        System.out.println("(1) Add a slide");
        System.out.println("(2) Delete a slide");
        System.out.println("(3) Add text to a slide");
-       System.out.println("(4) Merge two Slide Decks");
-       System.out.println("(5) Split two Slide Decks");
        System.out.println("(6) Swap slide order between 2 slides");
        // System.out.println("(7) Add a Hashtag to your slides"); // removed
-       System.out.println("(7) Export Slide Deck as PDF");
-       System.out.println("(8) Export Slide Deck as HTML");
-       System.out.println("(9) Export Slide Deck as Word Document");
-       System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
-   } else if (this.getListOfRoles().get(acc.getEmail()).equals("COMMENTER")) {
-       System.out.println("Select option (enter a number): ");
-       System.out.println("(1) Add comment to the last slide");
-       // System.out.println("(2) Add a Hashtag to your slides"); // removed
        System.out.println("(7) Export Slide Deck as PDF");
        System.out.println("(8) Export Slide Deck as HTML");
        System.out.println("(9) Export Slide Deck as Word Document");
@@ -114,8 +104,8 @@ public class Slides extends GenericPDF {
          if (!this.getListOfRoles().get(acc.getEmail()).equals("OWNER")) {
               System.out.println("Only OWNER can update user roles.");
          }
-         else if (!newRole.equals("OWNER") && !newRole.equals("EDITOR") && !newRole.equals("VIEWER") && !newRole.equals("COMMENTER")) {
-              System.out.println("Invalid role. Valid roles are: OWNER, EDITOR, VIEWER, COMMENTER.");
+         else if (!newRole.equals("OWNER") && !newRole.equals("EDITOR") && !newRole.equals("VIEWER")) {
+              System.out.println("Invalid role. Valid roles are: OWNER, EDITOR, VIEWER.");
          }
          
          else 
@@ -251,8 +241,8 @@ public class Slides extends GenericPDF {
               return;
           }*/
         
-      if (!this.getListOfRoles().get(acc.getEmail()).equals("OWNER") && !this.getListOfRoles().get(acc.getEmail()).equals("EDITOR")) {
-          System.out.println("Only OWNER and EDITOR can merge slides.");
+      if (!this.getListOfRoles().get(acc.getEmail()).equals("OWNER")) {
+          System.out.println("Only OWNER can merge slides.");
           return;
       }
 
@@ -277,7 +267,7 @@ public class Slides extends GenericPDF {
   @Override
   public GenericPDF split(int splitIndex, AccountManager acc) {
     
-    if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
+    if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER"))
     {
         if (splitIndex <= 0 || splitIndex >= this.slideCount) {
           System.out.println("Invalid split index." + (this.slideCount - 1));
@@ -304,7 +294,7 @@ public class Slides extends GenericPDF {
 
     else 
     {
-        System.out.println("Only OWNER and EDITOR can split slides.");
+        System.out.println("Only OWNER can split slides.");
         return null; 
     }
     
