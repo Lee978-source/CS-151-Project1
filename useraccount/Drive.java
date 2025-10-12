@@ -27,9 +27,9 @@ public class Drive {
     }
 
     /** Method to create a PDF: */
-    public void createPDF(int option, String fileName, String username, String email) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
+    public void createPDF(String option, String fileName, String username, String email) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
 
-        if (option == 1) // Option 1: create document.
+        if (option.equals("1")) // Option 1: create document.
         {
         	if (this.docsFiles.size() < MAX_DOCS) // Check to ensure we have capacity. 
         	{
@@ -45,7 +45,7 @@ public class Drive {
         }
 
         //else 
-    	if (option == 2) // Option 2: create slides.
+    	if (option.equals("2")) // Option 2: create slides.
         {
         	if (this.slidesFiles.size() < MAX_SLIDES) // Check to ensure we have capacity.
         	{
@@ -60,7 +60,7 @@ public class Drive {
         	}
         }
         
-        else if (option == 3) // Option 3: create spreadsheet.
+        else if (option.equals("3")) // Option 3: create spreadsheet.
         {
         	if (this.spreadsheetsFiles.size() < MAX_SPREADSHEETS) // Check to ensure we have capacity.
         	{
@@ -77,9 +77,9 @@ public class Drive {
     }
 
     /** Method to delete a PDF: */
-    public void deletePDF(int option, String fileName) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
+    public void deletePDF(String option, String fileName) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
     	
-    	if (option == 1) // Document file to be deleted. 
+    	if (option.equals("1")) // Document file to be deleted. 
     	{
     		if (docsFiles.containsKey(fileName)) // If the doc file exists in the Drive, 
     		{
@@ -92,7 +92,7 @@ public class Drive {
     		}
     	}
     	
-    	else if (option == 2) // Slides file to be deleted. 
+    	else if (option.equals("2")) // Slides file to be deleted. 
     	{
     		if (slidesFiles.containsKey(fileName)) // If the slides file exists in the Drive, 
     		{
@@ -105,7 +105,7 @@ public class Drive {
     		}
     	}
     	
-    	else if (option == 3) // Spreadsheet file to be deleted.
+    	else if (option.equals("3")) // Spreadsheet file to be deleted.
     	{
     		if (spreadsheetsFiles.containsKey(fileName)) // If the spreadsheet file exists in the Drive, 
     		{

@@ -105,13 +105,12 @@
     /** Static Method to print program options for user to select (when signed out): */ 
     public static void programMenu() {
     	
-    	System.out.println("\nChoose an option number to create an account, sign in, or exit the program: ");
+    	System.out.println("\nChoose an option number to create an account or sign in (enter EXIT to close the program): ");
     	
     	// Program Menu Options:
         System.out.println("Program Menu Options: \n");
         System.out.println("(1) Create an account"); 
         System.out.println("(2) Sign in"); 
-        System.out.println("(3) Exit Program");
     }
     
     /** Getter methods for each private property of the user account: */
@@ -151,16 +150,16 @@
     }
 
     /** Method to take user option for creating or editing PDF: */
-    public void createOption(int option, String fileName) // In "Main" class, user will be prompted to enter the File Name if they have selected Options 1-3 ("Main" class would call this method). 
+    public void createOption(String option, String fileName) // In "Main" class, user will be prompted to enter the File Name if they have selected Options 1-3 ("Main" class would call this method). 
     {
     	switch (option) {
-    		case 1:
+    		case "1":
     			this.getDrive().createPDF(option, fileName, getUsername(), getEmail()); // Create a new PDF based on user option, their scanned file name, and their username and email.
     			break; 
-            case 2:
+            case "2":
     			this.getDrive().createPDF(option, fileName, getUsername(), getEmail()); // Create a new PDF based on user option, their scanned file name, and their username and email.
     			break;
-            case 3:
+            case "3":
     			this.getDrive().createPDF(option, fileName, getUsername(), getEmail()); // Create a new PDF based on user option, their scanned file name, and their username and email.
     			break;
     		default: // Option 4 will explicitly call the Drive.java method "editPDF()". 

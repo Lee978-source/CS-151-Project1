@@ -31,37 +31,42 @@ public class Main {
         while (!finished)
         {
         	System.out.println(); 
-        	System.out.println("What would you like to do? Enter option number: ");
+        	System.out.println("What would you like to do? Enter option number (enter EXIT to close the program): ");
 
-        	int option = scan.nextInt(); 
+        	String option = scan.next(); 
         	scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+
+			if (option.equalsIgnoreCase("EXIT")) // If user enters "EXIT", the program instantly terminates. 
+			{
+				break; 
+			}
 
         	String string = null; 
 
         	switch (option)
         	{
-        		case 1: // Create a DocPDF file. 
+        		case "1": // Create a DocPDF file. 
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
         			acc.createOption(option, string); 
         			acc.accountMenu(); // Call user account menu. 
 					System.out.println("Document file created successfully!"); 
         			break;
-				case 2: // Create a Slides file. 
+				case "2": // Create a Slides file. 
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
         			acc.createOption(option, string); 
         			acc.accountMenu(); // Call user account menu. 
 					System.out.println("Slides file created successfully!"); 
         			break;
-				case 3: // Create a Spreadsheet file. 
+				case "3": // Create a Spreadsheet file. 
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
         			acc.createOption(option, string); 
         			acc.accountMenu(); // Call user account menu. 
 					System.out.println("Spreadsheet file created successfully!"); 
         			break;
-        		case 4: // Edit a PDF file.
+        		case "4": // Edit a PDF file.
                     System.out.println("Enter an existing file name: ");
                     string = scan.nextLine(); // fileName
                     GenericPDF PDF = acc.getDrive().editPDF(string);
@@ -72,37 +77,43 @@ public class Main {
                             ((DocPDF) PDF).contextMenu(acc);
 							System.out.println(); // Extra return for clearer readability. 
 							System.out.println(((DocPDF)PDF).toString());
-                            System.out.println("\nChoose an option from above for this document (0 to exit to Main Menu):");
-                            int editOption = scan.nextInt();
+                            System.out.println("\nChoose an option from above for this document (0 to exit to Main Menu, enter EXIT to close the program):");
+                            String editOption = scan.next();
                             scan.nextLine();
 
+							if (editOption.equalsIgnoreCase("EXIT")) // If user enters "EXIT", the program instantly terminates. 
+							{
+								finished = true; // Trigger the program termination flag. 
+								break; 
+							}
+
                             switch (editOption) {
-                                case 1:
+                                case "1":
                                     ((DocPDF)PDF).addPageBreaker(acc);
                                     break;
-                                case 2:
+                                case "2":
                                     ((DocPDF)PDF).deleteLatestPage(acc);
                                     break;
-                                case 3:
+                                case "3":
                                         System.out.print("Enter text to add: ");
                                         String text = scan.nextLine();
                                         ((DocPDF)PDF).addTextToCurrPage(text, acc);
                                     break;
-                                case 4:
+                                case "4":
                                         System.out.print("Enter word to search: ");
                                         String word = scan.nextLine();
                                         ((DocPDF)PDF).findWord(word);
                                     break;
-                                case 5:
+                                case "5":
                                     System.out.println("Word count: " + ((DocPDF) PDF).getWordCount());
                                     break;
-                                case 6:
+                                case "6":
                                     System.out.println("Char count: " + ((DocPDF) PDF).getCharCount());
                                     break;
-                                case 7:
+                                case "7":
                                     System.out.println("Page count: " + ((DocPDF) PDF).getPageCount());
                                     break;
-                                case 8:
+                                case "8":
                                     System.out.print("Enter filename of document to merge with: ");
                                     String name1 = scan.nextLine();
                                     GenericPDF other = acc.getDrive().editPDF(name1);
@@ -114,7 +125,7 @@ public class Main {
                                         ((DocPDF) PDF).merge(other, acc);
                                     }
                                     break;
-                                case 9:
+                                case "9":
                                     System.out.print("Enter the page number you want to split at: ");
                                     int index1 = scan.nextInt();
                                     int splitNum = index1 - 1;
@@ -125,35 +136,35 @@ public class Main {
                                         System.out.println("Split index out of bounds. No split performed.");
                                     }
                                     break;
-                                case 10:
+                                case "10":
 									System.out.println(); // Extra return for clearer readability. 
                                     ((DocPDF)PDF).exportAsPDF();
                                     System.out.println("Exporting " + string + ".pdf");
                                     System.out.println("Returning to Main Menu...");
                                     editingDoc = false;
                                     break;
-                                case 11:
+                                case "11":
 									System.out.println(); // Extra return for clearer readability. 
                                     ((DocPDF)PDF).exportAsHTML();
                                     System.out.println("Exporting " + string + ".html");
                                     System.out.println("Returning to Main Menu...");
                                     editingDoc = false;
                                     break;
-                                case 12:
+                                case "12":
 									System.out.println(); // Extra return for clearer readability. 
 									((DocPDF)PDF).exportAsWordDoc();
                                     System.out.println("Exporting " + string + ".doc");
                                     System.out.println("Returning to Main Menu...");
                                     editingDoc = false;
                                     break;
-								case 13:
+								case "13":
 									System.out.println("Enter user email you would like to share with / change role:"); 
 									String email = scan.nextLine(); 
 									System.out.println("Enter new role (OWNER, EDITOR, VIEWER): ");
 									String newRole = scan.nextLine(); 
 									((DocPDF) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Docs object to share with new user. 
 									break;
-                                case 0:
+                                case "0":
                                     editingDoc = false;
                                     System.out.println("Returning to Main Menu...");
                                     break;
@@ -170,22 +181,28 @@ public class Main {
 							((Slides) PDF).contextMenu(acc);
 							System.out.println(); // Extra return for clearer readability. 
 							System.out.println(((Slides)PDF).toString());
-							System.out.println("\nChoose an option from above for this slide deck (0 to exit to Main Menu):");
-							int editOption = scan.nextInt();
+							System.out.println("\nChoose an option from above for this slide deck (0 to exit to Main Menu, enter EXIT to close the program):");
+							String editOption = scan.next();
 							scan.nextLine();
 
+							if (editOption.equalsIgnoreCase("EXIT")) // If user enters "EXIT", the program instantly terminates. 
+							{
+								finished = true; // Trigger the program termination flag. 
+								break; 
+							}
+
 							switch (editOption) {
-								case 1:
+								case "1":
 									((Slides) PDF).addSlide(acc);
 									break;
-								case 2:
+								case "2":
 									System.out.print("Enter slide number to delete: ");
 									int slideIndex = scan.nextInt();
 									scan.nextLine();
 									int deleteNum = slideIndex - 1; // Convert to zero-based index
 									((Slides) PDF).deleteSlide(deleteNum, acc);
 									break;
-								case 3:
+								case "3":
 									System.out.print("Enter slide number to edit: ");
 									slideIndex = scan.nextInt();
 									scan.nextLine();
@@ -194,7 +211,7 @@ public class Main {
 									int editNum = slideIndex - 1; // Convert to zero-based index
 									((Slides) PDF).editSlide(text, editNum, acc);
 									break;
-								case 4:
+								case "4":
 									System.out.print("Enter filename of second slide deck to merge: ");
 									String name2 = scan.nextLine();
 									GenericPDF other = acc.getDrive().editPDF(name2);
@@ -206,7 +223,7 @@ public class Main {
 										((Slides) PDF).merge(other, acc);
 									}
 									break;
-								case 5:
+								case "5":
 									System.out.print("Enter the slide number you want to split at: ");
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
@@ -218,7 +235,7 @@ public class Main {
 										System.out.println("Split index out of bounds. No split performed.");
 									}
 									break;
-								case 6:
+								case "6":
 									System.out.print("Enter first slide order: ");
 									int index1 = scan.nextInt();
 									System.out.print("Enter second slide order: ");
@@ -228,32 +245,32 @@ public class Main {
 									int userIndex2 = index2; // Convert to zero-based index
 									((Slides) PDF).swapSlideOrder(userIndex1, userIndex2, acc);
 									break;
-								case 7:
+								case "7":
 									System.out.println(); // Extra return for clearer readability. 
 									((Slides)PDF).exportAsPDF();
 									System.out.println("Returning to Main Menu...");
                                     editingSlides = false;
 									break;
-								case 8:
+								case "8":
 									System.out.println(); // Extra return for clearer readability. 
 									((Slides)PDF).exportAsHTML();
 									System.out.println("Returning to Main Menu...");
                                     editingSlides = false;
 									break;
-								case 9:
+								case "9":
 									System.out.println(); // Extra return for clearer readability. 
 									((Slides)PDF).exportAsWordDoc();
 									System.out.println("Returning to Main Menu...");
                                     editingSlides = false;
 									break;
-								case 10:
+								case "10":
 									System.out.println("Enter user email you would like to share with / change role:"); 
 									String email = scan.nextLine(); 
 									System.out.println("Enter new role (OWNER, EDITOR, VIEWER): ");
 									String newRole = scan.nextLine(); 
 									((Slides) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Slides object to share with new user. 
 									break;
-								case 0:
+								case "0":
 									editingSlides = false;
 									System.out.println("Returning to Main Menu...");
 									break;
@@ -270,12 +287,18 @@ public class Main {
 							((Spreadsheet) PDF).contextMenu(acc);
 							System.out.println(); // Extra return for clearer readability. 
 							System.out.println(((Spreadsheet)PDF).toString());
-							System.out.println("\nChoose an option from above for this spreadsheet (0 to exit to Main Menu):");
-							int editOption = scan.nextInt();
+							System.out.println("\nChoose an option from above for this spreadsheet (0 to exit to Main Menu, enter EXIT to close the program):");
+							String editOption = scan.next();
 							scan.nextLine();
 
+							if (editOption.equalsIgnoreCase("EXIT")) // If user enters "EXIT", the program instantly terminates. 
+							{
+								finished = true; // Trigger the program termination flag. 
+								break; 
+							}
+
 							switch (editOption) {
-								case 1:
+								case "1":
 									System.out.println("Enter 1 to add row, 2 to add column: ");
 									int rowOrCol = scan.nextInt();
 									scan.nextLine(); // consume newline character
@@ -289,7 +312,7 @@ public class Main {
 										System.out.println("Invalid input....");
 									}
 									break;
-								case 2:
+								case "2":
 									System.out.println("Enter 1 to delete row, 2 to delete column: ");
 									rowOrCol = scan.nextInt();
 									scan.nextLine(); // consume newline character
@@ -303,7 +326,7 @@ public class Main {
 										System.out.println("Invalid input....");
 									}
 									break;
-								case 3:
+								case "3":
 									System.out.println("Enter row number: ");
 									int row = scan.nextInt();
 									System.out.println("Enter column number: ");
@@ -312,19 +335,19 @@ public class Main {
 									String text = scan.nextLine();
 									((Spreadsheet) PDF).editCell(text, row-1, col-1, acc); // convert to 0 index. 
 									break;
-								case 4:
+								case "4":
 									System.out.print("Enter name of second Spreadsheet to merge: ");
 									String fileName = scan.nextLine();
 									Spreadsheet other = (Spreadsheet) acc.getDrive().editPDF(fileName);
 									((Spreadsheet) PDF).merge(other, acc);
 									break;
-								case 5:
+								case "5":
 									System.out.println("Enter column to split: ");
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
 									((Spreadsheet) PDF).split(splitIndex-1, acc); // convert to 0 index. 
 									break;
-								case 6:
+								case "6":
 									System.out.println("Please choose which cell row and cell col to switch....");
 									System.out.print("First cell row: ");
 									int r1 = scan.nextInt();
@@ -337,7 +360,7 @@ public class Main {
 									scan.nextLine(); // consume newline character
 									((Spreadsheet) PDF).swapCells(r1-1,c1-1,r2-1,c2-1, acc); // convert to 0 index. 
 									break;
-								case 7:
+								case "7":
 									System.out.println("Please choose which cell content to view");
 									System.out.print("Cell row: ");
 									r1 = scan.nextInt();
@@ -346,32 +369,32 @@ public class Main {
 									scan.nextLine();
 									((Spreadsheet) PDF).viewCell(r1-1,c1-1); // convert to 0 index. 
 									break;
-								case 8:
+								case "8":
 									System.out.println(); // Extra return for clearer readability. 
 									((Spreadsheet)PDF).exportAsPDF();
 									System.out.println("Returning to Main Menu...");
                                     editingSpreadSheet = false;
 									break;
-								case 9:
+								case "9":
 									System.out.println(); // Extra return for clearer readability. 
 									((Spreadsheet)PDF).exportAsHTML();
 									System.out.println("Returning to Main Menu...");
                                     editingSpreadSheet = false;
 									break;
-								case 10:
+								case "10":
 									System.out.println(); // Extra return for clearer readability. 
 									((Spreadsheet)PDF).exportAsWordDoc();
 									System.out.println("Returning to Main Menu...");
                                     editingSpreadSheet = false;
 									break;
-								case 11:
+								case "11":
 									System.out.println("Enter user email you would like to share with / change role:"); 
 									String email = scan.nextLine(); 
 									System.out.println("Enter new role (OWNER, EDITOR, VIEWER): ");
 									String newRole = scan.nextLine(); 
 									((Spreadsheet) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Spreadsheet object to share with new user. 
 									break;
-								case 0:
+								case "0":
 									editingSpreadSheet = false;
 									System.out.println("Returning to Main Menu...");
 									break;
@@ -385,15 +408,15 @@ public class Main {
                         System.out.println("Unknown or unsupported PDF type.");
                     }
                     break;
-        		case 5: // View Drive contents. 
+        		case "5": // View Drive contents. 
 					acc.accountMenu(); // Call user account menu. 
         			acc.getDrive().viewAllFiles();
         			break;
-				case 6: // View Drive contents. 
+				case "6": // View Drive contents. 
 					acc.accountMenu(); // Call user account menu. 
         			System.out.println(acc.getDrive().toString()); // Call the toString() method of the Drive class to show existing Drive storage.  
 					break;
-        		case 7: // View Inbox Emails. 
+        		case "7": // View Inbox Emails. 
         			if (acc.getNumberOfEmails() > 0) // Condition if user has at least one email.
         			{
         				System.out.println("You have " + acc.getNumberOfEmails() + " emails! Read which email? (Enter any number from 1 to " + acc.getNumberOfEmails() + "): "); // Tell user how many emails they currently have, and ask them for a number for what email to read.
@@ -408,7 +431,7 @@ public class Main {
         	    		System.out.println("You have " + acc.getNumberOfEmails() + " emails! No emails to read!"); // Tell user they have no emails. 
         			}
         	    	break;
-        		case 8: // Send an email. 
+        		case "8": // Send an email. 
 					System.out.println(); // Extra return for clearer readability. 
         			System.out.println("Enter recipient email: "); 
         			string = scan.nextLine(); // recipient
@@ -417,11 +440,11 @@ public class Main {
         			acc.accountMenu(); // Call user account menu.
         			acc.sendEmail(string, message);
         			break;
-        		case 9: // Get Account Info. 
+        		case "9": // Get Account Info. 
         			acc.accountMenu(); // Call user account menu.
         			System.out.println(acc.toString());
         			break;
-        		case 10: // Change password. 
+        		case "10": // Change password. 
         			System.out.println("Enter your old password: ");
         			string = scan.nextLine(); // oldPassword
         			if (string.equals(acc.getPassword()))
@@ -437,19 +460,19 @@ public class Main {
         				System.out.println("Old password does not match! Try again!"); 
         			}
         			break;
-        		case 11: // Change username. 
+        		case "11": // Change username. 
         			System.out.println("Enter your new username: ");
         			string = scan.nextLine(); // newUsername
         			acc.accountMenu(); // Call user account menu.
         			acc.setUsername(string);
         			break;
-        		case 12: // Change email. 
+        		case "12": // Change email. 
         			System.out.println("Enter your new email: ");
         			string = scan.nextLine(); // newEmail
         			acc.accountMenu(); // Call user account menu.
         			acc.setEmail(string);
         			break;
-        		case 13: // Change date of birth. 
+        		case "13": // Change date of birth. 
         			System.out.println("Enter your new month of birth (Integer): ");
         			Integer newMonth = scan.nextInt();
         			System.out.println("Enter your new day of birth (Integer): ");
@@ -459,18 +482,24 @@ public class Main {
         			acc.accountMenu(); // Call user account menu.
         			acc.setDateOfBirth(newMonth, newDay, newYear);
         			break;
-        		case 14: // Logout. 
+        		case "14": // Logout. 
         			acc = null; // Sign out. 
         			while (acc == null && !finished)
         			{
         				AccountManager.programMenu(); // Print the program menu (user is signed out). 
 
-                    	option = scan.nextInt(); 
+                    	option = scan.next(); 
                     	scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+
+						if (option.equalsIgnoreCase("EXIT")) // If user enters "EXIT", the program instantly terminates. 
+						{
+							finished = true; // Trigger the program termination flag. 
+							break; 
+						}
 
                     	switch (option)
                     	{
-                    		case 1: // Create an account. 
+                    		case "1": // Create an account. 
                     			System.out.println("\nEnter a username (enter CANCEL to cancel): ");
                     			String username = scan.nextLine(); 
                     			if (username.equals("CANCEL"))
@@ -499,7 +528,7 @@ public class Main {
                     			else
                     				acc.accountMenu(); 
                     			break; 
-                    		case 2: // Sign in.                     			
+                    		case "2": // Sign in.                     			
                     			while (acc == null)
                     			{
                     				System.out.println("\nEnter your email (enter CANCEL to cancel): ");
@@ -512,9 +541,6 @@ public class Main {
                         			if (acc == null)
                         				System.out.println("Invalid email and/or password! Try again!\n");		
                     			} 
-                    			break; 
-                    		case 3: // Exit the program. 
-                    			finished = true;  
                     			break; 
                     	} 
         			}        			
