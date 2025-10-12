@@ -121,9 +121,24 @@ public class Slides extends GenericPDF {
             {
                 if (account.getEmail().equals(email))
                 {
-                    this.roles.put(account.getEmail(), newRole);
-                    account.getDrive().getSlidesFiles().put(fileName, this); // Update the Slides object in the user's Drive.  
-                    System.out.println("Updated " + account.getEmail() + "'s role to " + newRole);
+                    if (newRole.equals("OWNER")) 
+                    {
+                        this.getListOfRoles().remove(acc.getEmail()); // Remove current OWNER.
+                        this.getListOfRoles().put(acc.getEmail(), "EDITOR"); // Downgrade the current OWNER to EDITOR. 
+
+                        this.setUsername(account.getUsername());
+                        this.setEmail(account.getEmail()); 
+                        this.roles.put(account.getEmail(), newRole);
+                        account.getDrive().getSlidesFiles().put(fileName, this); // Update the Slides object in the user's Drive.  
+                        System.out.println("Updated " + account.getEmail() + "'s role to " + newRole);
+                    }
+
+                    else 
+                    {
+                        this.roles.put(account.getEmail(), newRole);
+                        account.getDrive().getSlidesFiles().put(fileName, this); // Update the Slides object in the user's Drive.  
+                        System.out.println("Updated " + account.getEmail() + "'s role to " + newRole);
+                    }
                     return; 
                 }
             }
