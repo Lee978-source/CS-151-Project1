@@ -180,7 +180,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
         }
 
         // prints out success split with page count for each document
-        System.out.println("Split at index " + splitIndex
+        System.out.println("Split at page " + splitIndex+1
                 + " -> this doc has " + this.getPageCount() + " pages"
                 + ", new doc has " + newDoc.getPageCount() + " pages.");
 
@@ -202,7 +202,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("(6) Get Char Count: ");
             System.out.println("(7) Get Page Count: ");
             System.out.println("(8) Choose document to merge with: ");
-            System.out.println("(9) Split document: ");
+            System.out.println("(9) Split document ");
             System.out.println("(10) Export Slide Deck as PDF");
             System.out.println("(11) Export Slide Deck as HTML");
             System.out.println("(12) Export Slide Deck as Word Document");
