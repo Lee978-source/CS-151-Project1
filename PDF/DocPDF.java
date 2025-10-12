@@ -280,8 +280,8 @@ public class DocPDF extends GenericPDF implements Exportable   {
          if (!this.getListOfRoles().get(acc.getEmail()).equals("OWNER")) {
               System.out.println("Only OWNER can update user roles.");
          }
-         else if (!newRole.equals("OWNER") && !newRole.equals("EDITOR") && !newRole.equals("VIEWER") && !newRole.equals("COMMENTER")) {
-              System.out.println("Invalid role. Valid roles are: OWNER, EDITOR, VIEWER, COMMENTER.");
+         else if (!newRole.equals("OWNER") && !newRole.equals("EDITOR") && !newRole.equals("VIEWER")) {
+              System.out.println("Invalid role. Valid roles are: OWNER, EDITOR, VIEWER.");
          }
          
          else 

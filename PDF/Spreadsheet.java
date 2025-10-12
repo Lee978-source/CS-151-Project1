@@ -153,7 +153,7 @@ public class Spreadsheet extends GenericPDF {
 
     @Override
     public void merge(GenericPDF otherSheet, AccountManager acc) {
-        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
+        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER"))
         {
             if (otherSheet == null) {
             System.out.println("Cannot merge with null Sheet :(");
@@ -205,14 +205,14 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("Merged sheets. Total cells: " + this.rows * this.cols);
         }
         else{
-            System.out.println("Only OWNER and EDITOR can merge Spreadsheets.");
+            System.out.println("Only OWNER can merge Spreadsheets.");
         }
         
     }
 
     @Override
     public Spreadsheet split(int splitIndex, AccountManager acc) {
-        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
+        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER"))
         {
             if (splitIndex <= 0 || splitIndex >= this.cols) {
             System.out.println("Invalid split index at column." + (this.cols - 1));
@@ -251,7 +251,7 @@ public class Spreadsheet extends GenericPDF {
             return newSheet;
         }
         else{
-            System.out.println("Only OWNER and EDITOR can split a Spreadsheet.");
+            System.out.println("Only OWNER can split a Spreadsheet.");
             return null; 
         }
         
@@ -263,8 +263,8 @@ public class Spreadsheet extends GenericPDF {
          if (!this.getListOfRoles().get(acc.getEmail()).equals("OWNER")) {
               System.out.println("Only OWNER can update user roles.");
          }
-         else if (!newRole.equals("OWNER") && !newRole.equals("EDITOR") && !newRole.equals("VIEWER") && !newRole.equals("COMMENTER")) {
-              System.out.println("Invalid role. Valid roles are: OWNER, EDITOR, VIEWER, COMMENTER.");
+         else if (!newRole.equals("OWNER") && !newRole.equals("EDITOR") && !newRole.equals("VIEWER")) {
+              System.out.println("Invalid role. Valid roles are: OWNER, EDITOR, VIEWER.");
          }
          
          else 
@@ -335,17 +335,8 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(1) Add a row/col to the sheet");
             System.out.println("(2) Delete a row/col to the sheet");
             System.out.println("(3) Add text to a cell");
-            System.out.println("(4) Merge two Spreadsheets");
-            System.out.println("(5) Split two Spreadsheets");
             System.out.println("(6) Swap content between 2 cells");
             System.out.println("(7) View content of a cell");
-            System.out.println("(8) Export Spreadsheet as PDF");
-            System.out.println("(9) Export Spreadsheet as HTML");
-            System.out.println("(10) Export Spreadsheet as Word Document");
-            System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
-        } else if (this.getListOfRoles().get(acc.getEmail()).equals("COMMENTER")) {
-            System.out.println("Select option (enter a number): ");
-            System.out.println("(1) Add comment to the last cell");
             System.out.println("(8) Export Spreadsheet as PDF");
             System.out.println("(9) Export Spreadsheet as HTML");
             System.out.println("(10) Export Spreadsheet as Word Document");
