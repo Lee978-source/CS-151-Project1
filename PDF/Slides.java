@@ -4,7 +4,7 @@ package PDF;
 
 
 import java.util.*;
-import useraccount.AccountManager;
+import useraccount.*;
 /**
 * @author [Phuong Hua]
 * @version 1.0
