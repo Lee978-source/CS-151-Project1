@@ -312,20 +312,35 @@ public class Slides extends GenericPDF {
 
 
   @Override
-  public void exportAsPDF() {
+  public void  exportAsPDF() {
       System.out.println("Exporting slides as PDF");
+      for (int i = 0; i < sequence.size(); i++) {
+          System.out.println(sequence.get(i));
+      }
+      //System.out.println(sequence);
+
   }
 
 
   @Override
   public void exportAsHTML() {
       System.out.println("Exporting slides as HTML");
-  }
+      //for loop for each slide content in a new slide
+      for (String slide : sequence) {
+          System.out.println("<div class='slide'>" + slide + "</div>");
+      }
 
+  }
 
    @Override
   public void exportAsWordDoc() {
       System.out.println("Exporting slides as Word Document");
+      //for loop as one long string with appending arrows (->) between each slide
+      for (String slide : sequence) {
+        if (!slide.equals(sequence.get(sequence.size() - 1))) {
+          System.out.print(slide + " -> ");
+      } 
+    } System.out.println(sequence.get(sequence.size() - 1));
   }
 
 
