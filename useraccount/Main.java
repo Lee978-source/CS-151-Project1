@@ -153,7 +153,7 @@ public class Main {
 					} else if (PDF instanceof Slides) {
 						boolean editingSlides = true;
 						while (editingSlides) {
-							((Slides) PDF).contextMenu();
+							((Slides) PDF).contextMenu(acc);
 							System.out.println(((Slides)PDF).toString());
 							System.out.println("Choose an option for this document (0 to exit to Main Menu):");
 							int editOption = scan.nextInt();
@@ -161,14 +161,14 @@ public class Main {
 
 							switch (editOption) {
 								case 1:
-									((Slides) PDF).addSlide();
+									((Slides) PDF).addSlide(acc);
 									break;
 								case 2:
 									System.out.print("Enter slide number to delete: ");
 									int slideIndex = scan.nextInt();
 									scan.nextLine();
 									int deleteNum = slideIndex - 1; // Convert to zero-based index
-									((Slides) PDF).deleteSlide(deleteNum);
+									((Slides) PDF).deleteSlide(deleteNum, acc);
 									break;
 								case 3:
 									System.out.print("Enter slide number to edit: ");
@@ -177,7 +177,7 @@ public class Main {
 									System.out.print("Enter text to add: ");
 									String text = scan.nextLine();
 									int editNum = slideIndex - 1; // Convert to zero-based index
-									((Slides) PDF).editSlide(text, editNum);
+									((Slides) PDF).editSlide(text, editNum, acc);
 									break;
 								case 4:
 									System.out.print("Enter filename of second slide deck to merge: ");
@@ -188,7 +188,7 @@ public class Main {
 									} else if (!(other instanceof Slides)) {
 										System.out.println("Cannot merge. The file is not a slide deck.");
 									} else {
-										((Slides) PDF).merge(other);
+										((Slides) PDF).merge(other, acc);
 									}
 									break;
 								case 5:
@@ -196,7 +196,7 @@ public class Main {
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
 									int splitNum = splitIndex;
-									GenericPDF newSplit = ((Slides) PDF).split(splitNum);
+									GenericPDF newSplit = ((Slides) PDF).split(splitNum, acc);
 									if (newSplit != null) {
 										System.out.println("Deck successfully split. New deck created.");
 									} else {
@@ -211,11 +211,10 @@ public class Main {
 									scan.nextLine();
 									int userIndex1 = index1; // Convert to zero-based index
 									int userIndex2 = index2; // Convert to zero-based index
-									((Slides) PDF).swapSlideOrder(userIndex1, userIndex2);
+									((Slides) PDF).swapSlideOrder(userIndex1, userIndex2, acc);
 									break;
 								case 7:
 									((Slides)PDF).exportAsPDF();
-
 									break;
 								case 8:
 									((Slides)PDF).exportAsHTML();
