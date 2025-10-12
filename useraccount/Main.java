@@ -250,7 +250,7 @@ public class Main {
 					} else if (PDF instanceof Spreadsheet) {
 						boolean editingSpreadSheet = true;
 						while (editingSpreadSheet) {
-							((Spreadsheet) PDF).contextMenu();
+							((Spreadsheet) PDF).contextMenu(acc);
 							System.out.println(((Spreadsheet)PDF).toString());
 							System.out.println("Choose an option for this document (0 to exit to Main Menu):");
 							int editOption = scan.nextInt();
@@ -262,10 +262,10 @@ public class Main {
 									int rowOrCol = scan.nextInt();
 									scan.nextLine(); // consume newline character
 									if(rowOrCol == 1) {
-										((Spreadsheet) PDF).addRow();
+										((Spreadsheet) PDF).addRow(acc);
 									}
 									else if (rowOrCol == 2) {
-										((Spreadsheet) PDF).addCol();
+										((Spreadsheet) PDF).addCol(acc);
 									}
 									else {
 										System.out.println("Invalid input....");
@@ -276,10 +276,10 @@ public class Main {
 									rowOrCol = scan.nextInt();
 									scan.nextLine(); // consume newline character
 									if(rowOrCol == 1) {
-										((Spreadsheet) PDF).deleteRow();
+										((Spreadsheet) PDF).deleteRow(acc);
 									}
 									else if (rowOrCol == 2) {
-										((Spreadsheet) PDF).deleteCol();
+										((Spreadsheet) PDF).deleteCol(acc);
 									}
 									else {
 										System.out.println("Invalid input....");
@@ -292,19 +292,19 @@ public class Main {
 									int col = scan.nextInt(); scan.nextLine();
 									System.out.print("Enter text to add: ");
 									String text = scan.nextLine();
-									((Spreadsheet) PDF).editCell(text, row-1, col-1); // convert to 0 index. 
+									((Spreadsheet) PDF).editCell(text, row-1, col-1, acc); // convert to 0 index. 
 									break;
 								case 4:
 									System.out.print("Enter name of second Spreadsheet to merge: ");
 									String fileName = scan.nextLine();
 									Spreadsheet other = (Spreadsheet) acc.getDrive().editPDF(fileName);
-									((Spreadsheet) PDF).merge(other);
+									((Spreadsheet) PDF).merge(other, acc);
 									break;
 								case 5:
 									System.out.println("Enter column to split: ");
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
-									((Spreadsheet) PDF).split(splitIndex-1); // convert to 0 index. 
+									((Spreadsheet) PDF).split(splitIndex-1, acc); // convert to 0 index. 
 									break;
 								case 6:
 									System.out.println("Please choose which cell row and cell col to switch....");
@@ -317,7 +317,7 @@ public class Main {
 									System.out.print("Second cell col: ");
 									int c2 = scan.nextInt();
 									scan.nextLine(); // consume newline character
-									((Spreadsheet) PDF).swapCells(r1-1,c1-1,r2-1,c2-1); // convert to 0 index. 
+									((Spreadsheet) PDF).swapCells(r1-1,c1-1,r2-1,c2-1, acc); // convert to 0 index. 
 									break;
 								case 7:
 									System.out.println("Please choose which cell content to view");
@@ -338,7 +338,11 @@ public class Main {
 									((Spreadsheet)PDF).exportAsWordDoc();
 									break;
 								case 11:
-									// update user role? don't think we need to do this
+									System.out.println("Enter user email you would like to share with / change role:"); 
+									String email = scan.nextLine(); 
+									System.out.println("Enter new role (OWNER, EDITOR, VIEWER, COMMENTER): ");
+									String newRole = scan.nextLine(); 
+									((Spreadsheet) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Spreadsheet object to share with new user. 
 									break;
 								case 0:
 									editingSpreadSheet = false;
