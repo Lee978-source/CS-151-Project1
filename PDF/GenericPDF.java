@@ -19,7 +19,7 @@ public abstract class GenericPDF implements Exportable {
      * Constructor for GenericPDF
      * @param username The username of the document creator
      * @param email The email of the document creator  
-     * @param role The role of the user (OWNER, EDITOR, VIEWER, COMMENTER)
+     * @param role The role of the user (OWNER, EDITOR, VIEWER)
      */
 
      public GenericPDF(String username, String email, String role) {
