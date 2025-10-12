@@ -40,23 +40,26 @@ public class Main {
 
         	switch (option)
         	{
-        		case 1: // Create a PDF file. 
+        		case 1: // Create a DocPDF file. 
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
         			acc.createOption(option, string); 
         			acc.accountMenu(); // Call user account menu. 
+					System.out.println("Document file created successfully!"); 
         			break;
-				case 2: // Create a PDF file. 
+				case 2: // Create a Slides file. 
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
         			acc.createOption(option, string); 
         			acc.accountMenu(); // Call user account menu. 
+					System.out.println("Slides file created successfully!"); 
         			break;
-				case 3: // Create a PDF file. 
+				case 3: // Create a Spreadsheet file. 
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
         			acc.createOption(option, string); 
         			acc.accountMenu(); // Call user account menu. 
+					System.out.println("Spreadsheet file created successfully!"); 
         			break;
         		case 4: // Edit a PDF file.
                     System.out.println("Enter an existing file name: ");
@@ -67,8 +70,9 @@ public class Main {
                         boolean editingDoc = true;
                         while (editingDoc) {
                             ((DocPDF) PDF).contextMenu(acc);
+							System.out.println(); // Extra return for clearer readability. 
 							System.out.println(((DocPDF)PDF).toString());
-                            System.out.println("Choose an option for this document (0 to exit to Main Menu):");
+                            System.out.println("\nChoose an option from above for this document (0 to exit to Main Menu):");
                             int editOption = scan.nextInt();
                             scan.nextLine();
 
@@ -122,18 +126,21 @@ public class Main {
                                     }
                                     break;
                                 case 10:
+									System.out.println(); // Extra return for clearer readability. 
                                     ((DocPDF)PDF).exportAsPDF();
                                     System.out.println("Exporting " + string + ".pdf");
                                     System.out.println("Returning to Main Menu...");
                                     editingDoc = false;
                                     break;
                                 case 11:
+									System.out.println(); // Extra return for clearer readability. 
                                     ((DocPDF)PDF).exportAsHTML();
                                     System.out.println("Exporting " + string + ".html");
                                     System.out.println("Returning to Main Menu...");
                                     editingDoc = false;
                                     break;
                                 case 12:
+									System.out.println(); // Extra return for clearer readability. 
 									((DocPDF)PDF).exportAsWordDoc();
                                     System.out.println("Exporting " + string + ".doc");
                                     System.out.println("Returning to Main Menu...");
@@ -161,8 +168,9 @@ public class Main {
 						boolean editingSlides = true;
 						while (editingSlides) {
 							((Slides) PDF).contextMenu(acc);
+							System.out.println(); // Extra return for clearer readability. 
 							System.out.println(((Slides)PDF).toString());
-							System.out.println("Choose an option for this document (0 to exit to Main Menu):");
+							System.out.println("\nChoose an option from above for this slide deck (0 to exit to Main Menu):");
 							int editOption = scan.nextInt();
 							scan.nextLine();
 
@@ -221,13 +229,22 @@ public class Main {
 									((Slides) PDF).swapSlideOrder(userIndex1, userIndex2, acc);
 									break;
 								case 7:
+									System.out.println(); // Extra return for clearer readability. 
 									((Slides)PDF).exportAsPDF();
+									System.out.println("Returning to Main Menu...");
+                                    editingSlides = false;
 									break;
 								case 8:
+									System.out.println(); // Extra return for clearer readability. 
 									((Slides)PDF).exportAsHTML();
+									System.out.println("Returning to Main Menu...");
+                                    editingSlides = false;
 									break;
 								case 9:
+									System.out.println(); // Extra return for clearer readability. 
 									((Slides)PDF).exportAsWordDoc();
+									System.out.println("Returning to Main Menu...");
+                                    editingSlides = false;
 									break;
 								case 10:
 									System.out.println("Enter user email you would like to share with / change role:"); 
@@ -251,8 +268,9 @@ public class Main {
 						boolean editingSpreadSheet = true;
 						while (editingSpreadSheet) {
 							((Spreadsheet) PDF).contextMenu(acc);
+							System.out.println(); // Extra return for clearer readability. 
 							System.out.println(((Spreadsheet)PDF).toString());
-							System.out.println("Choose an option for this document (0 to exit to Main Menu):");
+							System.out.println("\nChoose an option from above for this spreadsheet (0 to exit to Main Menu):");
 							int editOption = scan.nextInt();
 							scan.nextLine();
 
@@ -329,13 +347,22 @@ public class Main {
 									((Spreadsheet) PDF).viewCell(r1-1,c1-1); // convert to 0 index. 
 									break;
 								case 8:
+									System.out.println(); // Extra return for clearer readability. 
 									((Spreadsheet)PDF).exportAsPDF();
+									System.out.println("Returning to Main Menu...");
+                                    editingSpreadSheet = false;
 									break;
 								case 9:
+									System.out.println(); // Extra return for clearer readability. 
 									((Spreadsheet)PDF).exportAsHTML();
+									System.out.println("Returning to Main Menu...");
+                                    editingSpreadSheet = false;
 									break;
 								case 10:
+									System.out.println(); // Extra return for clearer readability. 
 									((Spreadsheet)PDF).exportAsWordDoc();
+									System.out.println("Returning to Main Menu...");
+                                    editingSpreadSheet = false;
 									break;
 								case 11:
 									System.out.println("Enter user email you would like to share with / change role:"); 
@@ -382,6 +409,7 @@ public class Main {
         			}
         	    	break;
         		case 8: // Send an email. 
+					System.out.println(); // Extra return for clearer readability. 
         			System.out.println("Enter recipient email: "); 
         			string = scan.nextLine(); // recipient
         			System.out.println("Enter message to send: "); 
@@ -443,7 +471,7 @@ public class Main {
                     	switch (option)
                     	{
                     		case 1: // Create an account. 
-                    			System.out.println("Enter a username (enter CANCEL to cancel): ");
+                    			System.out.println("\nEnter a username (enter CANCEL to cancel): ");
                     			String username = scan.nextLine(); 
                     			if (username.equals("CANCEL"))
                     				break; 
@@ -474,7 +502,7 @@ public class Main {
                     		case 2: // Sign in.                     			
                     			while (acc == null)
                     			{
-                    				System.out.println("Enter your email (enter CANCEL to cancel): ");
+                    				System.out.println("\nEnter your email (enter CANCEL to cancel): ");
                         			email = scan.nextLine(); 
                         			if (email.equals("CANCEL"))
                         				break; 

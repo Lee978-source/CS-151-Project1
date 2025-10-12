@@ -317,7 +317,7 @@ public class Spreadsheet extends GenericPDF {
     @Override
     public void contextMenu(AccountManager acc) {
         if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER")) {
-            System.out.println("Select option (enter a number): ");
+            System.out.println("\n--------------------------------------------------------------------------------");
             System.out.println("(1) Add a row/col to the sheet");
             System.out.println("(2) Delete a row/col to the sheet");
             System.out.println("(3) Add text to a cell");
@@ -329,9 +329,10 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(9) Export Spreadsheet as HTML");
             System.out.println("(10) Export Spreadsheet as Word Document");
             System.out.println("(11) Update User Roles");
+            System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
         } else if (this.getListOfRoles().get(acc.getEmail()).equals("EDITOR")) {
-            System.out.println("Select option (enter a number): ");
+            System.out.println("\n--------------------------------------------------------------------------------");
             System.out.println("(1) Add a row/col to the sheet");
             System.out.println("(2) Delete a row/col to the sheet");
             System.out.println("(3) Add text to a cell");
@@ -340,13 +341,15 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(8) Export Spreadsheet as PDF");
             System.out.println("(9) Export Spreadsheet as HTML");
             System.out.println("(10) Export Spreadsheet as Word Document");
+            System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
         } else // User role is: VIEWER
         {
-            System.out.println("Select option (enter a number): ");
+            System.out.println("\n--------------------------------------------------------------------------------");
             System.out.println("(8) Export Spreadsheet as PDF");
             System.out.println("(9) Export Spreadsheet as HTML");
             System.out.println("(10) Export Spreadsheet as Word Document");
+            System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
         }
     }

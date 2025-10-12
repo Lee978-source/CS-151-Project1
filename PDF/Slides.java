@@ -36,7 +36,7 @@ public class Slides extends GenericPDF {
    @Override
    public void contextMenu(AccountManager acc) {
    if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER")) {
-       System.out.println("Select option (enter a number): ");
+       System.out.println("\n--------------------------------------------------------------------------------");
        System.out.println("(1) Add a slide");
        System.out.println("(2) Delete a slide");
        System.out.println("(3) Add text to a slide");
@@ -48,9 +48,10 @@ public class Slides extends GenericPDF {
        System.out.println("(8) Export Slide Deck as HTML");
        System.out.println("(9) Export Slide Deck as Word Document");
        System.out.println("(10) Update User Roles");
+       System.out.println("--------------------------------------------------------------------------------");
        System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
    } else if (this.getListOfRoles().get(acc.getEmail()).equals("EDITOR")) {
-       System.out.println("Select option (enter a number): ");
+       System.out.println("\n--------------------------------------------------------------------------------");
        System.out.println("(1) Add a slide");
        System.out.println("(2) Delete a slide");
        System.out.println("(3) Add text to a slide");
@@ -59,13 +60,15 @@ public class Slides extends GenericPDF {
        System.out.println("(7) Export Slide Deck as PDF");
        System.out.println("(8) Export Slide Deck as HTML");
        System.out.println("(9) Export Slide Deck as Word Document");
+       System.out.println("--------------------------------------------------------------------------------");
        System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
    } else { // Viewer
-       System.out.println("Select option (enter a number): ");
+       System.out.println("\n--------------------------------------------------------------------------------");
        // System.out.println("(1) Add a Hashtag to your slides"); // removed
        System.out.println("(7) Export Slide Deck as PDF");
        System.out.println("(8) Export Slide Deck as HTML");
        System.out.println("(9) Export Slide Deck as Word Document");
+       System.out.println("--------------------------------------------------------------------------------");
        System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
    }
 }
