@@ -142,7 +142,7 @@ public class Main {
 								case 13:
 									System.out.println("Enter user email you would like to share with / change role:"); 
 									String email = scan.nextLine(); 
-									System.out.println("Enter new role (OWNER, EDITOR, VIEWER, COMMENTER): ");
+									System.out.println("Enter new role (OWNER, EDITOR, VIEWER): ");
 									String newRole = scan.nextLine(); 
 									((DocPDF) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Docs object to share with new user. 
 									break;
@@ -232,7 +232,7 @@ public class Main {
 								case 10:
 									System.out.println("Enter user email you would like to share with / change role:"); 
 									String email = scan.nextLine(); 
-									System.out.println("Enter new role (OWNER, EDITOR, VIEWER, COMMENTER): ");
+									System.out.println("Enter new role (OWNER, EDITOR, VIEWER): ");
 									String newRole = scan.nextLine(); 
 									((Slides) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Slides object to share with new user. 
 									break;
@@ -340,7 +340,7 @@ public class Main {
 								case 11:
 									System.out.println("Enter user email you would like to share with / change role:"); 
 									String email = scan.nextLine(); 
-									System.out.println("Enter new role (OWNER, EDITOR, VIEWER, COMMENTER): ");
+									System.out.println("Enter new role (OWNER, EDITOR, VIEWER): ");
 									String newRole = scan.nextLine(); 
 									((Spreadsheet) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Spreadsheet object to share with new user. 
 									break;
