@@ -133,8 +133,10 @@ public class DocPDF extends GenericPDF implements Exportable   {
     }
     // abstract methods
     @Override
-    public void merge(GenericPDF otherDoc) {
-        if(otherDoc == null) {
+    public void merge(GenericPDF otherDoc, AccountManager acc) {
+        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
+        {
+            if(otherDoc == null) {
             System.out.println("Cannot merge with null document :(");
             return;
         }
@@ -161,12 +163,18 @@ public class DocPDF extends GenericPDF implements Exportable   {
         System.out.println("Merge successful! :D");
         System.out.println("Original Page Count: " + originalPageCount);
         System.out.println("New Page Count: " + newPageCount);
+        }
+        else{
+            System.out.println("Only OWNER and EDITOR can merge documents.");
+        }
+        
     }
 
     @Override
-    public GenericPDF split(int splitIndex) {
-
-        // checks if the split is valid
+    public GenericPDF split(int splitIndex, AccountManager acc) {
+        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
+        {
+            // checks if the split is valid
         if (splitIndex <= 0 || splitIndex >= this.getPageCount()) {
             System.out.println("Invalid split index." + (this.getPageCount() - 1));
             return null;
@@ -208,6 +216,12 @@ public class DocPDF extends GenericPDF implements Exportable   {
 
         // returns the new document
         return newDoc;
+        }
+        else{
+            System.out.println("Only OWNER and EDITOR can split the document.");
+            return null; 
+        }
+        
     }
 
     @Override
@@ -242,6 +256,8 @@ public class DocPDF extends GenericPDF implements Exportable   {
             System.out.println("(5) Get Word Count: ");
             System.out.println("(6) Get Char Count: ");
             System.out.println("(7) Get Page Count: ");
+            System.out.println("(8) Choose document to merge with: ");
+            System.out.println("(9) Split document ");
             System.out.println("(10) Export Slide Deck as PDF");
             System.out.println("(11) Export Slide Deck as HTML");
             System.out.println("(12) Export Slide Deck as Word Document");
