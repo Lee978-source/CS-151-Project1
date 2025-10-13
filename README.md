@@ -14,6 +14,7 @@ cd GoogleDrive-CS-151-fall-2025-Project1
 
 2. Compile the code from root of the repo:
 mkdir bin
+
 javac -d bin useraccount/Main.java
 
 3. Run the program:
