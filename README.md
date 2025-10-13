@@ -11,7 +11,7 @@ The userAccount package manages the AccountManager class and the drive class. Th
 
 TO RUN:
 
-1. Clone the Repository, open your terminal and type:
+1. Clone the repository, open your terminal and type:
    
 git clone https://github.com/Lee978-source/GoogleDrive-CS-151-fall-2025-Project1.git
 
