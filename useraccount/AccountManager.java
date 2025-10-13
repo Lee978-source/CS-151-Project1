@@ -12,6 +12,9 @@
     /** General ArrayList to hold user accounts: */
     private final static ArrayList<AccountManager> accounts = new ArrayList<>(); // Overall ArrayList that holds all existing user accounts (only one to belong to WHOLE AccountManager class). 
 
+    /** Final static variable to restrict number of AccountManager objects (user accounts) to 100: */
+    private final static int MAX_ACCOUNTS = 100;
+
     /** User Information Fields: */
     private String username; // First and last name. 
     private String email; // Email address (must have "@gmail.com" at the end). 
@@ -25,7 +28,7 @@
     /** Constructor to initialize User Account object: */
     public AccountManager(String username, String email, String password, Integer month, Integer day, Integer year) {
         
-        if (getAccountsDatabase().size() < 100) // Limit the number of accounts to 100 for this program. 
+        if (getAccountsDatabase().size() < getMaxAccountLimit()) // Limit the number of accounts to 100 for this program. 
     	{
             if (!email.contains("@gmail.com")) // Ensure that the email has "@gmail.com" in it. 
             {
@@ -156,6 +159,11 @@
     public static ArrayList<AccountManager> getAccountsDatabase()
     {
     	return accounts; // Static variable of the whole class, so there is no "this." instance. 
+    }
+
+    public static int getMaxAccountLimit()
+    {
+        return MAX_ACCOUNTS; // Static variable of the whole class, so there is no "this." instance. 
     }
 
     /** Method to take user option for creating or editing PDF: */
