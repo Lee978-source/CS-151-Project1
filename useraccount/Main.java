@@ -1,5 +1,5 @@
 /**
- * @author [Lordin Yi]
+ * @authors [Ethan Le, Phuong Hua, Lordin Yi, Brian Nguyen]
  * @version 1.0
  * CS151 Fall 2025 - Project 1
  */
@@ -582,15 +582,7 @@ public class Main {
 
         scan.close(); 
         System.out.println("Program terminated! Thank you for using!"); 
-/*
-        // To simulate a login
-        // on success it will print the account menu
-        acc.login("alice@gmail.com", "secret123");
 
-        // call menu directly to always show it:
-        // acc.accountMenu();
-
-        System.out.println("\n--- Demo finished ---");*/
     }
 
 }

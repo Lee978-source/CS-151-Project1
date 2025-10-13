@@ -84,16 +84,7 @@ public class Slides extends GenericPDF {
         String existingText = this.getSequence().get(slideNumber);
         sequence.set(slideNumber, existingText.concat(newText));
         System.out.println("New text added to slide " + (slideNumber + 1));
-        /*if (this.getSequence() != null)
-        {
-            String existingText = this.getSequence().get(slideNumber); // Fetch the current existing text at specified slide number.
-            
-            this.getSequence().remove(slideNumber); // Remove the current existing slide first to avoid duplicates.
-            
-            this.getSequence().add(slideNumber, existingText.concat(newText)); // Append the new text with the existing text, then insert this at the specified slide number.
-            
-            System.out.println("New text appended to slide " + slideNumber);
-        }*/
+        
     }   
     else{
         System.out.println("Only OWNER and EDITOR can edit slides.");
@@ -164,15 +155,7 @@ public class Slides extends GenericPDF {
 
 
    public void deleteSlide(int slideNumber, AccountManager acc){
-      /*if(slideCount > 0){
-          slideCount--;
-          this.getSequence().remove(slideNumber);
-          System.out.println("Slide deleted. Total slides: " + slideCount);
-      } else {
-          System.out.println("No slides to delete!");
-      }*/
-
-
+      
         // Enhanced error handling with exceptions
        if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
        {
@@ -236,13 +219,6 @@ public class Slides extends GenericPDF {
               return;
           }
           Slides otherSlides = (Slides) other;
-
-
-/*
-      if (otherSlides == null) {
-              System.out.println("Cannot merge with null Slides :(");
-              return;
-          }*/
         
       if (!this.getListOfRoles().get(acc.getEmail()).equals("OWNER")) {
           System.out.println("Only OWNER can merge slides.");
@@ -261,11 +237,6 @@ public class Slides extends GenericPDF {
       System.out.println("Merged slide count: " + this.slideCount);
       System.out.println("Merged slides. Total slides: " + this.slideCount + " (added " + otherSlides.sequence.size() + " slides)");
   }
-
-
-
-
-
 
   @Override
   public GenericPDF split(int splitIndex, AccountManager acc) {
@@ -310,7 +281,6 @@ public class Slides extends GenericPDF {
       for (int i = 0; i < sequence.size(); i++) {
           System.out.println(sequence.get(i));
       }
-      //System.out.println(sequence);
 
   }
 
@@ -355,7 +325,6 @@ public class Slides extends GenericPDF {
 
   public void setSlideCount(int slideCount) {
       this.slideCount = slideCount;
-      //updateSequence();
   }
 
 
