@@ -25,43 +25,51 @@
     /** Constructor to initialize User Account object: */
     public AccountManager(String username, String email, String password, Integer month, Integer day, Integer year) {
         
-    	if (!email.contains("@gmail.com")) // Ensure that the email has "@gmail.com" in it. 
+        if (getAccountsDatabase().size() < 100) // Limit the number of accounts to 100 for this program. 
     	{
-    		System.out.println("Account creation failed! Email must contain \"@gmail.com\"!"); 
-    	}
-    	
-    	else if (password.strip().length() < 8) // Ensure that the password is 8 characters long, excluding any white spaces. 
-    	{
-    		System.out.println("Account creation failed! Password must be at least 8 characters long!"); 
-    	}
-    	
-    	else if (username.isBlank()) // Ensure that the username is NOT just blank with white spaces. 
-    	{
-    		System.out.println("Account creation failed! Username must not be blank!"); 
-    	}
-    	
-    	else if (month.toString().isBlank() || day.toString().isBlank() || year.toString().isBlank()) // Ensure that the date of birth is NOT just blank with white spaces. 
-    	{
-    		System.out.println("Account creation failed! Date of birth must not be blank!"); 
-    	}
-    	
-    	else 
-    	{
-    		// Initialize Account Information: 
-            this.username = username; 
-            this.email = email; 
-            this.password = password; 
-            this.dateOfBirth = month.toString() + "/" + day.toString() + "/" + year.toString();
-
-            // Initalize Account Attributes: 
-            this.inbox = new ArrayList<>(); // Initialize empty inbox for the new user account. 
-            this.drive = new Drive(); // Initialize empty Drive for the new user account. 
-
-            // Add the new account object to the General ArrayList of accounts: 
-            accounts.add(this); // Add this instance (object) of AccountManager to the "accounts" ArrayList.
+            if (!email.contains("@gmail.com")) // Ensure that the email has "@gmail.com" in it. 
+            {
+                System.out.println("Account creation failed! Email must contain \"@gmail.com\"!"); 
+            }
             
-            System.out.println("Account creation successful! Welcome to your new account!"); 
-    	}
+            else if (password.strip().length() < 8) // Ensure that the password is 8 characters long, excluding any white spaces. 
+            {
+                System.out.println("Account creation failed! Password must be at least 8 characters long!"); 
+            }
+            
+            else if (username.isBlank()) // Ensure that the username is NOT just blank with white spaces. 
+            {
+                System.out.println("Account creation failed! Username must not be blank!"); 
+            }
+            
+            else if (month.toString().isBlank() || day.toString().isBlank() || year.toString().isBlank()) // Ensure that the date of birth is NOT just blank with white spaces. 
+            {
+                System.out.println("Account creation failed! Date of birth must not be blank!"); 
+            }
+            
+            else 
+            {
+                // Initialize Account Information: 
+                this.username = username; 
+                this.email = email; 
+                this.password = password; 
+                this.dateOfBirth = month.toString() + "/" + day.toString() + "/" + year.toString();
+
+                // Initalize Account Attributes: 
+                this.inbox = new ArrayList<>(); // Initialize empty inbox for the new user account. 
+                this.drive = new Drive(); // Initialize empty Drive for the new user account. 
+
+                // Add the new account object to the General ArrayList of accounts: 
+                accounts.add(this); // Add this instance (object) of AccountManager to the "accounts" ArrayList.
+                
+                System.out.println("Account creation successful! Welcome to your new account!"); 
+            }
+        }
+
+        else
+        {
+            System.out.println("Account creation failed! Maximum of 100 accounts reached!"); 
+        }
     }
 
     /** Method to validate user login: */
