@@ -22,3 +22,7 @@ java -cp bin useraccount.Main
 
 4. Follow the terminal prompts to create accounts, manage files, and edit files with PDF/document/slide/spreadsheet menu features to make changes to your file.
    
+Ethan implemented the AccountManger, Drive, and Main class
+Phuong implemented the GenericPDF, Slides class, and added to the Main class
+Lordin implemented the Spreadsheet and added cases to the Main class
+Brian implemented the DocPDF class, Exportable interface, and added to the Main class
