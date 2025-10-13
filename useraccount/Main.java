@@ -160,10 +160,13 @@ public class Main {
                                     editingDoc = false;
                                     break;
 								case "13":
+									System.out.println(); // Extra return for clearer readability.
+									System.out.println(((DocPDF)PDF).getListOfRoles().toString()); // Print the list of roles for this specific DocPDF file. 
 									System.out.println("Enter user email you would like to share with / change role:"); 
 									String email = scan.nextLine(); 
 									System.out.println("Enter new role (OWNER, EDITOR, VIEWER): ");
 									String newRole = scan.nextLine(); 
+									System.out.println(); // Extra return for clearer readability.
 									((DocPDF) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Docs object to share with new user. 
 									break;
                                 case "0":
@@ -268,10 +271,13 @@ public class Main {
                                     editingSlides = false;
 									break;
 								case "10":
+									System.out.println(); // Extra return for clearer readability.
+									System.out.println(((Slides)PDF).getListOfRoles().toString()); // Print the list of roles for this specific Slides file. 
 									System.out.println("Enter user email you would like to share with / change role:"); 
 									String email = scan.nextLine(); 
 									System.out.println("Enter new role (OWNER, EDITOR, VIEWER): ");
 									String newRole = scan.nextLine(); 
+									System.out.println(); // Extra return for clearer readability.
 									((Slides) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Slides object to share with new user. 
 									break;
 								case "0":
@@ -399,10 +405,13 @@ public class Main {
                                     editingSpreadSheet = false;
 									break;
 								case "11":
+									System.out.println(); // Extra return for clearer readability.
+									System.out.println(((Spreadsheet)PDF).getListOfRoles().toString()); // Print the list of roles for this specific Spreadsheet file. 
 									System.out.println("Enter user email you would like to share with / change role:"); 
 									String email = scan.nextLine(); 
 									System.out.println("Enter new role (OWNER, EDITOR, VIEWER): ");
 									String newRole = scan.nextLine(); 
+									System.out.println(); // Extra return for clearer readability.
 									((Spreadsheet) PDF).updateUserRole(email, newRole, string, acc); // "string" contains the file name that will be used to grab the appropriate Spreadsheet object to share with new user. 
 									break;
 								case "0":
