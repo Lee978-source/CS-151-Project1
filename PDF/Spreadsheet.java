@@ -326,7 +326,7 @@ public class Spreadsheet extends GenericPDF {
             System.out.println("(2) Delete a row/col to the sheet");
             System.out.println("(3) Add text to a cell");
             System.out.println("(4) Merge two Spreadsheets");
-            System.out.println("(5) Split two Spreadsheets");
+            System.out.println("(5) Split into two Spreadsheets");
             System.out.println("(6) Swap content between 2 cells");
             System.out.println("(7) View content of a cell");
             System.out.println("(8) Export Spreadsheet as PDF");

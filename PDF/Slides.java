@@ -41,7 +41,7 @@ public class Slides extends GenericPDF {
        System.out.println("(2) Delete a slide");
        System.out.println("(3) Add text to a slide");
        System.out.println("(4) Merge two Slide Decks");
-       System.out.println("(5) Split two Slide Decks");
+       System.out.println("(5) Split into two Slide Decks");
        System.out.println("(6) Swap slide order between 2 slides");
        // System.out.println("(7) Add a Hashtag to your slides"); // removed
        System.out.println("(7) Export Slide Deck as PDF");

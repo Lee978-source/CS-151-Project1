@@ -226,18 +226,18 @@ public class DocPDF extends GenericPDF implements Exportable   {
         if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER")) {
             System.out.println("\n--------------------------------------------------------------------------------");
             System.out.println("Document Menu Options: ");
-            System.out.println("(1) Create new page: ");
-            System.out.println("(2) Delete Page: ");
-            System.out.println("(3) Add Text to Page: ");
-            System.out.println("(4) Find Word: ");
-            System.out.println("(5) Get Word Count: ");
-            System.out.println("(6) Get Char Count: ");
-            System.out.println("(7) Get Page Count: ");
-            System.out.println("(8) Choose document to merge with: ");
-            System.out.println("(9) Split document ");
-            System.out.println("(10) Export Slide Deck as PDF");
-            System.out.println("(11) Export Slide Deck as HTML");
-            System.out.println("(12) Export Slide Deck as Word Document");
+            System.out.println("(1) Create new page ");
+            System.out.println("(2) Delete Page ");
+            System.out.println("(3) Add Text to Page ");
+            System.out.println("(4) Find Word ");
+            System.out.println("(5) Get Word Count ");
+            System.out.println("(6) Get Char Count ");
+            System.out.println("(7) Get Page Count ");
+            System.out.println("(8) Choose document to merge with ");
+            System.out.println("(9) Split into 2 documents ");
+            System.out.println("(10) Export Document as PDF");
+            System.out.println("(11) Export Document as HTML");
+            System.out.println("(12) Export Document as Word Document");
             System.out.println("(13) Update User Roles");
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
@@ -245,29 +245,29 @@ public class DocPDF extends GenericPDF implements Exportable   {
         else if (this.getListOfRoles().get(acc.getEmail()).equals("EDITOR")) {
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Document Menu Options: ");
-            System.out.println("(1) Create new page: ");
-            System.out.println("(2) Delete Page: ");
-            System.out.println("(3) Add Text to Page: ");
-            System.out.println("(4) Find Word: ");
-            System.out.println("(5) Get Word Count: ");
-            System.out.println("(6) Get Char Count: ");
-            System.out.println("(7) Get Page Count: ");
-            System.out.println("(10) Export Slide Deck as PDF");
-            System.out.println("(11) Export Slide Deck as HTML");
-            System.out.println("(12) Export Slide Deck as Word Document");
+            System.out.println("(1) Create new page ");
+            System.out.println("(2) Delete Page ");
+            System.out.println("(3) Add Text to Page ");
+            System.out.println("(4) Find Word ");
+            System.out.println("(5) Get Word Count ");
+            System.out.println("(6) Get Char Count ");
+            System.out.println("(7) Get Page Count ");
+            System.out.println("(10) Export Document as PDF");
+            System.out.println("(11) Export Document as HTML");
+            System.out.println("(12) Export Document as Word Document");
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
         }
         else {
             // viewer
             System.out.println("Document Menu Options: ");
-            System.out.println("(4) Find Word: ");
-            System.out.println("(5) Get Word Count: ");
-            System.out.println("(6) Get Char Count: ");
-            System.out.println("(7) Get Page Count: ");
-            System.out.println("(10) Export spreadsheet as PDF");
-            System.out.println("(11) Export spreadsheet as HTML");
-            System.out.println("(12) Export spreadsheet as Word Document");
+            System.out.println("(4) Find Word ");
+            System.out.println("(5) Get Word Count ");
+            System.out.println("(6) Get Char Count ");
+            System.out.println("(7) Get Page Count ");
+            System.out.println("(10) Export Document as PDF");
+            System.out.println("(11) Export Document as HTML");
+            System.out.println("(12) Export Document as Word Document");
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Your role: " + this.getListOfRoles().get(acc.getEmail()));
         }
