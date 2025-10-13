@@ -109,7 +109,7 @@
         System.out.println("Account Menu Options: \n");
         System.out.println("(8) View Inbox Emails\t\t(9) Send Email\t\t(10) Get Account Info"); 
         System.out.println("(11) Change password\t\t(12) Change username\t(13) Change email"); 
-        System.out.println("(14) Change date of birth\t(15) Logout\n--------------------------------------------------------------------------------");
+        System.out.println("(14) Change date of birth\t(15) Logout\t\t(16) Delete Account\n--------------------------------------------------------------------------------");
         
         //System.out.println("What would you like to do? Enter option number: "); 
     }
@@ -185,19 +185,19 @@
     }
 
     /** Method to return number of emails in inbox (another Getter method): */
-    public int getNumberOfEmails() // Call this method FIRST in the "Main" class if the user had selected Option 7. 
+    public int getNumberOfEmails() // Call this method FIRST in the "Main" class if the user had selected Option 8. 
     {
     	return this.getInbox().size(); // Return the number of emails to the user. The "Main" class will use this number to print a message to the user either asking them to enter an email number to read (if inbox size > 0), or a message that just tells them they have no emails to read (else inbox size == 0). 
     }
     
     /** Method to read specified email: */ 
-    public void fetchEmail(int emailNumber) // Call this method NEXT in the "Main" class (from Option 7) once the user has entered an email number to read. 
+    public void fetchEmail(int emailNumber) // Call this method NEXT in the "Main" class (from Option 8) once the user has entered an email number to read. 
     {
     	System.out.println("Email " + emailNumber + ":\n" + this.getInbox().get(emailNumber-1)); // Print the message number and the message itself. 
     }
     
 	/** Method to send an email: */ 
-    public void sendEmail(String recipient, String message) // In "Main" class, user will be prompted to enter recipient email and the message before calling this method (if they have chosen Option 8). 
+    public void sendEmail(String recipient, String message) // In "Main" class, user will be prompted to enter recipient email and the message before calling this method (if they have chosen Option 9). 
     {
     	boolean sent = false; 
     	
@@ -217,10 +217,17 @@
     		System.out.println("User does not exist! Please enter a valid recipient email!"); 
     	}
     }
-    
+
+    /** Method to delete user account from the database: */
+    public void deleteAccount(AccountManager acc) // In the "Main" class, if user has selected Option 16, call this method to delete their account. 
+    {
+        getAccountsDatabase().remove(acc); // Remove the user account from the general "accounts" ArrayList (removing the account from the database).
+        System.out.println("Account deletion successful! Your account has been removed from the database."); 
+    }
+
     /** Method to get the user's account information: */ 
     @Override
-    public String toString() // In "Main" class, call this method if user has selected Option 9. 
+    public String toString() // In "Main" class, call this method if user has selected Option 10. 
     {
     	return "Username: " + this.getUsername() + "\nEmail: " + this.getEmail() + "\nPassword: " + this.getPassword() + "\nDate of Birth: " + this.getDateOfBirth() + "\nNumber of Emails in Inbox: " + this.getNumberOfEmails(); 
     }
@@ -228,7 +235,7 @@
     /** Setter methods for each private property of the user account: */
     
     /** Method to change the user's password: */
-    public void setPassword(String newPassword) // In "Main" class, if user has selected Option 10, have them first enter their old password, then call "getPassword()" from this class to get the old password to see if it matches, then have user enter NEW password and call this method to change it. 
+    public void setPassword(String newPassword) // In "Main" class, if user has selected Option 11, have them first enter their old password, then call "getPassword()" from this class to get the old password to see if it matches, then have user enter NEW password and call this method to change it. 
     {
     	if (newPassword.strip().length() >= 8) // Ensure that the password is 8 characters long, excluding any white spaces.
     	{
@@ -242,7 +249,7 @@
     }
     
     /** Method to change the user's username: */
-    public void setUsername(String newUsername) // In "Main" class, if user has selected Option 11, prompt them to enter new username. 
+    public void setUsername(String newUsername) // In "Main" class, if user has selected Option 12, prompt them to enter new username. 
     {
     	if (newUsername.isBlank()) // Ensure that the username is NOT just blank with white spaces. 
     	{
@@ -257,7 +264,7 @@
     }
     
     /** Method to change the user's email: */
-    public void setEmail(String newEmail) // In "Main" class, if user has selected Option 12, prompt them to enter new email. 
+    public void setEmail(String newEmail) // In "Main" class, if user has selected Option 13, prompt them to enter new email. 
     {
     	if (newEmail.contains("@gmail.com")) // Ensure that the email has "@gmail.com" in it. 
     	{
@@ -272,7 +279,7 @@
     }
     
     /** Method to change the user's date of birth: */
-    public void setDateOfBirth(Integer newMonth, Integer newDay, Integer newYear) // In "Main" class, if user has selected Option 13, prompt them to enter new date of birth. 
+    public void setDateOfBirth(Integer newMonth, Integer newDay, Integer newYear) // In "Main" class, if user has selected Option 14, prompt them to enter new date of birth. 
     {
     	if (newMonth.toString().isBlank() || newDay.toString().isBlank() || newYear.toString().isBlank()) // Ensure that the date of birth is NOT just blank with white spaces. 
     	{

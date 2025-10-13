@@ -573,6 +573,84 @@ public class Main {
                     	} 
         			}        			
                 	break; 
+				case "16": // Delete Account. 
+					System.out.println("Are you sure you want to delete your account? This action cannot be undone! (Enter YES to confirm, anything else to cancel): ");
+					String confirm = scan.nextLine(); 
+					if (confirm.equals("YES"))
+					{
+						acc.deleteAccount(acc); // Delete the account. 
+
+						acc = null; // Sign out. 
+						while (acc == null && !finished)
+						{
+							AccountManager.programMenu(); // Print the program menu (user is signed out). 
+
+							option = scan.next(); 
+							scan.nextLine(); // Flush out rest of the line to clear the buffer. 
+
+							if (option.equalsIgnoreCase("EXIT")) // If user enters "EXIT", the program instantly terminates. 
+							{
+								finished = true; // Trigger the program termination flag. 
+								break; 
+							}
+
+							switch (option)
+							{
+								case "1": // Create an account. 
+									System.out.println("\nEnter a username (enter CANCEL to cancel): ");
+									String username = scan.nextLine(); 
+									if (username.equals("CANCEL"))
+										break; 
+									System.out.println("Enter an email (must contain \"@gmail.com\"): ");
+									String email = scan.nextLine(); 
+									System.out.println("Enter a password (must be at least 8 characters long): ");
+									String password = scan.nextLine();
+									System.out.println("Enter your month of birth (Integer): ");
+									Integer month = scan.nextInt();
+									System.out.println("Enter your day of birth (Integer): ");
+									Integer day = scan.nextInt();
+									System.out.println("Enter your year of birth (Integer): ");
+									Integer year = scan.nextInt();
+									acc = new AccountManager( // If any of the fields are invalid as developed in the constructor, all fields will be assigned as "null" by default. 
+											username,
+											email,
+											password,
+											month, 
+											day,
+											year
+									);                   			
+									// Fields being assigned as "null" when account creation fails are used to determine whether acc=null (to determine if user is signed into their new account or not):
+									if (acc.getUsername() == null || acc.getEmail() == null || acc.getPassword() == null || acc.getDateOfBirth() == null)
+										acc = null;
+									else
+										acc.accountMenu(); 
+									break; 
+								case "2": // Sign in.                     			
+									while (acc == null)
+									{
+										System.out.println("\nEnter your email (enter CANCEL to cancel): ");
+										email = scan.nextLine(); 
+										if (email.equals("CANCEL"))
+											break; 
+										System.out.println("Enter your password: ");
+										password = scan.nextLine(); 
+										acc = AccountManager.login(email, password); 
+										if (acc == null)
+											System.out.println("Invalid email and/or password! Try again!\n");		
+									} 
+									break; 
+								default:
+									System.out.println("Invalid option. Please try again.");
+							} 
+						} 
+						break;        			
+					}
+					else
+					{
+						acc.accountMenu(); // Call user account menu.
+						System.out.println("Account deletion cancelled! Returning to Main Menu...");
+					}
+					break; 
 				default:
 					acc.accountMenu(); // Call user account menu.
 					System.out.println("Invalid option. Please try again.");
