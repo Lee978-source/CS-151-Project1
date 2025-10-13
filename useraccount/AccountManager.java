@@ -167,21 +167,6 @@
     			break; 
     	}
     }
-    
-/* 
-    //  Method to take user option for viewing Drive contents: 
-    public void viewDriveOption(int option) // Call this method in the "Main" class if the user had selected Options 5-6. 
-    {
-    	switch (option) {
-		    case 5: 
-			//	this.getDrive().viewAllFileTitles(); // View all of the existing files in the Drive.
-				break; 
-			case 6: 
-			//	this.getDrive().checkStorage(); // Check used Drive storage and remaining Drive storage.
-				break; 
-    	}
-    }
-*/ 
 
     /** Method to return number of emails in inbox (another Getter method): */
     public int getNumberOfEmails() // Call this method FIRST in the "Main" class if the user had selected Option 7. 
