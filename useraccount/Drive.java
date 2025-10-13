@@ -35,7 +35,7 @@ public class Drive {
         	{
         		DocPDF doc = new DocPDF(username, email, "OWNER"); // Create a new Doc object. 
 	            this.docsFiles.put(fileName, doc); // Add the new Doc object to the docs HashMap, using the file name as the key.
-        
+				System.out.println("Document file created successfully!"); 
         	}
         	
         	else // Print error message stating capacity is maxed out. 
@@ -43,15 +43,14 @@ public class Drive {
         		System.out.println("Error! Max capacity reached for Documents! Delete existing Document files to create a new one!");
         	}
         }
-
-        //else 
-    	if (option.equals("2")) // Option 2: create slides.
+ 
+    	else if (option.equals("2")) // Option 2: create slides.
         {
         	if (this.slidesFiles.size() < MAX_SLIDES) // Check to ensure we have capacity.
         	{
 	            Slides slides = new Slides(username, email, "OWNER"); // Create a new Slides object. 
 	            this.slidesFiles.put(fileName, slides); // Add the new Slides object to the slides HashMap, using the file name as the key. 
-        
+				System.out.println("Slides file created successfully!"); 
         	}
         	
         	else // Print error message stating capacity is maxed out. 
@@ -66,7 +65,7 @@ public class Drive {
         	{
 	            Spreadsheet sheets = new Spreadsheet(username, email, "OWNER"); // Create a new Spreadsheet object.
 	            this.spreadsheetsFiles.put(fileName, sheets); // Add the new Spreadsheet object to the spreadsheets HashMap, using the file name as the key.
-        
+				System.out.println("Spreadsheet file created successfully!"); 
         	}
         	
         	else // Print error message stating capacity is maxed out. 

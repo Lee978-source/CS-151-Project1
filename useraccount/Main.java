@@ -48,23 +48,20 @@ public class Main {
         		case "1": // Create a DocPDF file. 
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
-        			acc.createOption(option, string); 
         			acc.accountMenu(); // Call user account menu. 
-					System.out.println("Document file created successfully!"); 
+					acc.createOption(option, string); 
         			break;
 				case "2": // Create a Slides file. 
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
-        			acc.createOption(option, string); 
         			acc.accountMenu(); // Call user account menu. 
-					System.out.println("Slides file created successfully!"); 
+					acc.createOption(option, string); 
         			break;
 				case "3": // Create a Spreadsheet file. 
         			System.out.println("Enter a new file name: "); 
         			string = scan.nextLine(); // fileName. 
-        			acc.createOption(option, string); 
         			acc.accountMenu(); // Call user account menu. 
-					System.out.println("Spreadsheet file created successfully!"); 
+					acc.createOption(option, string); 
         			break;
         		case "4": // Edit a PDF file.
                     System.out.println("Enter an existing file name: ");
