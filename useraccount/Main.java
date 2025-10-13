@@ -129,7 +129,7 @@ public class Main {
                                 case "9":
                                     System.out.print("Enter the page number you want to split at: ");
                                     int index1 = scan.nextInt();
-                                    int splitNum = index1 - 1;
+                                    int splitNum = index1;
                                     GenericPDF newSplit = ((DocPDF)PDF).split(splitNum, acc);
                                     if (newSplit != null) {
 										acc.getDrive().getDocsFiles().put(string + " part2", (DocPDF)newSplit); // Add the new split document to the Drive with " part2" appended as part of the new file name.
