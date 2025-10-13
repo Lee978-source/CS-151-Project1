@@ -562,9 +562,14 @@ public class Main {
                         				System.out.println("Invalid email and/or password! Try again!\n");		
                     			} 
                     			break; 
+							default:
+								System.out.println("Invalid option. Please try again.");
                     	} 
         			}        			
                 	break; 
+				default:
+					acc.accountMenu(); // Call user account menu.
+					System.out.println("Invalid option. Please try again.");
         	}
         }
 
