@@ -7,5 +7,17 @@ There are two packages that this project mainly uses, PDF and userAccount.
 The PDF package includes an abstract class of GenericPDF and public classes DocPDF, Slides, and Spreadsheet, and as well as an interface Exportable.
 The userAccount package manages the AccountManager class and the drive class. This package also includes the Main file to run the program. 
 
+TO RUN:
+1. Clone the Repository, open your terminal and type:
+git clone https://github.com/Lee978-source/GoogleDrive-CS-151-fall-2025-Project1.git
+cd GoogleDrive-CS-151-fall-2025-Project1
 
+2. Compile the code from root of the repo:
+mkdir bin
+javac -d bin useraccount/Main.java
 
+3. Run the program:
+java -cp bin useraccount.Main
+
+4. Follow the terminal prompts to create accounts, manage files, and edit files with PDF/document/slide/spreadsheet menu features to make changes to your file.
+   
