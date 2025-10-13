@@ -215,7 +215,7 @@ public class Spreadsheet extends GenericPDF {
         if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER"))
         {
             if (splitIndex <= 0 || splitIndex >= this.cols) {
-            System.out.println("Invalid split index at column." + (this.cols - 1));
+            System.out.println("Invalid split index at column." + (this.cols));
             return null;
             }
 
@@ -398,8 +398,8 @@ public class Spreadsheet extends GenericPDF {
                     System.out.println();
                 }
             return "SpreadSheets{" +
-                "RowCount=" + this.rows +
-                ", ColumnCount='" + this.cols + '\'' +
+                "RowCount=" + this.matrix.length +
+                ", ColumnCount='" + this.matrix[0].length + '\'' +
                 ", username='" + getUsername() + '\'' +
                 ", email='" + getEmail() + '\'' +
                 ", role='" + getRole() + '\'' +

@@ -350,7 +350,7 @@ public class Main {
 									System.out.println("Enter column to split: ");
 									int splitIndex = scan.nextInt();
 									scan.nextLine();
-									GenericPDF newSplit = ((Spreadsheet) PDF).split(splitIndex-1, acc); // convert to 0 index. 
+									GenericPDF newSplit = ((Spreadsheet) PDF).split(splitIndex, acc); // convert to 0 index. 
 									if (newSplit != null) {
 										acc.getDrive().getSheetFiles().put(string + " part2", (Spreadsheet)newSplit); // Add the new split spreadsheet to the Drive with " part2" appended as part of the new file name.
 										System.out.println("Deck successfully split. New deck created.");
