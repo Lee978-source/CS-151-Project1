@@ -172,7 +172,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
         {
             // checks if the split is valid
         if (splitIndex <= 0 || splitIndex >= this.getPageCount()) {
-            System.out.println("Invalid split index." + (this.getPageCount()));
+            System.out.println("Invalid split index." + splitIndex + ". The valid range is from 1 to " + (this.getPageCount() - 1) + ".");
             return null;
         }
 
@@ -206,7 +206,7 @@ public class DocPDF extends GenericPDF implements Exportable   {
         }
 
         // prints out success split with page count for each document
-        System.out.println("Split at page " + splitIndex+1
+        System.out.println("Split at page " + splitIndex
                 + " -> this doc has " + this.getPageCount() + " pages"
                 + ", new doc has " + newDoc.getPageCount() + " pages.");
 

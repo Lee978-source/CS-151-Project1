@@ -273,7 +273,7 @@ public class Slides extends GenericPDF {
     if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER"))
     {
         if (splitIndex <= 0 || splitIndex >= this.slideCount) {
-          System.out.println("Invalid split index." + (this.slideCount));
+          System.out.println("Invalid split index: " + splitIndex + ". The valid range is from 1 to " + (this.slideCount - 1) + ".");
           return null;
       }
 

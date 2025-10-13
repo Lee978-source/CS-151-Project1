@@ -132,7 +132,7 @@ public class Main {
                                     int splitNum = index1;
                                     GenericPDF newSplit = ((DocPDF)PDF).split(splitNum, acc);
                                     if (newSplit != null) {
-										acc.getDrive().getDocsFiles().put(string + " part2", (DocPDF)newSplit); // Add the new split document to the Drive with " part2" appended as part of the new file name.
+										acc.getDrive().getDocsFiles().put(string + " nextpart", (DocPDF)newSplit); // Add the new split document to the Drive with " part2" appended as part of the new file name.
                                         System.out.println("Document successfully split. New deck created.");
                                     } else {
                                         System.out.println("Split index out of bounds. No split performed.");
@@ -233,7 +233,7 @@ public class Main {
 									int splitNum = splitIndex;
 									GenericPDF newSplit = ((Slides) PDF).split(splitNum, acc);
 									if (newSplit != null) {
-										acc.getDrive().getSlidesFiles().put(string + " part2", (Slides)newSplit); // Add the new split slide deck to the Drive with " part2" appended as part of the new file name.
+										acc.getDrive().getSlidesFiles().put(string + " nextpart", (Slides)newSplit); // Add the new split slide deck to the Drive with " part2" appended as part of the new file name.
 										System.out.println("Deck successfully split. New deck created.");
 									} else {
 										System.out.println("Split index out of bounds. No split performed.");
@@ -352,7 +352,7 @@ public class Main {
 									scan.nextLine();
 									GenericPDF newSplit = ((Spreadsheet) PDF).split(splitIndex, acc); // convert to 0 index. 
 									if (newSplit != null) {
-										acc.getDrive().getSheetFiles().put(string + " part2", (Spreadsheet)newSplit); // Add the new split spreadsheet to the Drive with " part2" appended as part of the new file name.
+										acc.getDrive().getSheetFiles().put(string + " nextpart", (Spreadsheet)newSplit); // Add the new split spreadsheet to the Drive with " part2" appended as part of the new file name.
 										System.out.println("Deck successfully split. New deck created.");
 									} else {
 										System.out.println("Split index out of bounds. No split performed.");

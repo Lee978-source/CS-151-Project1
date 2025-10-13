@@ -20,27 +20,25 @@ public class Spreadsheet extends GenericPDF {
     public void setRows(int newRows) {
         if (newRows <= 0) throw new IllegalArgumentException("rows must be > 0");
         this.rows = newRows;
-        this.matrix = new String[this.rows][this.cols]; // clears all data
     }
 
     public void setCols(int newCols) {
         if (newCols <= 0) throw new IllegalArgumentException("cols must be > 0");
         this.cols = newCols;
-        this.matrix = new String[this.rows][this.cols]; // clears all data
     }
 
 
     public Spreadsheet(String username, String email, String role) {
         super(username, email, role);
-        this.rows = 10;   // limit size
-        this.cols = 10;
-        this.matrix = new String[this.rows][this.cols];
+        this.matrix = new String[10][10]; // default size. 
+        this.rows = this.matrix.length;   // limit size.
+        this.cols = this.matrix[0].length; // limit size.
     }
 
     public void addRow(AccountManager acc) {
         if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
         {
-            String[][] newMatrix = new String[this.rows += 1][this.cols];
+            String[][] newMatrix = new String[this.getRows() + 1][this.getCols()];
             for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
             {
                 for (int col = 0; col < this.matrix[0].length; col++)
@@ -50,6 +48,7 @@ public class Spreadsheet extends GenericPDF {
             }
 
             this.matrix = newMatrix;
+            this.setRows(this.getRows() + 1);
             displaySheet();
         }
         else{
@@ -61,7 +60,7 @@ public class Spreadsheet extends GenericPDF {
     public void addCol(AccountManager acc) {
         if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
         {
-            String[][] newMatrix = new String[this.rows][this.cols += 1];
+            String[][] newMatrix = new String[this.getRows()][this.getCols() + 1];
             for (int row = 0; row < this.matrix.length; row++) // Old content from OG sheet has the same indices.
             {
                 for (int col = 0; col < this.matrix[0].length; col++)
@@ -71,6 +70,7 @@ public class Spreadsheet extends GenericPDF {
             }
 
             this.matrix = newMatrix;
+            this.setCols(this.getCols() + 1); 
             displaySheet();
         }
         else{
@@ -82,16 +82,17 @@ public class Spreadsheet extends GenericPDF {
     public void deleteRow(AccountManager acc) {
         if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
         {
-            String[][] newMatrix = new String[this.rows -= 1][this.cols];
-            for (int row = 0; row < this.rows; row++) // Old content from OG sheet has the same indices.
+            String[][] newMatrix = new String[this.getRows() - 1][this.getCols()];
+            for (int row = 0; row < this.getRows(); row++) // Old content from OG sheet has the same indices.
             {
-                for (int col = 0; col < this.cols; col++)
+                for (int col = 0; col < this.getCols(); col++)
                 {
                     newMatrix[row][col] = this.matrix[row][col];
                 }
             }
 
             this.matrix = newMatrix;
+            this.setRows(this.getRows() - 1); 
             displaySheet();
         }
         else{
@@ -103,16 +104,17 @@ public class Spreadsheet extends GenericPDF {
     public void deleteCol(AccountManager acc) {
         if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER") || this.getListOfRoles().get(acc.getEmail()).equals("EDITOR"))
         {
-            String[][] newMatrix = new String[this.rows][this.cols -= 1];
-            for (int row = 0; row < this.rows; row++) // Old content from OG sheet has the same indices.
+            String[][] newMatrix = new String[this.getRows()][this.getCols() - 1];
+            for (int row = 0; row < this.getRows(); row++) // Old content from OG sheet has the same indices.
             {
-                for (int col = 0; col < this.cols; col++)
+                for (int col = 0; col < this.getCols(); col++)
                 {
                     newMatrix[row][col] = this.matrix[row][col];
                 }
             }
 
             this.matrix = newMatrix;
+            this.setCols(this.getCols() - 1); 
             displaySheet();
         }
         else{
@@ -161,11 +163,11 @@ public class Spreadsheet extends GenericPDF {
             }
 
             // Enforce limit of 100 rows and columns after merging
-            int mergedRows = this.rows + ((Spreadsheet) otherSheet).rows;
-            int mergedCols = this.cols + ((Spreadsheet) otherSheet).cols;
+            int mergedRows = this.getRows() + ((Spreadsheet) otherSheet).getRows();
+            int mergedCols = this.getCols() + ((Spreadsheet) otherSheet).getCols();
 
             if (mergedRows > 100 || mergedCols > 100) {
-                System.out.println("Merge aborted: limit of 30 rows or columns exceeded.");
+                System.out.println("Merge aborted: limit of 100 rows or columns exceeded.");
                 return;
             }
 
@@ -174,13 +176,13 @@ public class Spreadsheet extends GenericPDF {
                 System.out.println("You do not have permission to merge slides.");
                 return;
             }
-            int originalRow = this.rows;
-            int originalCol = this.cols;
+            int originalRow = this.getRows();
+            int originalCol = this.getCols();
 
-            this.rows += ((Spreadsheet) otherSheet).rows;
-            this.cols += ((Spreadsheet) otherSheet).cols;
+            this.setRows(this.getRows() + ((Spreadsheet) otherSheet).getRows());
+            this.setCols(this.getCols() + ((Spreadsheet) otherSheet).getCols());
 
-            String[][] newMatrix = new String[this.rows][this.cols]; // New matrix with new size.
+            String[][] newMatrix = new String[this.getRows()][this.getCols()]; // New matrix with new size.
 
             for (int row = 0; row < originalRow; row++) // Old content from OG sheet has the same indices.
             {
@@ -190,8 +192,8 @@ public class Spreadsheet extends GenericPDF {
                 }
             }
 
-            for (int row = 0; row < ((Spreadsheet) otherSheet).rows; row++) {
-                for (int col = 0; col < ((Spreadsheet) otherSheet).cols; col++) {
+            for (int row = 0; row < ((Spreadsheet) otherSheet).getRows(); row++) {
+                for (int col = 0; col < ((Spreadsheet) otherSheet).getCols(); col++) {
                     newMatrix[originalRow + row][originalCol + col] = ((Spreadsheet) otherSheet).matrix[row][col];
                 }
             }
@@ -199,10 +201,9 @@ public class Spreadsheet extends GenericPDF {
 
             this.matrix = newMatrix; // Update reference to the NEW matrix.
 
-
             System.out.println("Original sheet row count: " + originalRow + "\nOriginal sheet col count: " + originalCol);
-            System.out.println("Merged sheet row count: " + this.rows + "\nMerged sheet col count: " + this.cols);
-            System.out.println("Merged sheets. Total cells: " + this.rows * this.cols);
+            System.out.println("Merged sheet row count: " + this.getRows() + "\nMerged sheet col count: " + this.getCols());
+            System.out.println("Merged sheets. Total cells: " + this.getRows() * this.getCols());
         }
         else{
             System.out.println("Only OWNER can merge Spreadsheets.");
@@ -214,17 +215,17 @@ public class Spreadsheet extends GenericPDF {
     public Spreadsheet split(int splitIndex, AccountManager acc) {
         if (this.getListOfRoles().get(acc.getEmail()).equals("OWNER"))
         {
-            if (splitIndex <= 0 || splitIndex >= this.cols) {
-            System.out.println("Invalid split index at column." + (this.cols));
+            if (splitIndex <= 0 || splitIndex >= this.getCols()) {
+            System.out.println("Invalid split index at column: " + splitIndex + ". The valid range is from 1 to " + (this.getCols() - 1) + ".");
             return null;
             }
 
-            String[][] newMatrix = new String[this.rows][this.cols - splitIndex];
-            String[][] oldMatrix = new String[this.rows][splitIndex];
+            String[][] newMatrix = new String[this.getRows()][this.getCols() - splitIndex];
+            String[][] oldMatrix = new String[this.getRows()][splitIndex];
 
-            for (int row = 0; row < this.rows; row++) // Split content into two matrices.
+            for (int row = 0; row < this.getRows(); row++) // Split content into two matrices.
             {
-                for (int col = 0; col < this.cols; col++)
+                for (int col = 0; col < this.getCols(); col++)
                 {
                     if (col < splitIndex) // If we are still in the left "half" of the Spreadsheet, keep the old content in the same indices.
                         oldMatrix[row][col] = this.matrix[row][col];
@@ -235,18 +236,21 @@ public class Spreadsheet extends GenericPDF {
 
             this.matrix = oldMatrix; // Update reference to the OLD matrix (left half of the content)
 
-            System.out.println("Original sheet row count: " + this.rows + "\nMerged sheet col count: " + this.cols);
+            System.out.println("Original sheet row count: " + this.getRows() + "\nMerged sheet col count: " + this.getCols());
 
-            this.rows = oldMatrix.length; // Left sheet row count.
-            this.cols = oldMatrix[0].length; // Left sheet col count.
+            this.setRows(oldMatrix.length); // Left sheet row count.
+            this.setCols(oldMatrix[0].length); // Left sheet col count.
 
-            System.out.println("Left sheet row count after split: " + this.rows + "\nLeft sheet col count after split: " + this.cols);
+            System.out.println("Left sheet row count after split: " + this.getRows() + "\nLeft sheet col count after split: " + this.getCols());
             System.out.println("Right sheet row count after split: " + newMatrix.length + "\nRight sheet col count after split: " + newMatrix[0].length);
 
             System.out.println("Spreadsheet split at column " + splitIndex);
 
             Spreadsheet newSheet = new Spreadsheet(this.username, this.email, this.role);
             newSheet.matrix = newMatrix; // Right half of the content.
+
+            newSheet.setRows(newMatrix.length); // Right sheet row count. 
+            newSheet.setCols(newMatrix[0].length); // Right sheet col count. 
 
             return newSheet;
         }
@@ -309,7 +313,7 @@ public class Spreadsheet extends GenericPDF {
             }
             System.out.println();
         }
-        System.out.println("Rows: " + this.rows + ", Cols: " + this.cols);
+        System.out.println("Rows: " + this.getRows() + ", Cols: " + this.getCols());
         System.out.println("===================================\n");
     }
 

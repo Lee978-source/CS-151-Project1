@@ -15,8 +15,8 @@ public class Drive {
     private final HashMap<String, Slides> slidesFiles; // HashMap to hold "slides" Drive objects (files). Key = file name, Value = slides Drive object (file). 
     private final HashMap<String, Spreadsheet> spreadsheetsFiles; // HashMap to hold "spreadsheets" Drive objects (files). Key = file name, Value = spreadsheets Drive object (file). 
     private final int MAX_DOCS = 3; // Maximum number of Docs that is allowed in the HashMap. 
-    private final int MAX_SLIDES = 2; // Maximum number of Slides that is allowed in the HashMap. 
-    private final int MAX_SPREADSHEETS = 2; // Maximum number of Spreadsheets that is allowed in the HashMap. 
+    private final int MAX_SLIDES = 3; // Maximum number of Slides that is allowed in the HashMap. 
+    private final int MAX_SPREADSHEETS = 3; // Maximum number of Spreadsheets that is allowed in the HashMap. 
 
     /** Constructor to initialize Drive object (created in AccountManager class): */
     protected Drive() {
