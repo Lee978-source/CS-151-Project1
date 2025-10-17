@@ -8,6 +8,7 @@ package useraccount;
 
 import PDF.*;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Main {
     public static void main(String[] args) {
@@ -124,16 +125,22 @@ public class Main {
                                     }
                                     break;
                                 case "9":
-                                    System.out.print("Enter the page number you want to split at: ");
-                                    int index1 = scan.nextInt();
-                                    int splitNum = index1;
-                                    GenericPDF newSplit = ((DocPDF)PDF).split(splitNum, acc);
-                                    if (newSplit != null) {
-										acc.getDrive().getDocsFiles().put(string + " nextpart", (DocPDF)newSplit); // Add the new split document to the Drive with " part2" appended as part of the new file name.
-                                        System.out.println("Document successfully split. New deck created.");
-                                    } else {
-                                        System.out.println("Split index out of bounds. No split performed.");
-                                    }
+                                    try {
+										System.out.print("Enter the page number you want to split at: ");
+										int index1 = scan.nextInt();
+										scan.nextLine();
+										int splitNum = index1;
+										GenericPDF newSplit = ((DocPDF)PDF).split(splitNum, acc);
+										if (newSplit != null) {
+											acc.getDrive().getDocsFiles().put(string + " nextpart", (DocPDF)newSplit); // Add the new split document to the Drive with " part2" appended as part of the new file name.
+											System.out.println("Document successfully split. New deck created.");
+										} else {
+											System.out.println("Split index out of bounds. No split performed.");
+										}
+									} catch (InputMismatchException e) {
+										System.out.println("Invalid input! Please enter a valid number.");
+										scan.nextLine(); // Clear the invalid input
+									}
                                     break;
                                 case "10":
 									System.out.println(); // Extra return for clearer readability. 
@@ -198,20 +205,30 @@ public class Main {
 									((Slides) PDF).addSlide(acc);
 									break;
 								case "2":
-									System.out.print("Enter slide number to delete: ");
-									int slideIndex = scan.nextInt();
-									scan.nextLine();
-									int deleteNum = slideIndex - 1; // Convert to zero-based index
-									((Slides) PDF).deleteSlide(deleteNum, acc);
+									try {
+										System.out.print("Enter slide number to delete: ");
+										int slideIndex = scan.nextInt();
+										scan.nextLine();
+										int deleteNum = slideIndex - 1; // Convert to zero-based index
+										((Slides) PDF).deleteSlide(deleteNum, acc);
+									} catch (InputMismatchException e) {
+										System.out.println("Invalid input! Please enter a valid number.");
+										scan.nextLine(); // Clear the invalid input
+									}
 									break;
 								case "3":
-									System.out.print("Enter slide number to edit: ");
-									slideIndex = scan.nextInt();
-									scan.nextLine();
-									System.out.print("Enter text to add: ");
-									String text = scan.nextLine();
-									int editNum = slideIndex - 1; // Convert to zero-based index
-									((Slides) PDF).editSlide(text, editNum, acc);
+									try {
+										System.out.print("Enter slide number to edit: ");
+										int slideIndex = scan.nextInt();
+										scan.nextLine();
+										System.out.print("Enter text to add: ");
+										String text = scan.nextLine();
+										int editNum = slideIndex - 1; // Convert to zero-based index
+										((Slides) PDF).editSlide(text, editNum, acc);
+									} catch (InputMismatchException e) {
+										System.out.println("Invalid input! Please enter a valid number.");
+										scan.nextLine(); // Clear the invalid input
+									}
 									break;
 								case "4":
 									System.out.print("Enter filename of second slide deck to merge: ");
@@ -306,41 +323,56 @@ public class Main {
 
 							switch (editOption) {
 								case "1":
-									System.out.println("Enter 1 to add row, 2 to add column: ");
-									int rowOrCol = scan.nextInt();
-									scan.nextLine(); // consume newline character
-									if(rowOrCol == 1) {
-										((Spreadsheet) PDF).addRow(acc);
-									}
-									else if (rowOrCol == 2) {
-										((Spreadsheet) PDF).addCol(acc);
-									}
-									else {
-										System.out.println("Invalid input....");
+									try {
+										System.out.println("Enter 1 to add row, 2 to add column: ");
+										int rowOrCol = scan.nextInt();
+										scan.nextLine(); // consume newline character
+										if(rowOrCol == 1) {
+											((Spreadsheet) PDF).addRow(acc);
+										}
+										else if (rowOrCol == 2) {
+											((Spreadsheet) PDF).addCol(acc);
+										}
+										else {
+											System.out.println("Invalid input....");
+										}
+									} catch (InputMismatchException e) {
+										System.out.println("Invalid input! Please enter a valid number.");
+										scan.nextLine(); // Clear the invalid input
 									}
 									break;
 								case "2":
-									System.out.println("Enter 1 to delete row, 2 to delete column: ");
-									rowOrCol = scan.nextInt();
-									scan.nextLine(); // consume newline character
-									if(rowOrCol == 1) {
-										((Spreadsheet) PDF).deleteRow(acc);
-									}
-									else if (rowOrCol == 2) {
-										((Spreadsheet) PDF).deleteCol(acc);
-									}
-									else {
-										System.out.println("Invalid input....");
+									try {
+										System.out.println("Enter 1 to delete row, 2 to delete column: ");
+										int rowOrCol = scan.nextInt();
+										scan.nextLine(); // consume newline character
+										if(rowOrCol == 1) {
+											((Spreadsheet) PDF).deleteRow(acc);
+										}
+										else if (rowOrCol == 2) {
+											((Spreadsheet) PDF).deleteCol(acc);
+										}
+										else {
+											System.out.println("Invalid input....");
+										}
+									} catch (InputMismatchException e) {
+										System.out.println("Invalid input! Please enter a valid number.");
+										scan.nextLine(); // Clear the invalid input
 									}
 									break;
 								case "3":
-									System.out.println("Enter row number: ");
-									int row = scan.nextInt();
-									System.out.println("Enter column number: ");
-									int col = scan.nextInt(); scan.nextLine();
-									System.out.print("Enter text to add: ");
-									String text = scan.nextLine();
-									((Spreadsheet) PDF).editCell(text, row-1, col-1, acc); // convert to 0 index. 
+									try {
+										System.out.println("Enter row number: ");
+										int row = scan.nextInt();
+										System.out.println("Enter column number: ");
+										int col = scan.nextInt(); scan.nextLine();
+										System.out.print("Enter text to add: ");
+										String text = scan.nextLine();
+										((Spreadsheet) PDF).editCell(text, row-1, col-1, acc); // convert to 0 index.
+									} catch (InputMismatchException e) {
+										System.out.println("Invalid input! Please enter a valid number.");
+										scan.nextLine(); // Clear the invalid input
+									}
 									break;
 								case "4":
 									System.out.print("Enter name of second Spreadsheet to merge: ");
@@ -350,38 +382,53 @@ public class Main {
 									acc.getDrive().deletePDF("3", fileName); // Delete the other spreadsheet after merging it with the current spreadsheet.
 									break;
 								case "5":
-									System.out.println("Enter column to split: ");
-									int splitIndex = scan.nextInt();
-									scan.nextLine();
-									GenericPDF newSplit = ((Spreadsheet) PDF).split(splitIndex, acc); // convert to 0 index. 
-									if (newSplit != null) {
-										acc.getDrive().getSheetFiles().put(string + " nextpart", (Spreadsheet)newSplit); // Add the new split spreadsheet to the Drive with " part2" appended as part of the new file name.
-										System.out.println("Deck successfully split. New deck created.");
-									} else {
-										System.out.println("Split index out of bounds. No split performed.");
+									try {
+										System.out.println("Enter column to split: ");
+										int splitIndex = scan.nextInt();
+										scan.nextLine();
+										GenericPDF newSplit = ((Spreadsheet) PDF).split(splitIndex, acc); // convert to 0 index. 
+										if (newSplit != null) {
+											acc.getDrive().getSheetFiles().put(string + " nextpart", (Spreadsheet)newSplit); // Add the new split spreadsheet to the Drive with " part2" appended as part of the new file name.
+											System.out.println("Deck successfully split. New deck created.");
+										} else {
+											System.out.println("Split index out of bounds. No split performed.");
+										}
+									} catch (InputMismatchException e) {
+										System.out.println("Invalid input! Please enter a valid number.");
+										scan.nextLine(); // Clear the invalid input
 									}
 									break;
 								case "6":
-									System.out.println("Please choose which cell row and cell col to switch....");
-									System.out.print("First cell row: ");
-									int r1 = scan.nextInt();
-									System.out.print("First cell col: ");
-									int c1 = scan.nextInt();
-									System.out.print("Second cell row: ");
-									int r2 = scan.nextInt();
-									System.out.print("Second cell col: ");
-									int c2 = scan.nextInt();
-									scan.nextLine(); // consume newline character
-									((Spreadsheet) PDF).swapCells(r1-1,c1-1,r2-1,c2-1, acc); // convert to 0 index. 
+									try {
+										System.out.println("Please choose which cell row and cell col to switch....");
+										System.out.print("First cell row: ");
+										int r1 = scan.nextInt();
+										System.out.print("First cell col: ");
+										int c1 = scan.nextInt();
+										System.out.print("Second cell row: ");
+										int r2 = scan.nextInt();
+										System.out.print("Second cell col: ");
+										int c2 = scan.nextInt();
+										scan.nextLine(); // consume newline character
+										((Spreadsheet) PDF).swapCells(r1-1,c1-1,r2-1,c2-1, acc); // convert to 0 index.
+									} catch (InputMismatchException e) {
+										System.out.println("Invalid input! Please enter a valid number.");
+										scan.nextLine(); // Clear the invalid input
+									}
 									break;
 								case "7":
-									System.out.println("Please choose which cell content to view");
-									System.out.print("Cell row: ");
-									r1 = scan.nextInt();
-									System.out.print("Cell col: ");
-									c1 = scan.nextInt();
-									scan.nextLine();
-									((Spreadsheet) PDF).viewCell(r1-1,c1-1); // convert to 0 index. 
+									try {
+										System.out.println("Please choose which cell content to view");
+										System.out.print("Cell row: ");
+										int r1 = scan.nextInt();
+										System.out.print("Cell col: ");
+										int c1 = scan.nextInt();
+										scan.nextLine();
+										((Spreadsheet) PDF).viewCell(r1-1,c1-1); // convert to 0 index.
+									} catch (InputMismatchException e) {
+										System.out.println("Invalid input! Please enter a valid number.");
+										scan.nextLine(); // Clear the invalid input
+									}
 									break;
 								case "8":
 									System.out.println(); // Extra return for clearer readability. 
@@ -498,15 +545,22 @@ public class Main {
         			acc.accountMenu(); // Call user account menu.
         			acc.setEmail(string);
         			break;
-        		case "14": // Change date of birth. 
-        			System.out.println("Enter your new month of birth (Integer): ");
-        			Integer newMonth = scan.nextInt();
-        			System.out.println("Enter your new day of birth (Integer): ");
-        			Integer newDay = scan.nextInt();
-        			System.out.println("Enter your new year of birth (Integer): ");
-        			Integer newYear = scan.nextInt();
-        			acc.accountMenu(); // Call user account menu.
-        			acc.setDateOfBirth(newMonth, newDay, newYear);
+        		case "14": // Change date of birth.
+        			try {
+	        			System.out.println("Enter your new month of birth (Integer): ");
+	        			Integer newMonth = scan.nextInt();
+	        			System.out.println("Enter your new day of birth (Integer): ");
+	        			Integer newDay = scan.nextInt();
+	        			System.out.println("Enter your new year of birth (Integer): ");
+	        			Integer newYear = scan.nextInt();
+	        			scan.nextLine(); // Flush out rest of the line to clear the buffer
+	        			acc.accountMenu(); // Call user account menu.
+	        			acc.setDateOfBirth(newMonth, newDay, newYear);
+        			} catch (InputMismatchException e) {
+        				System.out.println("Invalid input! Please enter valid numbers for date of birth.");
+        				scan.nextLine(); // Clear the invalid input
+        				acc.accountMenu();
+        			}
         			break;
         		case "15": // Logout. 
         			acc = null; // Sign out. 
@@ -553,7 +607,7 @@ public class Main {
                     				acc = null;
                     			else
                     				acc.accountMenu(); 
-                    			break; 
+                    			break;
                     		case "2": // Sign in.                     			
                     			while (acc == null)
                     			{
