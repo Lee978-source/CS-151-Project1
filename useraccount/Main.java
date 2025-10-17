@@ -440,7 +440,6 @@ public class Main {
 					String fileType = scan.nextLine(); // option number for PDF type. 
 					acc.getDrive().deletePDF(fileType, string); 
 					acc.accountMenu(); // Call user account menu.
-					System.out.println("\'" + string + "\' file successfully deleted!"); 
 					break; 
         		case "8": // View Inbox Emails. 
         			if (acc.getNumberOfEmails() > 0) // Condition if user has at least one email.
