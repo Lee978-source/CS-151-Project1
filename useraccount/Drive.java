@@ -29,10 +29,18 @@ public class Drive {
     /** Method to create a PDF: */
     public void createPDF(String option, String fileName, String username, String email) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
 
+		String input = fileName.toLowerCase ();
         if (option.equals("1")) // Option 1: create document.
         {
         	if (this.docsFiles.size() < MAX_DOCS) // Check to ensure we have capacity. 
         	{
+				//check if duplicate
+				if ( docsFiles.containsKey ( input)) 
+				{
+        			System.out.println ( "A Document with this name already exists!");
+       				return; 
+    			}
+
         		DocPDF doc = new DocPDF(username, email, "OWNER"); // Create a new Doc object. 
 	            this.docsFiles.put(fileName, doc); // Add the new Doc object to the docs HashMap, using the file name as the key.
 				System.out.println("Document file created successfully!"); 
@@ -48,6 +56,12 @@ public class Drive {
         {
         	if (this.slidesFiles.size() < MAX_SLIDES) // Check to ensure we have capacity.
         	{
+				//check if duplicate
+				if ( slidesFiles.containsKey ( input)) 
+				{
+        			System.out.println ( "A Slides file with this name already exists!");
+       				return;
+    			}
 	            Slides slides = new Slides(username, email, "OWNER"); // Create a new Slides object. 
 	            this.slidesFiles.put(fileName, slides); // Add the new Slides object to the slides HashMap, using the file name as the key. 
 				System.out.println("Slides file created successfully!"); 
@@ -63,6 +77,12 @@ public class Drive {
         {
         	if (this.spreadsheetsFiles.size() < MAX_SPREADSHEETS) // Check to ensure we have capacity.
         	{
+				//check if duplicate
+				if ( spreadsheetsFiles.containsKey ( input))  
+				{
+        			System.out.println ( "A Spreadsheet file with this name already exists!");
+        			return;
+				}
 	            Spreadsheet sheets = new Spreadsheet(username, email, "OWNER"); // Create a new Spreadsheet object.
 	            this.spreadsheetsFiles.put(fileName, sheets); // Add the new Spreadsheet object to the spreadsheets HashMap, using the file name as the key.
 				System.out.println("Spreadsheet file created successfully!"); 
@@ -77,12 +97,15 @@ public class Drive {
 
     /** Method to delete a PDF: */
     public void deletePDF(String option, String fileName) { // Parameters are the option number selected from AccountManager class, and the entered file name for the PDF.
+
+		String input = fileName.toLowerCase();
     	
     	if (option.equals("1")) // Document file to be deleted. 
     	{
-    		if (docsFiles.containsKey(fileName)) // If the doc file exists in the Drive, 
+    		if ( docsFiles.containsKey ( input)) // If the doc file exists in the Drive, 
     		{
-    			docsFiles.remove(fileName); // then delete the doc file. 
+    			docsFiles.remove( input); // then delete the doc file. 
+				 System.out.println ( "'" + fileName + "' Document successfully deleted!");
     		}
     		
     		else 
@@ -93,9 +116,10 @@ public class Drive {
     	
     	else if (option.equals("2")) // Slides file to be deleted. 
     	{
-    		if (slidesFiles.containsKey(fileName)) // If the slides file exists in the Drive, 
+    		if (slidesFiles.containsKey ( input)) // If the slides file exists in the Drive, 
     		{
-    			slidesFiles.remove(fileName); // then delete the slides file. 
+    			slidesFiles.remove ( input); // then delete the slides file. 
+				System.out.println ( "'" + fileName + "' File successfully deleted!");
     		}
     		
     		else 
@@ -106,9 +130,10 @@ public class Drive {
     	
     	else if (option.equals("3")) // Spreadsheet file to be deleted.
     	{
-    		if (spreadsheetsFiles.containsKey(fileName)) // If the spreadsheet file exists in the Drive, 
+    		if (spreadsheetsFiles.containsKey ( input)) // If the spreadsheet file exists in the Drive, 
     		{
-    			spreadsheetsFiles.remove(fileName); // then delete the spreadsheet file. 
+    			spreadsheetsFiles.remove ( input); // then delete the spreadsheet file. 
+				System.out.println ( "'" + fileName + "' Spreadsheet successfully deleted!");
     		}
     		
     		else 
